@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import '@/views/style/global.scss'
+import { ProviderWrapper } from "@/shared/wrappers/ProviderWrapper";
 
 // if add next js font 
 // import { Inter } from "next/font/google";
@@ -18,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <ProviderWrapper>
+        <body>{children}</body>
+      </ProviderWrapper>
     </html>
   );
 }

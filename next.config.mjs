@@ -7,8 +7,13 @@ const nextConfig = {
     additionalData: `
       @import 'mixins.scss';
       @import 'variables.scss';
+      @import 'size.scss';
     `,
-  }
+  },
+  // Чтобы подключить возможность отображать ссылки на изображения
+  // images: {
+  //   domains: ['example.com'],  // Замените на домен, с которого будете загружать изображения
+  // }, 
 }
 
 export default nextConfig;
