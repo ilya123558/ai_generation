@@ -1,22 +1,35 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface IInitialState {
-  user: any
+  accountData: {
+    generationPoints: number
+    profilePoints: number
+    creatorMode: boolean
+    creatorModeIsBuy: boolean
+  }
 }
 
 const initialState: IInitialState = {
-  user: null,
+  accountData: {
+    generationPoints: 12,
+    profilePoints: 0,
+    creatorMode: true,
+    creatorModeIsBuy: true
+  }
 }
 
 const mainSlice = createSlice({
   name: 'mainSlice',
   initialState: initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<IInitialState['user']>) => {
-      state.user = action.payload
+    setGenerationPoints: (state, action: PayloadAction<IInitialState['accountData']['generationPoints']>) => {
+      state.accountData.generationPoints = action.payload
+    },
+    setCreatorMode: (state, action: PayloadAction<IInitialState['accountData']['creatorMode']>) => {
+      state.accountData.creatorMode = action.payload
     },
   },
 })
 
-export const { setUser } = mainSlice.actions
+export const { setGenerationPoints, setCreatorMode } = mainSlice.actions
 export const mainReducer = mainSlice.reducer

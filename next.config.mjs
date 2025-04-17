@@ -8,6 +8,7 @@ const nextConfig = {
       @import 'mixins.scss';
       @import 'variables.scss';
       @import 'size.scss';
+      @import 'fonts.scss';
     `,
   },
   // Чтобы подключить возможность отображать ссылки на изображения

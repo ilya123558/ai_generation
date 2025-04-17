@@ -2,13 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-// @font-face {
-//   font-family: 'SF Pro Rounded';
-//   src: url('../fonts/SF-Pro-Rounded.ttf') format('truetype');
-//   font-weight: 400;
-//   font-style: normal;
-// }
-
 body {
-  // font-family: 'SF Pro Rounded', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  background-color: #fff;
+  background-image: linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1));
+  color: var($--primary);
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.urbanist {
+  font-family: 'Urbanist', sans-serif;
+}
+
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.block-custom-shadow {
+  box-shadow: 3px 9px 15px 0px rgba(211, 209, 216, 0.3);
+}
+
+input {
+  &:focus {
+    outline: none;
+  }
 }

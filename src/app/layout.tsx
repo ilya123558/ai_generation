@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import '@/views/style/global.scss'
-import { ProviderWrapper } from "@/shared/wrappers/ProviderWrapper";
+import { Menu } from "@/widgets/menu/Menu";
+import { ProviderWrapper } from "@/shared/wrappers/provider-wrapper/ProviderWrapper";
 
 // if add next js font 
 // import { Inter } from "next/font/google";
@@ -20,7 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ProviderWrapper>
-        <body>{children}</body>
+        <body>
+          {children}
+          <Menu />
+        </body>
       </ProviderWrapper>
     </html>
   );
