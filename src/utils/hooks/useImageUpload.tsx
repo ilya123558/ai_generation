@@ -1,7 +1,6 @@
 'use client'
-import { EllipseButton } from '@/shared/buttons/ellipse-button/EllipseButton'
 import { ImageUploadComponent } from '@/shared/image-upload-component/ImageUploadComponent'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface IProps {
   size?: {
@@ -17,31 +16,34 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
   const [error, setError] = useState<string | null>(null)
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      if (images.length >= maxImages) {
-        setError(`Максимальное количество изображений: ${maxImages}`)
-        return
-      }
+    const files = event.target.files
+    if (files) {
+      const newImages: string[] = []
 
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        const img = new Image()
-        img.onload = () => {
-          if (isSquare && img.width !== img.height) {
-            setError('Изображение должно быть квадратным')
-          // } else if (size && (img.width > size.maxWidth || img.height > size.maxHeight)) {
-          //   setError(`Максимальный размер ${size.maxWidth}x${size.maxHeight} px`)
-          } else {
-            setError(null)
-            // Добавляем изображение в массив
-            setImages((prevImages) => [...prevImages, reader.result as string])
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i]
+
+        const reader = new FileReader()
+        reader.onloadend = () => {
+          const img = new Image()
+          img.onload = () => {
+            if (isSquare && img.width !== img.height) {
+              setError('Изображение должно быть квадратным')
+            } else {
+              setError(null)
+              newImages.push(reader.result as string)
+
+              if (newImages.length === files.length) {
+                setImages((prevImages) => [...prevImages, ...newImages])
+              }
+            }
           }
+          img.src = reader.result as string
         }
-        img.src = reader.result as string
+        reader.readAsDataURL(file)
       }
-      reader.readAsDataURL(file)
     }
+
   }
 
   const ImageUploadInput = () => (
@@ -49,21 +51,34 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
       <input
         type="file"
         accept="image/*"
+        multiple
         onChange={handleImageChange}
         className="opacity-0 w-full h-full absolute z-10"
       />
     </div>
   )
 
-  const handleDelete = (value: string) => {
-    const result = images.filter(item => item !== value)
+  const handleDelete = (value: number) => {
+    const result = images.filter((_, index) => index !== value)
     setImages(result)
   }
+
+  useEffect(() => {
+    if(images.length > 10) {
+      setImages(images.slice(0, 10))
+    }
+  }, [images])
 
   return {
     ImageUploadInput,
     ImageUploadComponent: () => (
-      <ImageUploadComponent images={images} size={size} maxImages={maxImages} handleDelete={handleDelete} handleImageChange={handleImageChange} />
+      <ImageUploadComponent 
+        images={images} 
+        size={size} 
+        maxImages={maxImages} 
+        handleDelete={handleDelete} 
+        handleImageChange={handleImageChange} 
+      />
     ),
     images,
     error,

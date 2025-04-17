@@ -3,6 +3,7 @@
 import { EllipseButton } from '@/shared/buttons/ellipse-button/EllipseButton'
 import { ReturnButton } from '@/shared/buttons/return-button/ReturnButton'
 import { Container } from '@/shared/container/Container'
+import { ListWrapper } from '@/shared/wrappers/list-wrapper/ListWrapper'
 import { useImageUpload } from '@/utils/hooks/useImageUpload'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -10,8 +11,8 @@ import { useState } from 'react'
 export default function Page() {
   const router = useRouter()
   const [inputValue, setInputValue] = useState('')
-  const { ImageUploadInput, ImageUploadComponent, error } = useImageUpload({
-    maxImages: 5,
+  const { ImageUploadInput, ImageUploadComponent, error, images } = useImageUpload({
+    maxImages: 10,
     size: { maxHeight: 105, maxWidth: 105 },
   })
 
@@ -27,10 +28,10 @@ export default function Page() {
         <div className="mt-[10.7vw] mb-[8vw] text-center">
           <h2 className="fs-30 font-bold text-primary mb-[2.67vw] urbanist">Загрузка профиля</h2>
           <p className="fs-15 font-medium text-[#ACADB9]">
-            Вы можете загрузить до 5-ти <br /> фотографий в профиль
+            Вы можете загрузить до 10-ти <br /> фотографий в профиль
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-[2.67vw]">
+        <div className="grid grid-cols-3 gap-[2.67vw] h-[60vw] overflow-hidden overflow-y-scroll">
           <ImageUploadComponent />
         </div>
         <input
@@ -41,10 +42,14 @@ export default function Page() {
         />
         <div className="">
           <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
-            {error ? error : 'Загрузите минимум 5 фотографий'}
+            {error ? error : 'Загрузите минимум 10 фотографий'}
           </p>
           <ImageUploadInput />
-          <EllipseButton onClick={() => router.push('home')}>Загрузить</EllipseButton>
+          <div className={`transition-all ${images.length < 10 ? 'pointer-events-none': ''}`}>
+            <EllipseButton onClick={() => router.push('home')} className={images.length < 10 ? '!bg-[#E3E3E3]': ''}>
+              <p className={`transition-all ${images.length < 10 ? 'text-[#B1B1B1]': ''}`}>Загрузить</p>
+            </EllipseButton>
+          </div>
         </div>
       </Container>
     </section>
