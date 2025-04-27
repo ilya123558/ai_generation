@@ -10,25 +10,39 @@ export default function Home() {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    const login = async () => {
-      const init_data = retrieveRawInitData()
-      try {
-        if (init_data) {
-          const data = await new LoginApiClient().loginByInitData(init_data);
-          dispatch(setUser(data.user));
-          router.push('/home');
-        } else {
-          alert("initData не доступно");
-        }
-      }
-      catch (e) {
-        alert(JSON.stringify(e))
-      }
-    };
+  const { data, isError, error } = useCheckServerIsWorkQuery()
 
-    login();
-  }, [dispatch, router]);
+  useEffect(() => {
+    if(data) {
+      alert(JSON.stringify(data))
+    }
+  }, [data])
+
+  useEffect(() => {
+    if(isError) {
+      alert(JSON.stringify(error))
+    }
+  }, [isError, error])
+
+  // useEffect(() => {
+  //   const login = async () => {
+  //     const init_data = retrieveRawInitData()
+  //     try {
+  //       if (init_data) {
+  //         const data = await new LoginApiClient().loginByInitData(init_data);
+  //         dispatch(setUser(data.user));
+  //         router.push('/home');
+  //       } else {
+  //         alert("initData не доступно");
+  //       }
+  //     }
+  //     catch (e) {
+  //       alert(JSON.stringify(e))
+  //     }
+  //   };
+
+  //   login();
+  // }, [dispatch, router]);
 
   return (
     <section className="w-screen h-screen bg-primary flex items-center justify-center">
