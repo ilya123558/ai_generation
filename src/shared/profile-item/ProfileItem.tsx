@@ -3,12 +3,12 @@ import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 
 interface IProps {
   title: string;
-  photoList: string[];
+  photos: string[];
   isActive: boolean
   handleSetActive: () => void
 }
 
-export const ProfileItem = ({photoList, title, isActive, handleSetActive}: IProps) => {
+export const ProfileItem = ({photos, title, isActive, handleSetActive}: IProps) => {
   return (
     <li onClick={handleSetActive}>
       <ShadowWrapper borderRadius={22} className={`${isActive ? 'border border-primary' : 'border border-transparent'} p-[3.74vw_4.82vw_3.47vw_3.47vw]`}>
@@ -25,11 +25,11 @@ export const ProfileItem = ({photoList, title, isActive, handleSetActive}: IProp
             </button> */}
           </div>
           <div className="flex items-center">
-            {photoList.map((photo, index) => (
+            {photos.map((photo, index) => (
               <div 
                 style={{
                   transform: index === 0 ? '': `translateX(calc(${-index} * 60%)) rotate(3deg)`,
-                  zIndex: photoList.length - index
+                  zIndex: photos.length - index
                 }}
                 className={`rounded-[16px] relative overflow-hidden aspect-square w-[19.51vw] h-[19.51vw]`}
               >

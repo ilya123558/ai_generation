@@ -3,7 +3,6 @@ import { useGetSubCategoriesQuery } from "@/entities/categories/api/categories.a
 import { SubcategoryButton } from "@/shared/buttons/subcategory-button/SubcategoryButton";
 import { ImageWithSkeleton } from "@/shared/image-with-skeleton/ImageWithSkeleton";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 export const SubcategoryList = () => {
   const id = usePathname().split('/').at(-1)

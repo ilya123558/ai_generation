@@ -60,7 +60,7 @@ export const usersApi = createApi({
     }),
 
     // DELETE
-    delete: builder.mutation<IMetaResponse, number>({ 
+    deleteGeneration: builder.mutation<IMetaResponse, number>({ 
       query: (generation_id) => ({
         url: `/generations/${generation_id}`,
         method: 'DELETE'
@@ -78,5 +78,5 @@ export const {
   useLazyGetProfilesMetaQuery,
   useUpdateGenderMutation,
   useUploadProfileMutation,
-  useDeleteMutation,
+  useDeleteGenerationMutation,
 } = usersApi

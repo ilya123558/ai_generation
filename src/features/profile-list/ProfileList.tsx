@@ -1,26 +1,29 @@
 'use client'
+import { useGetProfilesQuery, useLazyGetProfilesQuery } from "@/entities/users/api/users.api";
 import { ProfileCreate } from "@/shared/profile-create/ProfileCreate";
 import { ProfileItem } from "@/shared/profile-item/ProfileItem";
 import { ListWrapper } from "@/shared/wrappers/list-wrapper/ListWrapper";
-import { useState } from "react";
-
-const profileList = [
-  {id: 1, title: 'Реализм', photoList: ['/images/profile/profile-1.png', '/images/profile/profile-2.png', '/images/profile/profile-3.png', '/images/profile/profile-4.png']},
-  {id: 2, title: 'Модерн', photoList: ['/images/profile/profile-1.png', '/images/profile/profile-2.png', '/images/profile/profile-3.png', '/images/profile/profile-4.png']},
-]
+import { useEffect, useState } from "react";
 
 export const ProfileList = () => {
-  const [activeProfileId, setActiveProfileId] = useState(profileList[0].id)
+  const [getProfiles, { data }] = useLazyGetProfilesQuery()
+  const [activeProfileId, setActiveProfileId] = useState<number | null>(null)
+
+  useEffect(() => {
+    getProfiles()
+      .then((data) => setActiveProfileId(data?.data?.profiles?.[0].id || 1))
+  }, [])
 
   return (
     <ListWrapper>
       <ul className="flex flex-col gap-[3.47vw]">
-        {profileList.map((item) => (
+        {data?.profiles.map(({id, photos, title}) => (
           <ProfileItem 
-            key={item.id} 
-            isActive={activeProfileId === item.id} 
-            handleSetActive={() => setActiveProfileId(item.id)} 
-            {...item} 
+            key={id} 
+            isActive={activeProfileId === id} 
+            handleSetActive={() => setActiveProfileId(id)} 
+            photos={photos}
+            title={title}
           />
         ))}
         <ProfileCreate />
