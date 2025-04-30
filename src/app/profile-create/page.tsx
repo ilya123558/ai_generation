@@ -34,8 +34,10 @@ export default function Page() {
       const file = await base64StringToFile(imageString, `image-${index + 1}.jpg`, 'image/jpeg');
       formData.append('images', file);
     }
+
+    formData.append('title', inputValue);
   
-    uploadProfile({images: formData, title: inputValue})
+    uploadProfile(formData)
       .then((data) => {
         if(data.error) {
           alert(JSON.stringify(data.error))
