@@ -11,7 +11,7 @@ export const ProfileCreate = () => {
   const [createProfileModalIsOpen, setCreateProfileModalIsOpen] = useState(false)
 
   const handleProfileCreate = () => {
-    if(profilePoints === 0) {
+    if(profilePoints < 10) {
       setCreateProfileInfoModalIsOpen(true)
     }else{
       setCreateProfileModalIsOpen(true)

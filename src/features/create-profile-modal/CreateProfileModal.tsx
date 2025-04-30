@@ -16,7 +16,7 @@ export const CreateProfileModal = ({isOpen, setIsOpen}: IProps) => {
       description={(
         <>Обратите внимание! Стоимость создания профиля - <span className="fs-13 font-bold text-primary">10</span> генераций</>
       )}
-      onClick={() => router.push('/store')} 
+      onClick={() => router.push('/profile-create')} 
       textButton={<>Создать <span className="ml-[2.67vw]">-10</span></>}
       isOpen={isOpen}
       setIsOpen={setIsOpen}

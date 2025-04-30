@@ -1,6 +1,6 @@
 'use client'
 import { LoginApiClient } from "@/entities/users/api/login.api"
-import { setUser, useAppDispatch } from "@/views/store"
+import { setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
 import { retrieveRawInitData } from "@telegram-apps/sdk"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
@@ -16,6 +16,7 @@ export default function Home() {
         if (init_data) {
           const data = await new LoginApiClient().loginByInitData(init_data);
           dispatch(setUser(data.user));
+          dispatch(setGenerationPoints(data.user.tokensCount));
           
           if(data.user.role === 'new') {
             router.push('/onboarding');

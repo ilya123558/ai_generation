@@ -15,7 +15,7 @@ interface IInitialState {
 
 const initialState: IInitialState = {
   accountData: {
-    generationPoints: 12,
+    generationPoints: 0,
     profilePoints: 0,
     creatorMode: true,
     creatorModeIsBuy: true,
