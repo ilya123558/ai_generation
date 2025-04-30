@@ -38,7 +38,7 @@ export const ProfileItem = ({photos, title, isActive, handleSetActive}: IProps) 
                   alt="profile-image"
                   height={73}
                   width={73}
-                  className="w-full h-full object-cover object-center bg-white"
+                  className="min-w-full min-h-full aspect-square object-cover object-center bg-white"
                 />
               </div>
             ))}

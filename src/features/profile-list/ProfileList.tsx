@@ -24,7 +24,7 @@ export const ProfileList = () => {
           <ProfileItem 
             key={id} 
             isActive={activeProfileId === id} 
-            handleSetActive={() => setActiveProfileId(id)} 
+            handleSetActive={() => dispatch(setActiveProfileId(id))} 
             photos={photos}
             title={title}
           />
