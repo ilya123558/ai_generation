@@ -7,9 +7,12 @@ import { useImageUpload } from '@/utils/hooks/useImageUpload'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { base64StringToFile } from '@/utils/libs/base64StringToFile'
+import { useAppSelector } from '@/views/store'
 
 export default function Page() {
   const router = useRouter()
+  const { user } = useAppSelector(state => state.main)
+
   const [inputValue, setInputValue] = useState('')
   const { ImageUploadInput, ImageUploadComponent, error, images } = useImageUpload({
     maxImages: 10,
@@ -32,12 +35,12 @@ export default function Page() {
       formData.append('images', file);
     }
   
-    uploadProfile(formData)
-      .then((data) => {
-        // if(user.role === 'pending') {
-        //   router.push('/profile-create-loading')
-        //   return
-        // }
+    uploadProfile({images: formData, title: inputValue})
+      .then(() => {
+        if(user?.role === 'new') {
+          router.push('/profile-create-loading')
+          return
+        }
         router.push('/home')
       })
       .catch(data => alert(JSON.stringify(data)));
