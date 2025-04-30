@@ -13,7 +13,9 @@ export const ChatList = () => {
   const ref = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    getGenerationsChat({limit: 50})
+    (async() => {
+      await getGenerationsChat({limit: 50})
+    })()
   }, [])
 
   return (

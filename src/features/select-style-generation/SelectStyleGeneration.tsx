@@ -10,7 +10,7 @@ import { useGetStylesQuery } from '@/entities/styles/api/styles.api'
 
 export const SelectStyleGeneration = () => {
   const { resolution, creatorMode, activeProfileId, activeSubcategoryId } = useAppSelector(state => state.main.accountData)
-  const { data: style } = useGetStylesQuery()
+  const { data: style, isSuccess } = useGetStylesQuery()
   const [activeStyleId, setActiveStyleId] = useState<number>(1)
   const [prompt, setPrompt] = useState('')
   const [isFocusInput, setIsFocusInput] = useState(false)
@@ -45,10 +45,10 @@ export const SelectStyleGeneration = () => {
   }
 
   useEffect(() => {
-    if(style?.categories?.[0].id) {
-      setActiveStyleId(style.categories[0].id)
+    if(isSuccess) {
+      setActiveStyleId(style?.categories?.[0].id || 1)
     }
-  }, [style])
+  }, [style, isSuccess])
 
   return (
     <div className="flex flex-col gap-[2.43vw] mb-[15.78vw] items-end w-full bg-transparent relative z-[2]">
