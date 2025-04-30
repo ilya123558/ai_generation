@@ -19,7 +19,7 @@ export const ProfilePhotoItem = ({ photo, handleDelete }: IProps) => {
         isOpen={isOpen}
         photo={photo}
       />
-      <div className="w-full aspect-square overflow-hidden rounded-[16px]">
+      <div onClick={() => setIsOpen(true)} className="w-full aspect-square overflow-hidden rounded-[16px]">
         <ImageWithSkeleton 
           src={photo} 
           alt="profile-photo"
