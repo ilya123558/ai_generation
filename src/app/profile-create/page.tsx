@@ -56,7 +56,7 @@ export default function Page() {
   return (
     <section>
       <Container>
-        <ReturnButton link="/gender-selection" />
+        <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
         <div className="mt-[10.7vw] mb-[8vw] text-center">
           <h2 className="fs-30 font-bold text-primary mb-[2.67vw] urbanist">Загрузка профиля</h2>
           <p className="fs-15 font-medium text-[#ACADB9]">
