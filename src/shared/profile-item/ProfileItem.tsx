@@ -25,7 +25,7 @@ export const ProfileItem = ({photos, title, isActive, handleSetActive}: IProps) 
             </button> */}
           </div>
           <div className="flex items-center">
-            {photos.map((photo, index) => (
+            {photos.filter((_, index) => index < 5).map((photo, index) => (
               <div 
                 style={{
                   transform: index === 0 ? '': `translateX(calc(${-index} * 60%)) rotate(3deg)`,
@@ -38,6 +38,7 @@ export const ProfileItem = ({photos, title, isActive, handleSetActive}: IProps) 
                   alt="profile-image"
                   height={73}
                   width={73}
+                  className="w-full h-full object-cover object-center bg-white"
                 />
               </div>
             ))}

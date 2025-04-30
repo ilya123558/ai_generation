@@ -25,7 +25,7 @@ export const ProfilePhotoItem = ({ photo, handleDelete }: IProps) => {
           alt="profile-photo"
           width={168}
           height={168}
-          className="w-full"
+          className="w-full h-full object-cover object-center"
         />
       </div>
     </li>
