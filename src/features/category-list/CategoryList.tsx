@@ -16,13 +16,13 @@ export const CategoryList = () => {
       {data?.categories.map(({id, preview, title}, index) => (
         <li key={index} className="flex flex-col gap-[2.94vw] w-full">
           <h5 className="fs-14 font-medium">{title}</h5>
-          <div className="w-full rounded-[16px] overflow-hidden relative">
+          <div className="w-full h-122px rounded-[16px] overflow-hidden relative">
             <ImageWithSkeleton 
               src={preview} 
               alt="category-img" 
               width={343} 
               height={122} 
-              className="object-cover object-center w-full"
+              className="object-cover object-center w-full h-full"
             />
             <CategoryButton link={`/category/${id}`}/>
           </div>
