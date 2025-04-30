@@ -1,4 +1,4 @@
-'use clinet'
+'use client'
 import { useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
 import { IChat } from '@/entities/generations/types/chat'
 import { ChatItemUser } from '@/shared/chat-item-user/ChatItemUser'
