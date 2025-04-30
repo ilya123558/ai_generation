@@ -8,26 +8,26 @@ import { setActiveSubcategoryId, useAppDispatch } from "@/views/store";
 import { useEffect } from "react";
 
 export default function Page() {
-  const [useGetCategories, { data }] = useLazyGetCategoriesQuery()
-  const [useGetSubCategories, {data: subCategories}] = useLazyGetSubCategoriesQuery()
+  // const [useGetCategories, { data }] = useLazyGetCategoriesQuery()
+  // const [useGetSubCategories, {data: subCategories}] = useLazyGetSubCategoriesQuery()
 
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    useGetCategories({ limit: 50 })
-  }, [])
+  // useEffect(() => {
+  //   useGetCategories({ limit: 50 })
+  // }, [])
 
-  useEffect(() => {
-    if(data?.categories?.[0].id) {
-      useGetSubCategories(data.categories[0].id)
-    }
-  }, [data])
+  // useEffect(() => {
+  //   if(data?.categories?.[0].id) {
+  //     useGetSubCategories(data.categories[0].id)
+  //   }
+  // }, [data])
 
-  useEffect(() => {
-    if(subCategories?.subcategories?.[0].id) {
-      dispatch(setActiveSubcategoryId(subCategories.subcategories[0].id))
-    }
-  }, [subCategories])
+  // useEffect(() => {
+  //   if(subCategories?.subcategories?.[0].id) {
+  //     dispatch(setActiveSubcategoryId(subCategories.subcategories[0].id))
+  //   }
+  // }, [subCategories])
 
   return (
     <section>
