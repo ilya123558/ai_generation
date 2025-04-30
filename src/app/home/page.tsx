@@ -4,10 +4,11 @@ import { CategoryList } from "@/features/category-list/CategoryList";
 import { Search } from "@/features/search/Search";
 import { Container } from "@/shared/container/Container";
 import { ListWrapper } from "@/shared/wrappers/list-wrapper/ListWrapper";
-import { setActiveSubcategoryId, useAppDispatch } from "@/views/store";
+import { setActiveSubcategoryId, useAppDispatch, useAppSelector } from "@/views/store";
 import { useEffect } from "react";
 
 export default function Page() {
+  const {user} = useAppSelector(state => state.main)
   // const [useGetCategories, { data }] = useLazyGetCategoriesQuery()
   // const [useGetSubCategories, {data: subCategories}] = useLazyGetSubCategoriesQuery()
 
@@ -33,7 +34,7 @@ export default function Page() {
     <section>
       <Container>
         <div className="m-[4vw_0px]">
-          <h2 className="text-center fs-20 font-semibold">AI.bot</h2>
+          <h2 onClick={() => navigator.clipboard.writeText(`Bearer ${user?.token.accessToken || ''}`)} className="text-center fs-20 font-semibold">AI.bot</h2>
         </div>
       </Container>
       <Search />
