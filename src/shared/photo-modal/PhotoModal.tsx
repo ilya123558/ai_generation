@@ -89,7 +89,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
             isDelete={isDelete} 
             setIsDelete={setIsDelete} 
             handleDelete={() => {
-              setIsOpen(false)
+              setIsOpen(false);
               handleDelete()
             }} 
           />

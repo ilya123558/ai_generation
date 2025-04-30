@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [useGetCategories] = useLazyGetCategoriesQuery()
+  const [getCategories] = useLazyGetCategoriesQuery()
 
   const handleClear = () => {
     setSearchQuery('');
@@ -13,7 +13,11 @@ export const Search = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     setSearchQuery(value)
-    useGetCategories({q: value})
+    if(value === '') {
+      getCategories({limit: 50})
+    }else{
+      getCategories({q: value})
+    }
   }
 
   return (

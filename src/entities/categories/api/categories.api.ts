@@ -13,7 +13,7 @@ export const categoriesApi = createApi({
       return headers
     },
   }),
-  tagTypes: ['Categories', 'SubCategories'],
+  tagTypes: ['Categories'],
   endpoints: (builder) => ({
     // GET
     getCategories: builder.query<ICategoriesResponse, ICategoriesRequest>({
@@ -27,9 +27,7 @@ export const categoriesApi = createApi({
       query: (category_id) => ({
         url: `/${category_id}`
       }),
-      providesTags: ['SubCategories']
     }),
-  
 
   }),
 })

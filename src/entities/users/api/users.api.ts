@@ -18,7 +18,7 @@ export const usersApi = createApi({
       return headers
     },
   }),
-  tagTypes: ['Users', 'Generations'],
+  tagTypes: ['Users'],
   endpoints: (builder) => ({
     // GET
     getGenerations: builder.query<IGenerationsResponse, IPageRequest>({
@@ -26,7 +26,7 @@ export const usersApi = createApi({
         url: '/generations',
         params
       }),
-      providesTags: ['Generations']
+      providesTags: ['Users']
     }),
 
     getProfiles: builder.query<IProfilesResponse, void>({
@@ -65,7 +65,7 @@ export const usersApi = createApi({
         url: `/generations/${generation_id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['Generations']
+      invalidatesTags: ['Users']
     }),
   }),
 })
