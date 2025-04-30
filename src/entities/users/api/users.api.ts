@@ -52,10 +52,10 @@ export const usersApi = createApi({
 
     // POST
     uploadProfile: builder.mutation<IUploadProfileResponse, IUploadProfileRequest>({ 
-      query: ({images, title}) => ({
+      query: (body) => ({
         url: '/uploadProfile',
         method: 'POST',
-        body: {...images, title},
+        body,
       }),
     }),
 
