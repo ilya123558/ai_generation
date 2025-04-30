@@ -1,12 +1,12 @@
 'use client'
-
+import { useUploadProfileMutation } from '@/entities/users/api/users.api'
 import { EllipseButton } from '@/shared/buttons/ellipse-button/EllipseButton'
 import { ReturnButton } from '@/shared/buttons/return-button/ReturnButton'
 import { Container } from '@/shared/container/Container'
-import { ListWrapper } from '@/shared/wrappers/list-wrapper/ListWrapper'
 import { useImageUpload } from '@/utils/hooks/useImageUpload'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { base64StringToFile } from '@/utils/libs/base64StringToFile'
 
 export default function Page() {
   const router = useRouter()
@@ -16,10 +16,32 @@ export default function Page() {
     size: { maxHeight: 105, maxWidth: 105 },
   })
 
+  const [uploadProfile] = useUploadProfileMutation()
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     setInputValue(value)
   }
+
+    const handleClick = async () => {
+    const formData = new FormData();
+  
+    for (let index = 0; index < images.length; index++) {
+      const imageString = images[index];
+      const file = await base64StringToFile(imageString, `image-${index + 1}.jpg`, 'image/jpeg');
+      formData.append('images', file);
+    }
+  
+    uploadProfile(formData)
+      .then((data) => {
+        // if(user.role === 'pending') {
+        //   router.push('/profile-create-loading')
+        //   return
+        // }
+        router.push('/home')
+      })
+      .catch(data => alert(JSON.stringify(data)));
+  };
 
   return (
     <section>
@@ -46,7 +68,7 @@ export default function Page() {
           </p>
           <ImageUploadInput />
           <div className={`transition-all ${images.length < 10 ? 'pointer-events-none': ''}`}>
-            <EllipseButton onClick={() => router.push('home')} className={images.length < 10 ? '!bg-[#E3E3E3]': ''}>
+            <EllipseButton onClick={handleClick} className={images.length < 10 ? '!bg-[#E3E3E3]': ''}>
               <p className={`transition-all ${images.length < 10 ? 'text-[#B1B1B1]': ''}`}>Загрузить</p>
             </EllipseButton>
           </div>

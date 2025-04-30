@@ -1,52 +1,48 @@
 'use client'
-
-import { IChat } from "@/entities/chat/types/chat";
 import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { useState } from "react";
 import { PhotoModal } from "../photo-modal/PhotoModal";
+import { useAppSelector } from "@/views/store";
+import { calculateImageSize } from "@/utils/types/calculateImageSize";
+import { IChat } from "@/entities/generations/types/chat";
 
-interface IProps extends IChat {
-  handleDelete: () => void
-}
+export const ChatItem = (props: IChat) => {
+  const { image, text, createdAt } = props
 
-export const ChatItem = (props: IProps) => {
-  const {photo, category, time, type} = props
+  const { resolution } = useAppSelector(state => state.main.accountData)
+  const imageSize = calculateImageSize(resolution)
 
   const [isOpen, setIsOpen] = useState(false)
 
   const handleClickImage = () => {
-    if(type !== "response") return
-
     setIsOpen(true)
   }
 
   return (
-    <div className={type === "request" ? 'flex flex-col items-end': ''}>
-      {isOpen && <PhotoModal isOpen={isOpen} setIsOpen={setIsOpen} {...props}/>}
-      <button onClick={handleClickImage} className="w-[53.89vw]">
+    <div>
+      <PhotoModal 
+        isOpen={isOpen} 
+        setIsOpen={setIsOpen}
+        photo={image}
+      />
+      <button 
+        style={imageSize}
+        onClick={handleClickImage} 
+        className="w-[53.89vw] overflow-hidden rounded-[16px]"
+      >
         <ImageWithSkeleton
-          src={photo}
+          src={image}
           alt="chat-item-img"
           width={203}
           height={256}
-          className="rounded-[16px]"
+          className="object-cover object-center w-full"
         />
       </button>
 
-      {type === "request"
-        ? (
-          <div className="flex gap-[3.47vw] items-center justify-end mt-[2.35vw]">
-            <p className="fs-15 font-medium">{category}</p>
-            <p className="fs-12 font-normal text-gray">{time}</p>
-          </div>
-        )
-        : (
-          <div className="flex gap-[3.47vw] items-center mt-[2.35vw]">
-            <p className="fs-12 font-normal text-gray">{time}</p>
-            <p className="fs-15 font-medium">{category}</p>
-          </div>
-        )
-      }
+      <div className="flex gap-[3.47vw] items-center mt-[2.35vw]">
+        <p className="fs-12 font-normal text-gray">{createdAt}</p>
+        {text && <p className="fs-15 font-medium">{text}</p>}
+      </div>
     </div>
   );
 };

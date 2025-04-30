@@ -1,5 +1,4 @@
 'use client'
-
 import { ChatList } from "@/features/chat-list/ChatList";
 import { SelectStyleGeneration } from "@/features/select-style-generation/SelectStyleGeneration";
 import { useGetHeight } from "@/utils/hooks/useGetHeight";

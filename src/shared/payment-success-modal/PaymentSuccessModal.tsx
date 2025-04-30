@@ -16,8 +16,6 @@ export const PaymentSuccessModal = ({isOpen, setIsOpen, value}: IProps) => {
     setIsOpen(false)
   }
 
-  if(!isOpen) return <></>
-
   return (
     <ModalContentWrapper 
       title="Поздравляем!"
@@ -26,6 +24,8 @@ export const PaymentSuccessModal = ({isOpen, setIsOpen, value}: IProps) => {
       closeModal={handleClose} 
       textButton="Закрыть"
       className="mt-[3.88vw] mb-[4.35vw]"
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
     >
       <div className="flex items-center justify-center gap-[2.94vw]">
         <div className="flex items-center justify-center bg-green rounded-full w-[5.81vw] h-[5.81vw]">

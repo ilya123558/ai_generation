@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { ICategoriesRequest, ICategoriesResponse } from '../types/categories'
+import { ICategoriesRequest, ICategoriesResponse, ISubCategoriesResponse } from '../types/categories'
 
 export const categoriesApi = createApi({
   reducerPath: 'categoriesApi',
@@ -13,7 +13,7 @@ export const categoriesApi = createApi({
       return headers
     },
   }),
-  tagTypes: ['Categories'],
+  tagTypes: ['Categories', 'SubCategories'],
   endpoints: (builder) => ({
     // GET
     getCategories: builder.query<ICategoriesResponse, ICategoriesRequest>({
@@ -21,11 +21,22 @@ export const categoriesApi = createApi({
         url: '/',
         params
       }),
+      providesTags: ['Categories']
     }),
+    getSubCategories: builder.query<ISubCategoriesResponse, number>({
+      query: (category_id) => ({
+        url: `/${category_id}`
+      }),
+      providesTags: ['SubCategories']
+    }),
+  
+
   }),
 })
 
 export const { 
   useGetCategoriesQuery,
   useLazyGetCategoriesQuery,
+  useGetSubCategoriesQuery,
+  useLazyGetSubCategoriesQuery,
 } = categoriesApi

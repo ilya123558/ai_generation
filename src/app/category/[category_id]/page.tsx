@@ -4,22 +4,10 @@ import { HeaderWithNavigation } from "@/features/header-with-navigation/HeaderWi
 import { SubcategoryList } from "@/features/subcategory-list/SubcategoryList";
 import { Container } from "@/shared/container/Container";
 import { ListWrapper } from "@/shared/wrappers/list-wrapper/ListWrapper";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 export default function Page() {
   const [active, setActive] = useState(false)
-  const [heightRecalculation, setHeightRecalculation] = useState(false)
-
-  useEffect(() => {
-    setHeightRecalculation(true)
-    const timeout = setTimeout(() => {
-      setHeightRecalculation(false)
-    }, 500)
-    
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [active]);
 
   return (
     <section>

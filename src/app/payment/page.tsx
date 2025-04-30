@@ -30,12 +30,8 @@ export default function Page() {
 
   return (
     <section>
-      {isOpenPaymentErrorModal && (
-        <PaymentErrorModal isOpen={isOpenPaymentErrorModal} setIsOpen={setIsOpenPaymentErrorModal} />
-      )}
-      {isOpenPaymentSuccessModal && (
-         <PaymentSuccessModal value={'100 попыток генерации'} isOpen={isOpenPaymentSuccessModal} setIsOpen={setIsOpenPaymentSuccessModal} />
-      )}
+      <PaymentErrorModal isOpen={isOpenPaymentErrorModal} setIsOpen={setIsOpenPaymentErrorModal} />
+      <PaymentSuccessModal value={'100 попыток генерации'} isOpen={isOpenPaymentSuccessModal} setIsOpen={setIsOpenPaymentSuccessModal} />
       <Container>
         <HeaderTitle>Оплата</HeaderTitle>
         <div className="p-[0px_1.87vw] mt-[6.42vw] flex flex-col gap-[4.27vw]">

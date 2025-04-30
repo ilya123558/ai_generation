@@ -23,6 +23,11 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
       for (let i = 0; i < files.length; i++) {
         const file = files[i]
 
+        // if (file.size > 1048576) {
+        //   setError('Изображение не должно превышать 1024 KB');
+        //   continue;
+        // }
+
         const reader = new FileReader()
         reader.onloadend = () => {
           const img = new Image()

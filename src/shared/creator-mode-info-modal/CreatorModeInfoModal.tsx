@@ -7,8 +7,6 @@ interface IProps {
 }
 
 export const CreatorModeInfoModal = ({isOpen, setIsOpen}: IProps) => {
-  if(!isOpen) return <></>
-
   return (
     <ModalContentWrapper 
       title="Режим «Творца»"
@@ -18,10 +16,11 @@ export const CreatorModeInfoModal = ({isOpen, setIsOpen}: IProps) => {
         </>
       )}
       onClick={() => setIsOpen(false)} 
-      closeModal={() => setIsOpen(false)} 
       textButton="Понятно"
       withCloseBtn
       className="mb-[4.02vw]"
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
     />
   )
 };

@@ -1,7 +1,7 @@
 import { IMetaResponse } from "@/entities/general/types/general"
 
 export interface IUploadProfileRequest {
-  images: string[]
+  images: FormData
 }
 
 export interface IUploadProfileResponse extends IMetaResponse {

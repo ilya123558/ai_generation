@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ICreateGenerationsRequest, ICreateGenerationsResponse, IGetGenerationsByIdRequest, IGetGenerationsByIdResponse } from '../types/generations'
+import { IPageRequest } from '@/entities/general/types/general'
+import { IGetGenerationsChatResponse } from '../types/chat'
 
 export const generationsApi = createApi({
   reducerPath: 'generationsApi',
@@ -21,6 +23,14 @@ export const generationsApi = createApi({
         url: `/${jobId}`,
       }),
     }),
+    getGenerationsChat: builder.query<IGetGenerationsChatResponse, IPageRequest>({
+      query: (params) => ({
+        url: `/chat`,
+        params
+      }),
+      providesTags: ['Generations']
+    }),
+
     // POST
     createGenerations: builder.mutation<ICreateGenerationsResponse, ICreateGenerationsRequest>({
       query: (body) => ({
@@ -28,6 +38,7 @@ export const generationsApi = createApi({
         method: 'POST',
         body
       }),
+      invalidatesTags: ['Generations']
     }),
   }),
 })
@@ -35,4 +46,7 @@ export const generationsApi = createApi({
 export const { 
   useGetGenerationsByIdQuery,
   useLazyGetGenerationsByIdQuery,
+  useGetGenerationsChatQuery,
+  useLazyGetGenerationsChatQuery,
+  useCreateGenerationsMutation
 } = generationsApi

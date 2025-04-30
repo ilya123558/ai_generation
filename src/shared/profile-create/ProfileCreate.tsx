@@ -20,12 +20,8 @@ export const ProfileCreate = () => {
 
   return (
     <div className="transition-all active:scale-95">
-      {createProfileInfoModalIsOpen && (
-        <CreateProfileInfoModal isOpen={createProfileInfoModalIsOpen} setIsOpen={setCreateProfileInfoModalIsOpen} />
-      )}
-      {createProfileModalIsOpen && (
-        <CreateProfileModal isOpen={createProfileModalIsOpen} setIsOpen={setCreateProfileModalIsOpen}/>
-      )}
+      <CreateProfileInfoModal isOpen={createProfileInfoModalIsOpen} setIsOpen={setCreateProfileInfoModalIsOpen} />
+      <CreateProfileModal isOpen={createProfileModalIsOpen} setIsOpen={setCreateProfileModalIsOpen}/>
       <div onClick={handleProfileCreate}>
         <ShadowWrapper borderRadius={22} className="!h-[35vw] flex items-center justify-center">
           <svg className="w-[12.81vw] scale-[1.8] h-[12.81vw] translate-y-[2.5vw] translate-x-[2vw] " width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">

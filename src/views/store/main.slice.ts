@@ -1,4 +1,5 @@
 import { IUser } from '@/entities/users/types/users'
+import { TResolution } from '@/utils/types/resolution'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface IInitialState {
@@ -7,6 +8,7 @@ interface IInitialState {
     profilePoints: number
     creatorMode: boolean
     creatorModeIsBuy: boolean
+    resolution: TResolution
   },
   user: null | IUser
 }
@@ -16,7 +18,8 @@ const initialState: IInitialState = {
     generationPoints: 12,
     profilePoints: 0,
     creatorMode: true,
-    creatorModeIsBuy: true
+    creatorModeIsBuy: true,
+    resolution: '2:3'
   },
   user: null
 }
@@ -34,8 +37,11 @@ const mainSlice = createSlice({
     setCreatorMode: (state, action: PayloadAction<IInitialState['accountData']['creatorMode']>) => {
       state.accountData.creatorMode = action.payload
     },
+    setResolution: (state, action: PayloadAction<IInitialState['accountData']['resolution']>) => {
+      state.accountData.resolution = action.payload
+    },
   },
 })
 
-export const { setUser, setGenerationPoints, setCreatorMode } = mainSlice.actions
+export const { setUser, setGenerationPoints, setCreatorMode, setResolution } = mainSlice.actions
 export const mainReducer = mainSlice.reducer

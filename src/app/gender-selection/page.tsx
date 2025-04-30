@@ -1,14 +1,19 @@
 'use client'
+import { useUpdateGenderMutation } from "@/entities/users/api/users.api";
 import { EllipseButton } from "@/shared/buttons/ellipse-button/EllipseButton";
 import { ReturnButton } from "@/shared/buttons/return-button/ReturnButton";
 import { Container } from "@/shared/container/Container";
+import { TGender } from "@/utils/types/gender";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
   const router = useRouter()
+  const [updateGender] = useUpdateGenderMutation()
 
-  const handleClick = (value: 'male' | 'female') => {
-    router.push('/profile-loading')
+  const handleClick = (gender: TGender) => {
+    updateGender({ gender })
+      .then(() => router.push('/profile-create'))
+      .catch(data => alert(JSON.stringify(data)))
   }
 
   return (

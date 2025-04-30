@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <section>
       <Container>
-        <HeaderTitle link="/home" withGenerationPoints>Профиль</HeaderTitle>
+        <HeaderTitle link="/home">Профиль</HeaderTitle>
         <ProfileInfo />
         <ProfileContent />
       </Container>

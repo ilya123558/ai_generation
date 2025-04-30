@@ -1,5 +1,4 @@
 'use client'
-import { useCheckServerIsWorkQuery } from "@/entities/health/api/health.api"
 import { LoginApiClient } from "@/entities/users/api/login.api"
 import { setUser, useAppDispatch } from "@/views/store"
 import { retrieveRawInitData } from "@telegram-apps/sdk"
@@ -10,39 +9,35 @@ export default function Home() {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
-  const { data, isError, error } = useCheckServerIsWorkQuery()
-
   useEffect(() => {
-    if(data) {
-      alert(JSON.stringify(data))
-    }
-  }, [data])
+    const login = async () => {
+      const init_data = retrieveRawInitData()
+      try {
+        if (init_data) {
+          const data = await new LoginApiClient().loginByInitData(init_data);
+          dispatch(setUser(data.user));
+          
+          if(data.user.role === 'new') {
+            router.push('/onboarding');
+          }
+          else if(data.user.role === 'pending') {
+            router.push('/profile-create-loading')
+          }
+          else {
+            router.push('/home');
+          }
 
-  useEffect(() => {
-    if(isError) {
-      alert(JSON.stringify(error))
-    }
-  }, [isError, error])
+        } else {
+          alert("initData не доступно");
+        }
+      }
+      catch (e) {
+        alert(JSON.stringify(e))
+      }
+    };
 
-  // useEffect(() => {
-  //   const login = async () => {
-  //     const init_data = retrieveRawInitData()
-  //     try {
-  //       if (init_data) {
-  //         const data = await new LoginApiClient().loginByInitData(init_data);
-  //         dispatch(setUser(data.user));
-  //         router.push('/home');
-  //       } else {
-  //         alert("initData не доступно");
-  //       }
-  //     }
-  //     catch (e) {
-  //       alert(JSON.stringify(e))
-  //     }
-  //   };
-
-  //   login();
-  // }, [dispatch, router]);
+    login();
+  }, [dispatch, router]);
 
   return (
     <section className="w-screen h-screen bg-primary flex items-center justify-center">

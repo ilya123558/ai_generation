@@ -1,28 +1,10 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react'
 import { OnboardingSliderButtons } from '@/features/onboarding-slider-buttons/OnboardingSliderButtons'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { OnboardingSliderItem } from '@/features/onboarding-slider-item/OnboardingSliderItem'
 import 'swiper/css'
-
-const onboardingList = [
-  {
-    image: '/images/onboarding/image-1.png',
-    title: 'Unlock the Power Of Future AI',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-  },
-  {
-    image: '/images/onboarding/image-2.png',
-    title: 'Unlock the Power Of Future AI',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-  },
-  {
-    image: '/images/onboarding/image-3.png',
-    title: 'Unlock the Power Of Future AI',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-  },
-]
 
 export const OnboardingSlider = () => {
   const router = useRouter()
@@ -51,19 +33,19 @@ export const OnboardingSlider = () => {
 
   return (
     <div className={`w-screen h-screen`}>
-      <div className={`transition-all `}>
+      <div className={`transition-all h-full relative overflow-hidden`}>
+        <button onClick={handlePrevSlide} className="left-0 top-0 bg-transparent h-full w-[30vw] absolute z-50"></button>
+        <button onClick={handleNextSlide} className="right-0 top-0 bg-transparent h-full w-[30vw] absolute z-50"></button>
         <Swiper
           spaceBetween={0}
           slidesPerView={1}
           onSlideChange={handleSlideChange}
           className="w-full h-full"
-          touchMoveStopPropagation={false}
-          allowTouchMove={false}
           ref={swiperRef}
         >
-          {onboardingList.map((item, index) => (
+          {Array(3).fill(null).map((_, index) => (
             <SwiperSlide key={index}>
-              <OnboardingSliderItem activeIndex={activeIndex} {...item} />
+              <OnboardingSliderItem activeIndex={index} />
             </SwiperSlide>
           ))}
         </Swiper>

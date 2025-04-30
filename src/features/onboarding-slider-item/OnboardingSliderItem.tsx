@@ -1,47 +1,130 @@
-import Image from 'next/image'
 import './OnboardingSliderItem.scss' 
 import { ImageWithSkeleton } from '@/shared/image-with-skeleton/ImageWithSkeleton'
 
 interface IProps {
   activeIndex: number
-  image: string
-  title: string
-  description: string
 }
 
-export const OnboardingSliderItem = ({activeIndex, description, title, image}: IProps) => {
-  return (
-    <div className={`w-full`}>
-      <div className="m-[15px_6.1vw_30px] flex flex-col items-center">
+export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
+  if(activeIndex === 0) return (
+    <div className={`w-full h-full`}>
+      <div className="p-[10.68vw_0px_0px_0px] flex flex-col items-center w-full">
         <ImageWithSkeleton
-          src={image}
+          src={'/images/onboarding/image-1.png'}
           alt="onboarding-image"
-          width={304}
-          height={397}
-          className="min-w-full bg-transparent relative flex items-center justify-center rounded-[35px] onboarding__item-shadow bg-slate-300"
+          width={375}
+          height={375}
+          className="w-full object-cover object-center"
         />
-        <div className="flex items-center justify-center mt-[8vw]">
-          <div className="flex items-center justify-center gap-[12px]">
-            {Array(3).fill(null).map((_, index) => (
-              <div key={index} className="">
-                {activeIndex === index
-                  ? (
-                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M8.01112 14.5769C11.1713 14.5769 13.7332 12.015 13.7332 8.85481C13.7332 5.6946 11.1713 3.13275 8.01112 3.13275C4.85091 3.13275 2.28906 5.6946 2.28906 8.85481C2.28906 12.015 4.85091 14.5769 8.01112 14.5769Z" fill="#141718"/>
-                      <path d="M8.01091 16.5796C12.2772 16.5796 15.7357 13.1211 15.7357 8.85484C15.7357 4.58857 12.2772 1.13007 8.01091 1.13007C3.74463 1.13007 0.286133 4.58857 0.286133 8.85484C0.286133 13.1211 3.74463 16.5796 8.01091 16.5796Z" stroke="#141718" strokeWidth="0.453125"/>
-                    </svg>
-                  )
-                  : <div className="h-[8px] w-[8px] rounded-full bg-[#23262F80]"></div>
-                }
-              </div>
-              
-            ))}
+        <div className="p-[0px_13px] text-white">
+          <h2 className="fs-35 font-bold leading-[10vw]">Создайте шедевры за секунды</h2>
+          <p className='mt-[4.54vw] fs-14'>Загружай свои фотографии и дай волю креативу! Наша нейросеть преобразует твои снимки, добавляя уникальные стили</p>
+        </div>
+      </div>
+    </div>
+  )
+
+  if(activeIndex === 1) return (
+    <div className={`w-full h-full relative overflow-hidden`}>
+      <div className="absolute top-[-140px] right-[-140px]">
+        <ImageWithSkeleton
+          src={'/images/onboarding/image-1.png'}
+          alt="onboarding-image"
+          width={475}
+          height={475}
+          className="w-full object-cover object-center opacity-[0.1]"
+        />
+      </div>
+      <div className="flex flex-col items-center w-full relative">
+        <div className="relative w-full h-[60vh] overflow-hidden">
+          <div className="absolute w-full top-0 left-0 z-[5]">
+            <ImageWithSkeleton
+              src={`/images/onboarding/bg-top.png`}
+              alt="onboarding-2-image"
+              width={375}
+              height={171}
+              className="w-full object-cover object-center"
+            />
+          </div>
+          <div className="absolute w-full bottom-[-22vw] left-0 z-[5]">
+            <ImageWithSkeleton
+              src={`/images/onboarding/bg-bottom.png`}
+              alt="onboarding-2-image"
+              width={375}
+              height={206}
+              className="w-full object-cover object-center"
+            />
+          </div>
+          <div className="w-full flex justify-between p-[4vw_6.94vw_0px] relative">
+            <div className="flex flex-col gap-[8vw] mt-[4vw]">
+              {Array(3).fill(null).map((_, index) => (
+                <ImageWithSkeleton
+                  key={index}
+                  src={`/images/onboarding/image-2-${index + 1}.png`}
+                  alt="onboarding-2-image"
+                  width={90}
+                  height={114}
+                  className="w-90px h-114px object-cover object-center"
+                />
+              ))}
+            </div>
+            <div className="flex flex-col gap-[8vw] mt-[8vw]">
+              {Array(3).fill(null).map((_, index) => (
+                <ImageWithSkeleton
+                  key={index}
+                  src={`/images/onboarding/image-2-${index + 4}.png`}
+                  alt="onboarding-2-image"
+                  width={90}
+                  height={114}
+                  className="w-90px h-114px object-cover object-center"
+                />
+              ))}
+            </div>
+            <div className="flex flex-col gap-[8vw]">
+              {Array(3).fill(null).map((_, index) => (
+                <ImageWithSkeleton
+                  key={index}
+                  src={`/images/onboarding/image-2-${index + 7}.png`}
+                  alt="onboarding-2-image"
+                  width={90}
+                  height={114}
+                  className="w-90px h-114px object-cover object-center"
+                />
+              ))}
+            </div>
           </div>
         </div>
-        <div className="m-[0px_6.1vw_0px]">
-          <h2 className="mt-[14px] fs-30 font-bold text-center">{title}</h2>
-          <p className='text-gray text-center mt-[4px]'>{description}</p>
+        <div className="p-[0px_13px] text-white z-10">
+          <h2 className="fs-28 font-bold leading-[10vw]">Удивляйте необычными эффектами</h2>
+          <p className='mt-[4.54vw] fs-14'>Исследуйте мощь нейросети: от фильтров до стилей. Сделайте каждое фото неповторимым, радуйте себя и делитесь с друзьями!</p>
         </div>
+      </div>
+    </div>
+  )
+
+  return (
+    <div className={`w-full`}>
+      <div className="m-[10.68vw_0px] flex flex-col items-center w-full overflow-hidden">
+        <div className="absolute top-[-140px] right-[-140px]">
+          <ImageWithSkeleton
+            src={'/images/onboarding/image-1.png'}
+            alt="onboarding-image"
+            width={475}
+            height={475}
+            className="w-full object-cover object-center opacity-[0.1]"
+          />
+        </div>
+        <div className="p-[0px_13px] text-white mb-[20vw]">
+          <h2 className="fs-43 font-bold leading-[10vw]">Творите легко</h2>
+          <p className='mt-[4.54vw] fs-14'>Просто загрузите фото и дайте нейросети сделать всё остальное. Получайте оригинальные изображения, полные жизни и новизны!</p>
+        </div>
+        <ImageWithSkeleton
+          src={'/images/onboarding/image-3.png'}
+          alt="onboarding-image"
+          width={375}
+          height={400}
+          className="w-full object-cover object-center"
+        />
       </div>
     </div>
   )

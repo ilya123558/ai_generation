@@ -23,8 +23,8 @@ export const HeaderWithIcons = () => {
 
   return (
     <div>
-      <SttingsModalContent isOpenSettings={isOpenSettings} setIsOpenSettings={setIsOpenSettings} />
-      <QuestionModalContent isOpenQuestion={isOpenQuestion} setIsOpenQuestion={setIsOpenQuestion} />
+      <SttingsModalContent isOpen={isOpenSettings} setIsOpen={setIsOpenSettings} />
+      <QuestionModalContent isOpen={isOpenQuestion} setIsOpen={setIsOpenQuestion} />
       <div className="w-full mt-[20px] grid grid-cols-7 items-center">
         <div className="flex items-center gap-[2.6vw] col-span-3">
           <button 

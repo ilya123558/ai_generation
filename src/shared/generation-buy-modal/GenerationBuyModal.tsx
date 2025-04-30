@@ -10,8 +10,6 @@ interface IProps {
 export const GenerationBuyModal = ({isOpen, setIsOpen}: IProps) => {
   const router = useRouter()
 
-  if(!isOpen) return <></>
-
   return (
     <ModalContentWrapper 
       title="Упс..."
@@ -21,6 +19,8 @@ export const GenerationBuyModal = ({isOpen, setIsOpen}: IProps) => {
       textButton="Перейти"
       withCloseBtn
       className="mb-[4.02vw]"
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
     />
   )
 };

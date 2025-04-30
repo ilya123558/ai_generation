@@ -18,7 +18,7 @@ export const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({ src, alt, 
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-full">
       {!isLoaded && (
         <div className="absolute w-full h-full bg-[#ABB0BC] animate-pulse z-[9]"></div>
       )}
@@ -27,9 +27,9 @@ export const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({ src, alt, 
         alt={alt}
         width={width}
         height={height}
-        className={`${isLoaded ? 'opacity-100' : 'opacity-0'} ${className ? className: ''}`}
         quality={100}
         onLoad={handleImageLoad}
+        className={`${isLoaded ? 'opacity-100' : 'opacity-0'} ${className ? className: ''}`}
       />
     </div>
   );

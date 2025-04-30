@@ -2,8 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IUpdateGenderRequest, IUpdateGenderResponse } from '../types/updateGender'
 import { IUploadProfileRequest, IUploadProfileResponse } from '../types/uploadProfile'
 import { IGenerationsResponse } from '../types/generations'
-import { IPageRequest } from '@/entities/general/types/general'
+import { IMetaResponse, IPageRequest } from '@/entities/general/types/general'
 import { IProfilesMetaResponse } from '../types/profilesMeta'
+import { IProfilesResponse } from '../types/profiles'
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -17,17 +18,24 @@ export const usersApi = createApi({
       return headers
     },
   }),
-  tagTypes: ['Users'],
+  tagTypes: ['Users', 'Generations'],
   endpoints: (builder) => ({
     // GET
-    generations: builder.query<IGenerationsResponse, IPageRequest>({
+    getGenerations: builder.query<IGenerationsResponse, IPageRequest>({
       query: (params) => ({
         url: '/generations',
         params
       }),
+      providesTags: ['Generations']
     }),
 
-    profilesMeta: builder.query<IProfilesMetaResponse, void>({
+    getProfiles: builder.query<IProfilesResponse, void>({
+      query: () => ({
+        url: '/profiles',
+      }),
+    }),
+
+    getProfilesMeta: builder.query<IProfilesMetaResponse, void>({
       query: () => ({
         url: '/profiles/meta',
       }),
@@ -43,22 +51,32 @@ export const usersApi = createApi({
     }),
 
     // POST
-    uploadProfile: builder.mutation<IUploadProfileResponse, IUploadProfileRequest>({
+    uploadProfile: builder.mutation<IUploadProfileResponse, FormData>({ 
       query: (body) => ({
         url: '/uploadProfile',
         method: 'POST',
         body,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      }),
+    }),
+
+    // DELETE
+    delete: builder.mutation<IMetaResponse, number>({ 
+      query: (generation_id) => ({
+        url: `/generations/${generation_id}`,
+        method: 'DELETE'
       }),
     }),
   }),
 })
 
-export const { 
-  useGenerationsQuery,
-  useLazyGenerationsQuery,
+export const {
+  useGetGenerationsQuery,
+  useLazyGetGenerationsQuery,
+  useGetProfilesQuery,
+  useLazyGetProfilesQuery, 
+  useGetProfilesMetaQuery,
+  useLazyGetProfilesMetaQuery,
   useUpdateGenderMutation,
   useUploadProfileMutation,
+  useDeleteMutation,
 } = usersApi
