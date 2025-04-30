@@ -11,10 +11,10 @@ const nextConfig = {
       @import 'fonts.scss';
     `,
   },
-  // Чтобы подключить возможность отображать ссылки на изображения
-  // images: {
-  //   domains: ['example.com'],  // Замените на домен, с которого будете загружать изображения
-  // }, 
+
+  images: {
+    domains: ['example.com'],
+  }, 
 }
 
 export default nextConfig;

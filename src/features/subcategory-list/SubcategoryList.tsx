@@ -3,10 +3,17 @@ import { useGetSubCategoriesQuery } from "@/entities/categories/api/categories.a
 import { SubcategoryButton } from "@/shared/buttons/subcategory-button/SubcategoryButton";
 import { ImageWithSkeleton } from "@/shared/image-with-skeleton/ImageWithSkeleton";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 export const SubcategoryList = () => {
   const id = usePathname().split('/').at(-1)
   const { data } = useGetSubCategoriesQuery(Number(id))
+
+  useEffect(() => {
+    if(data) {
+      alert(`SubcategoryList: ${JSON.stringify(data)}`)
+    }
+  }, [data])
 
   return (
     <ul className="grid grid-cols-3 gap-[4.28vw_5.34vw]">
