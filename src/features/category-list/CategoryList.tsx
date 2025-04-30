@@ -11,12 +11,6 @@ export const CategoryList = () => {
     useGetCategories({ limit: 50 })
   }, [])
 
-  useEffect(() => {
-    if(data) {
-      alert(JSON.stringify(data))
-    }
-  }, [data])
-
   return (
     <ul className="flex flex-col gap-[5.88vw]">
       {data?.categories.map(({id, preview, title}, index) => (

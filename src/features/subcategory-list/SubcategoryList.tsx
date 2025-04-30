@@ -9,12 +9,6 @@ export const SubcategoryList = () => {
   const id = usePathname().split('/').at(-1)
   const { data } = useGetSubCategoriesQuery(Number(id))
 
-  useEffect(() => {
-    if(data) {
-      alert(`SubcategoryList: ${JSON.stringify(data)}`)
-    }
-  }, [data])
-
   return (
     <ul className="grid grid-cols-3 gap-[4.28vw_5.34vw]">
       {data?.subcategories.map(({title, preview}, index) => (
