@@ -31,7 +31,7 @@ export const ProfileItem = ({photos, title, isActive, handleSetActive}: IProps) 
                   transform: index === 0 ? '': `translateX(calc(${-index} * 60%)) rotate(3deg)`,
                   zIndex: photos.length - index
                 }}
-                className={`rounded-[16px] relative overflow-hidden aspect-square w-[19.51vw] h-[19.51vw]`}
+                className={`rounded-[16px] relative overflow-hidden aspect-square min-w-[19.51vw] min-h-[19.51vw]`}
               >
                 <ImageWithSkeleton
                   src={photo}

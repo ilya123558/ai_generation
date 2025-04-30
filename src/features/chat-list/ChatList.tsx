@@ -1,6 +1,5 @@
 'use client'
 import { useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
-import { IChat } from '@/entities/generations/types/chat'
 import { ChatItemUser } from '@/shared/chat-item-user/ChatItemUser'
 import { ChatItem } from '@/shared/chat-item/ChatItem'
 import { ListWrapper } from '@/shared/wrappers/list-wrapper/ListWrapper'
@@ -25,7 +24,7 @@ export const ChatList = () => {
             <ChatItemUser key={index} {...chatItem} />
           )
 
-          return ( <ChatItem key={index} {...chatItem} />)
+          return <ChatItem key={index} {...chatItem} />
         })}
       </ul>
     </ListWrapper>
