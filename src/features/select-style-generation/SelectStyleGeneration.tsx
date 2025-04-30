@@ -2,28 +2,16 @@
 import { GenerationInput } from '@/shared/generation-input/GenerationInput'
 import { ShadowWrapper } from '@/shared/wrappers/shadow-wrapper/ShadowWrapper'
 import { CreatorMode } from '../creator-mode/CreatorMode'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCreateGenerationsMutation } from '@/entities/generations/api/generations.api'
 import { useAppSelector } from '@/views/store'
+import { useLazyGetStylesQuery } from '@/entities/styles/api/styles.api'
 
-const styleList = [
-  {id: 1, title: 'Classic'},
-  {id: 2, title: 'Realistic'},
-  {id: 3, title: 'Classic'},
-  {id: 4, title: 'Realistic'},
-  {id: 5, title: 'Classic'},
-  {id: 6, title: 'Realistic'},
-  {id: 7, title: 'Classic'},
-  {id: 8, title: 'Realistic'},
-  {id: 9, title: 'Classic'},
-  {id: 10, title: 'Realistic'},
-  {id: 11, title: 'Classic'},
-  {id: 12, title: 'Realistic'},
-]
 
 export const SelectStyleGeneration = () => {
-  const { resolution, creatorMode } = useAppSelector(state => state.main.accountData)
-  const [activeStyleId, setActiveStyleId] = useState(styleList[0].id)
+  const { resolution, creatorMode, activeProfileId, activeSubcategoryId } = useAppSelector(state => state.main.accountData)
+  const [getStyles, { data: style }] = useLazyGetStylesQuery()
+  const [activeStyleId, setActiveStyleId] = useState<number>(0)
   const [prompt, setPrompt] = useState('')
   const [isFocusInput, setIsFocusInput] = useState(false)
 
@@ -34,9 +22,17 @@ export const SelectStyleGeneration = () => {
       prompt: creatorMode ? prompt: '',
       resolution,
       styleId: activeStyleId,
-      categoryId: 1, // заменить
-      profileId: 1, // заменить
+      subcategoryId: activeSubcategoryId,
+      profileId: activeProfileId,
     })
+      .then(data => {
+        if(data.error) {
+          alert(`Error: ${JSON.stringify(data.error)}`)
+        }else{
+          alert(`Data: ${JSON.stringify(data.data)}`)
+        }
+      })
+      .catch((error) => `Catch: ${JSON.stringify(error)}`)
   }
 
   const handleStyleSelect = (styleId: number) => {
@@ -48,11 +44,15 @@ export const SelectStyleGeneration = () => {
     }
   }
 
+  useEffect(() => {
+    getStyles().then(data => data.data?.categories[0].id || 0)
+  }, [])
+
   return (
     <div className="flex flex-col gap-[2.43vw] mb-[15.78vw] items-end w-full bg-transparent relative z-[2]">
       <CreatorMode />
       <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-[30vw] overflow-y-scroll pb-[5vw]">
-        {styleList.map((styleItem, index) => (
+        {style?.categories.map((styleItem, index) => (
           <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
             <ShadowWrapper
               borderRadius={9}

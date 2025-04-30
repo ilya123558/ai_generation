@@ -1,6 +1,7 @@
 'use client'
 import { LoginApiClient } from "@/entities/users/api/login.api"
-import { setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
+import { useGetProfilesQuery } from "@/entities/users/api/users.api"
+import { setActiveProfileId, setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
 import { retrieveRawInitData } from "@telegram-apps/sdk"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
@@ -8,6 +9,8 @@ import { useEffect } from "react"
 export default function Home() {
   const router = useRouter()
   const dispatch = useAppDispatch()
+
+  const {data: profile} = useGetProfilesQuery()
 
   useEffect(() => {
     const login = async () => {
@@ -19,13 +22,19 @@ export default function Home() {
           dispatch(setGenerationPoints(data.user.tokensCount));
           
           if(data.user.role === 'new') {
-            router.push('/onboarding');
+            setTimeout(() => {
+              router.push('/onboarding');
+            }, 1000)
           }
           else if(data.user.role === 'pending') {
-            router.push('/profile-create-loading')
+            setTimeout(() => {
+              router.push('/profile-create-loading')
+            }, 1000)
           }
           else {
-            router.push('/home');
+            setTimeout(() => {
+              router.push('/home');
+            }, 1000)
           }
 
         } else {
@@ -39,6 +48,12 @@ export default function Home() {
 
     login();
   }, [dispatch, router]);
+
+  useEffect(() => {
+    if(profile) {
+      dispatch(setActiveProfileId(profile.profiles?.[0].id || 1))
+    }
+  }, [dispatch, profile])
 
   return (
     <section className="w-screen h-screen bg-primary flex items-center justify-center">

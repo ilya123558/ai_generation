@@ -9,7 +9,9 @@ interface IInitialState {
     creatorMode: boolean
     creatorModeIsBuy: boolean
     resolution: TResolution
-  },
+    activeProfileId: number
+    activeSubcategoryId: number
+  }
   user: null | IUser
 }
 
@@ -19,9 +21,11 @@ const initialState: IInitialState = {
     profilePoints: 0,
     creatorMode: true,
     creatorModeIsBuy: true,
-    resolution: '2:3'
+    resolution: '2:3',
+    activeProfileId: 1,
+    activeSubcategoryId: 1,
   },
-  user: null
+  user: null,
 }
 
 const mainSlice = createSlice({
@@ -40,8 +44,21 @@ const mainSlice = createSlice({
     setResolution: (state, action: PayloadAction<IInitialState['accountData']['resolution']>) => {
       state.accountData.resolution = action.payload
     },
+    setActiveProfileId: (state, action: PayloadAction<IInitialState['accountData']['activeProfileId']>) => {
+      state.accountData.activeProfileId = action.payload
+    },
+    setActiveSubcategoryId: (state, action: PayloadAction<IInitialState['accountData']['activeSubcategoryId']>) => {
+      state.accountData.activeSubcategoryId = action.payload
+    },
   },
 })
 
-export const { setUser, setGenerationPoints, setCreatorMode, setResolution } = mainSlice.actions
+export const {
+  setUser,
+  setGenerationPoints,
+  setCreatorMode,
+  setResolution,
+  setActiveProfileId,
+  setActiveSubcategoryId,
+} = mainSlice.actions
 export const mainReducer = mainSlice.reducer

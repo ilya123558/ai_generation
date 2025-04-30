@@ -1,5 +1,5 @@
 'use client'
-import { useGetCategoriesQuery, useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
+import { useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
 import { CategoryButton } from "@/shared/buttons/category-button/CategoryButton";
 import { ImageWithSkeleton } from "@/shared/image-with-skeleton/ImageWithSkeleton";
 import { useEffect } from "react";

@@ -3,7 +3,7 @@ import { TResolution } from "@/utils/types/resolution"
 
 export interface ICreateGenerationsRequest {
   profileId: number,
-  categoryId: number,
+  subcategoryId: number,
   styleId: number,
   prompt: string,
   resolution: TResolution
@@ -11,6 +11,8 @@ export interface ICreateGenerationsRequest {
 
 export interface ICreateGenerationsResponse extends IMetaResponse {
   jobId: number
+  cost: number
+  displayPrompt: string
 }
 
 export interface IGetGenerationsByIdRequest {

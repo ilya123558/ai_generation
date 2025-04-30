@@ -6,12 +6,12 @@ import { CreateProfileInfoModal } from "@/features/create-profile-info-modal/Cre
 import { CreateProfileModal } from "@/features/create-profile-modal/CreateProfileModal";
 
 export const ProfileCreate = () => {
-  const { profilePoints } = useAppSelector(state => state.main.accountData)
+  const { generationPoints } = useAppSelector(state => state.main.accountData)
   const [createProfileInfoModalIsOpen, setCreateProfileInfoModalIsOpen] = useState(false)
   const [createProfileModalIsOpen, setCreateProfileModalIsOpen] = useState(false)
 
   const handleProfileCreate = () => {
-    if(profilePoints < 10) {
+    if(generationPoints < 10) {
       setCreateProfileInfoModalIsOpen(true)
     }else{
       setCreateProfileModalIsOpen(true)
