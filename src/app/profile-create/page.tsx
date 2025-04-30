@@ -36,7 +36,12 @@ export default function Page() {
     }
   
     uploadProfile({images: formData, title: inputValue})
-      .then(() => {
+      .then((data) => {
+        if(data.error) {
+          alert(JSON.stringify(data.error))
+          return
+        }
+
         if(user?.role === 'new') {
           router.push('/profile-create-loading')
           return
