@@ -4,7 +4,6 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
-import { downloadFile, shareStory } from '@telegram-apps/sdk'
 
 interface IProps {
   isOpen: boolean
@@ -17,34 +16,27 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
 
   const handleDownload = () => {
-    if(downloadFile.isAvailable()) {
-      downloadFile(photo, 'photo.jpg')
-    }
-    
-    // const link = document.createElement('a');
-    // link.href = photo;
-    // link.download = 'image.jpg';
-    // link.click();
+    const link = document.createElement('a');
+    link.href = photo;
+    link.download = 'image.jpg';
+    link.click();
   }
 
   const handleRepost = async() => {
-    if(shareStory.isAvailable()) {
-      shareStory(photo)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Check this out!',
+          text: 'Check out this image!',
+          url: photo,
+        });
+        console.log('Shared successfully!');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      alert('Sharing is not supported on this device.');
     }
-    // if (navigator.share) {
-    //   try {
-    //     await navigator.share({
-    //       title: 'Check this out!',
-    //       text: 'Check out this image!',
-    //       url: photo,
-    //     });
-    //     console.log('Shared successfully!');
-    //   } catch (error) {
-    //     console.error('Error sharing:', error);
-    //   }
-    // } else {
-    //   alert('Sharing is not supported on this device.');
-    // }
   }
 
   return (
@@ -92,7 +84,16 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
             </button>
           )}
         </div>
-        {handleDelete && <DeleteImage isDelete={isDelete} setIsDelete={setIsDelete} handleDelete={handleDelete} />}
+        {handleDelete && (
+          <DeleteImage 
+            isDelete={isDelete} 
+            setIsDelete={setIsDelete} 
+            handleDelete={() => {
+              setIsOpen(false)
+              handleDelete()
+            }} 
+          />
+        )}
       </div>
     </Modal>
   )

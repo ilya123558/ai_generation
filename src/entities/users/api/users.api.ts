@@ -65,6 +65,7 @@ export const usersApi = createApi({
         url: `/generations/${generation_id}`,
         method: 'DELETE'
       }),
+      invalidatesTags: ['Generations']
     }),
   }),
 })
