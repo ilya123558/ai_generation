@@ -9,10 +9,15 @@ import { useEffect } from 'react'
 
 export const ChatList = () => {
   const { displayPrompt } = useAppSelector(state => state.main.meta)
-  const [getGenerationsChat, { data }] = useLazyGetGenerationsChatQuery()
+  const [getGenerationsChat, { data, reset }] = useLazyGetGenerationsChatQuery()
+
+  useEffect(() => {
+    getGenerationsChat({limit: 50})
+  }, [])
 
   useEffect(() => {
     if(displayPrompt === null) {
+      reset()
       getGenerationsChat({limit: 50})
     }
   }, [displayPrompt])
