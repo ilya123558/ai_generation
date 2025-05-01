@@ -27,7 +27,7 @@ const initialState: IInitialState = {
   accountData: {
     generationPoints: 0,
     profilePoints: 0,
-    creatorMode: true,
+    creatorMode: false,
     creatorModeIsBuy: true,
     resolution: '2:3',
     activeProfileId: 1,

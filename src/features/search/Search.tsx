@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setSearchValue, useAppDispatch, useAppSelector } from '@/views/store';
 
 export const Search = () => {
@@ -14,6 +14,14 @@ export const Search = () => {
     const value = event.target.value
     dispatch(setSearchValue(value))
   }
+
+  useEffect(() => {
+    dispatch(setSearchValue(''))
+
+    return () => {
+      dispatch(setSearchValue(''))
+    }
+  }, [dispatch])
 
   return (
     <div className="flex items-center justify-between gap-[2vw] m-[0px_8.54vw]">
