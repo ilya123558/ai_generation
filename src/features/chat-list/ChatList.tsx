@@ -4,12 +4,14 @@ import { ChatItemUser } from '@/shared/chat-item-user/ChatItemUser'
 import { ChatItem } from '@/shared/chat-item/ChatItem'
 import { LoadingGrenerateChatImage } from '@/shared/loading-grenerate-chat-image/LoadingGrenerateChatImage'
 import { ListWrapper } from '@/shared/wrappers/list-wrapper/ListWrapper'
+import { useAppSelector } from '@/views/store'
 
 export const ChatList = () => {
+  const { displayPrompt } = useAppSelector(state => state.main.meta)
   const { data } = useGetGenerationsChatQuery({limit: 50})
 
   return (
-    <ListWrapper className='mb-[10px]' scrollToBottom>
+    <ListWrapper className='mb-[10px]' scrollToBottomDeps={[data, displayPrompt]}>
       <ul className='flex flex-col gap-[5.88vw]'>
         {data?.generations?.slice().reverse().map((chatItem) => {
           if (chatItem.sender === 'user') {

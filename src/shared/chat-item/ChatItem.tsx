@@ -17,7 +17,7 @@ export const ChatItem = (props: IChat) => {
   }
 
   return (
-    <div>
+    <li>
       <PhotoModal 
         isOpen={isOpen} 
         setIsOpen={setIsOpen}
@@ -42,6 +42,6 @@ export const ChatItem = (props: IChat) => {
           <p className="fs-15 font-medium">{formatChatTextData.style}</p>
         </div>
       </div>
-    </div>
+    </li>
   );
 };

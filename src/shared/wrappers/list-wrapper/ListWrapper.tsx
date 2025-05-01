@@ -1,27 +1,29 @@
 'use client'
 import { useGetHeight } from "@/utils/hooks/useGetHeight";
-import { PropsWithChildren, useEffect, useRef } from "react";
+import { DependencyList, PropsWithChildren, useEffect, useRef } from "react";
 
 interface IProps {
   className?: string
-  scrollToBottom?: boolean
+  scrollToBottomDeps?: DependencyList
 }
 
-export const ListWrapper = ({ children, className, scrollToBottom }: PropsWithChildren<IProps>) => {
+export const ListWrapper = ({ children, className, scrollToBottomDeps }: PropsWithChildren<IProps>) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const { height } = useGetHeight({ containerRef })
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (containerRef.current && scrollToBottom) {
-        containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  if(scrollToBottomDeps) {
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        if (containerRef.current) {
+          containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
+      }, 500)
+  
+      return () => {
+        clearTimeout(timeout)
       }
-    }, 500)
-
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, []);
+    }, [scrollToBottomDeps]);
+  }
 
   return (
     <div style={{ height, paddingBottom: height ? '15px': '0px' }} ref={containerRef} className={`overflow-y-auto ${className ? className: ''}`}>

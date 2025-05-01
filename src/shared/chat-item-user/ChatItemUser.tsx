@@ -9,7 +9,7 @@ export const ChatItemUser = (props: IChat) => {
   const formatChatTextData = formatChatText(text)
 
   return (
-    <div className={'flex flex-col items-end'}>
+    <li className={'flex flex-col items-end'}>
       <div style={{boxShadow: '0px 11.83px 49.3px 0px #251F300D'}} className="p-[2.67vw_5.34vw] rounded-[24px] mt-[2.3vw] bg-white">
         {formatChatTextData.text && <p className="fs-12 font-normal urbanist mb-[2.35vw] text-end w-163px">{formatChatTextData.text}</p>}
         <div className="flex gap-[3.47vw] items-center justify-end">
@@ -17,6 +17,6 @@ export const ChatItemUser = (props: IChat) => {
           <p className="fs-12 font-normal text-gray">{createdAt}</p>
         </div>
       </div>
-    </div>
+    </li>
   );
 };
