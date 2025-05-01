@@ -1,15 +1,17 @@
 'use client'
-import { useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
+import { useGetCategoriesQuery, useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
 import { CategoryButton } from "@/shared/buttons/category-button/CategoryButton";
 import { ImageWithSkeleton } from "@/shared/image-with-skeleton/ImageWithSkeleton";
+import { useAppSelector } from "@/views/store";
 import { useEffect } from "react";
 
 export const CategoryList = () => {
-  const [useGetCategories, { data }] = useLazyGetCategoriesQuery()
+  const { searchValue } = useAppSelector(state => state.main.meta)
+  const [getCategories, { data }] = useLazyGetCategoriesQuery()
 
   useEffect(() => {
-    useGetCategories({ limit: 50 })
-  }, [])
+    getCategories({ limit: 50, q: searchValue })
+  }, [searchValue])
 
   return (
     <ul className="flex flex-col gap-[5.88vw]">
