@@ -1,5 +1,5 @@
 'use client'
-import { useGetGenerationsChatQuery, useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
+import { useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
 import { ChatItemUser } from '@/shared/chat-item-user/ChatItemUser'
 import { ChatItem } from '@/shared/chat-item/ChatItem'
 import { LoadingGrenerateChatImage } from '@/shared/loading-grenerate-chat-image/LoadingGrenerateChatImage'
@@ -9,11 +9,10 @@ import { useEffect } from 'react'
 
 export const ChatList = () => {
   const { displayPrompt } = useAppSelector(state => state.main.meta)
-  const [getGenerationsChat, { data, reset }] = useLazyGetGenerationsChatQuery()
+  const [getGenerationsChat, { data }] = useLazyGetGenerationsChatQuery()
 
   useEffect(() => {
     if(displayPrompt === null) {
-      reset()
       getGenerationsChat({limit: 50})
     }
   }, [displayPrompt])
