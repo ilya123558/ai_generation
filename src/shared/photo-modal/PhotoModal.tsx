@@ -29,20 +29,27 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     // link.click();
 
   const handleRepost = async() => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Check this out!',
-          text: 'Check out this image!',
-          url: photo,
-        });
-        console.log('Shared successfully!');
-      } catch (error) {
-        console.error('Error sharing:', error);
-      }
-    } else {
-      alert('Sharing is not supported on this device.');
-    }
+    const link = document.createElement('a');
+    link.href = photo;
+    link.target = '_blank'
+    link.rel = "noopener noreferrer"
+    link.download = 'image.jpg';
+    link.click();
+
+    // if (navigator.share) {
+    //   try {
+    //     await navigator.share({
+    //       title: 'Check this out!',
+    //       text: 'Check out this image!',
+    //       url: photo,
+    //     });
+    //     console.log('Shared successfully!');
+    //   } catch (error) {
+    //     console.error('Error sharing:', error);
+    //   }
+    // } else {
+    //   alert('Sharing is not supported on this device.');
+    // }
   }
 
   return (
