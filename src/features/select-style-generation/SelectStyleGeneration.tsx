@@ -41,7 +41,7 @@ export const SelectStyleGeneration = () => {
       handleGenerateImage(styleId)
     }
   }
-
+ 
   useEffect(() => {
     if (isSuccess && style?.styles?.[0]?.id) {
       setActiveStyleId(style.styles[0].id);
@@ -52,6 +52,10 @@ export const SelectStyleGeneration = () => {
     if(createGenerationsData) {
       getGenerationsById({jobId: createGenerationsData.jobId})
       dispatch(setDisplayPrompt(createGenerationsData.displayPrompt))
+    }
+    
+    return () => {
+      dispatch(setDisplayPrompt(null))
     }
   }, [createGenerationsData])
 
