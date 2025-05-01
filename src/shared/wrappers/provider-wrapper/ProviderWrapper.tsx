@@ -3,10 +3,8 @@ import { store } from '@/views/store'
 import { PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'react-redux'
 import { viewport } from '@telegram-apps/sdk'
-import { init } from '@telegram-apps/sdk-react';
 
 export const ProviderWrapper = ({ children }: PropsWithChildren) => {
-  init()
 
   useEffect(() => {
     const preventPinchZoom = (e: TouchEvent) => {

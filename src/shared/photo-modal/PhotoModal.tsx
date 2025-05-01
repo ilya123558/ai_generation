@@ -4,7 +4,7 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
-import { downloadFile, shareURL } from '@telegram-apps/sdk-react';
+import { downloadFile, shareStory } from '@telegram-apps/sdk';
 
 interface IProps {
   isOpen: boolean
@@ -29,8 +29,9 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     // link.click();
 
   const handleRepost = async() => {
-    shareURL(photo, 'ai generation photo @link_to_bot')
-
+    shareStory(photo, {
+      text: 'Check out this image!',
+    });
     // if (navigator.share) {
     //   try {
     //     await navigator.share({
