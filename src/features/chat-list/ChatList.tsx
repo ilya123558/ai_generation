@@ -1,5 +1,5 @@
 'use client'
-import { useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
+import { useGetGenerationsChatQuery, useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
 import { ChatItemUser } from '@/shared/chat-item-user/ChatItemUser'
 import { ChatItem } from '@/shared/chat-item/ChatItem'
 import { LoadingGrenerateChatImage } from '@/shared/loading-grenerate-chat-image/LoadingGrenerateChatImage'
@@ -9,21 +9,13 @@ import { useEffect } from 'react'
 
 export const ChatList = () => {
   const { displayPrompt } = useAppSelector(state => state.main.meta)
-  const [getGenerationsChat, { data, isLoading, reset }] = useLazyGetGenerationsChatQuery()
+  const { data, refetch } = useGetGenerationsChatQuery({ limit: 50 })
 
   useEffect(() => {
-    if (!data && !isLoading) {
-      reset()
-      getGenerationsChat({ limit: 50 })
+    if (displayPrompt === null) {
+      refetch()
     }
-  }, [data, isLoading, getGenerationsChat])
-
-  useEffect(() => {
-    if (displayPrompt === null && !isLoading && !data) {
-      reset()
-      getGenerationsChat({ limit: 50 })
-    }
-  }, [displayPrompt, isLoading, data, getGenerationsChat])
+  }, [displayPrompt])
 
   return (
     <ListWrapper className='mb-[10px]' scrollToBottomDeps={[data, displayPrompt]}>
