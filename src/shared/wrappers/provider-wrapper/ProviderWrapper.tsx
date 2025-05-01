@@ -3,9 +3,11 @@ import { store } from '@/views/store'
 import { PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'react-redux'
 import { viewport } from '@telegram-apps/sdk'
+import { init } from '@telegram-apps/sdk-react';
 
 export const ProviderWrapper = ({ children }: PropsWithChildren) => {
-  // если нужно заблокировать zoom на телефоне
+  init()
+
   useEffect(() => {
     const preventPinchZoom = (e: TouchEvent) => {
       if (e.touches.length > 1) {

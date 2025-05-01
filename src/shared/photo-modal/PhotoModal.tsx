@@ -4,7 +4,7 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
-import { downloadFile, shareURL } from '@telegram-apps/sdk';
+import { downloadFile, shareURL } from '@telegram-apps/sdk-react';
 
 interface IProps {
   isOpen: boolean
