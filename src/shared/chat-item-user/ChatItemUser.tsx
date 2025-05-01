@@ -14,7 +14,7 @@ export const ChatItemUser = (props: IChat) => {
         {formatChatTextData.text && <p className="fs-12 font-normal urbanist mb-[2.35vw] text-end w-163px">{formatChatTextData.text}</p>}
         <div className="flex gap-[3.47vw] items-center justify-end">
           <p className="fs-15 font-medium">{formatChatTextData.style}</p>
-          <p className="fs-12 font-normal text-gray">{createdAt.split(' ')[1]}</p>
+          <p className="fs-12 font-normal text-gray">{createdAt}</p>
         </div>
       </div>
     </div>

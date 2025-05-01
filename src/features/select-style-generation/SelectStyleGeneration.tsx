@@ -3,7 +3,7 @@ import { GenerationInput } from '@/shared/generation-input/GenerationInput'
 import { ShadowWrapper } from '@/shared/wrappers/shadow-wrapper/ShadowWrapper'
 import { CreatorMode } from '../creator-mode/CreatorMode'
 import { useEffect, useState } from 'react'
-import { useCreateGenerationsMutation } from '@/entities/generations/api/generations.api'
+import { useCreateGenerationsMutation, useGetGenerationsByIdQuery, useLazyGetGenerationsByIdQuery } from '@/entities/generations/api/generations.api'
 import { useAppSelector } from '@/views/store'
 import { useGetStylesQuery } from '@/entities/styles/api/styles.api'
 
@@ -15,7 +15,8 @@ export const SelectStyleGeneration = () => {
   const [prompt, setPrompt] = useState('')
   const [isFocusInput, setIsFocusInput] = useState(false)
 
-  const [createGenerations] = useCreateGenerationsMutation()
+  const [createGenerations, { data: createGenerationsData }] = useCreateGenerationsMutation()
+  const [getGenerationsById, { data: getGenerationsData }] = useLazyGetGenerationsByIdQuery()
 
   const handleGenerateImage = () => {
     createGenerations({
@@ -25,14 +26,6 @@ export const SelectStyleGeneration = () => {
       subcategoryId: activeSubcategoryId,
       profileId: activeProfileId,
     })
-      .then(data => {
-        if(data.error) {
-          alert(`Error: ${JSON.stringify(data.error)}`)
-        }else{
-          alert(`Data: ${JSON.stringify(data.data)}`)
-        }
-      })
-      .catch((error) => `Catch: ${JSON.stringify(error)}`)
   }
 
   const handleStyleSelect = (styleId: number) => {
@@ -49,6 +42,18 @@ export const SelectStyleGeneration = () => {
       setActiveStyleId(style.styles[0].id);
     }
   }, [style, isSuccess])
+
+  useEffect(() => {
+    if(createGenerationsData) {
+      getGenerationsById({jobId: createGenerationsData.jobId})
+    }
+  }, [createGenerationsData])
+
+  useEffect(() => {
+    if(getGenerationsData) {
+      alert(JSON.stringify(getGenerationsData))
+    }
+  }, [getGenerationsData])
 
   return (
     <div className="flex flex-col gap-[2.43vw] mb-[15.78vw] items-end w-full bg-transparent relative z-[2]">
