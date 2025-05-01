@@ -17,7 +17,7 @@ export const ChatList = () => {
   if(!(data && data.generations)) return <></>
 
   return (
-    <ListWrapper className='mb-[10px]' >
+    <div className='mb-[10px]' >
       <ul className='flex flex-col gap-[5.88vw]'>
         {data.generations.reverse().map((chatItem, index) => {
           if(chatItem.sender === 'user') return (
@@ -27,6 +27,6 @@ export const ChatList = () => {
           return <ChatItem key={index} {...chatItem} />
         })}
       </ul>
-    </ListWrapper>
+    </div>
   )
 }
