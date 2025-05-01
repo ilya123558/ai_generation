@@ -19,11 +19,11 @@ export const SelectStyleGeneration = () => {
   const [createGenerations, { data: createGenerationsData }] = useCreateGenerationsMutation()
   const [getGenerationsById, { data: getGenerationsData, reset: getGenerationsReset }] = useLazyGetGenerationsByIdQuery()
 
-  const handleGenerateImage = () => {
+  const handleGenerateImage = (styleId?: number) => {
     createGenerations({
       prompt: creatorMode ? prompt: '',
       resolution,
-      styleId: activeStyleId,
+      styleId: styleId ? styleId : activeStyleId,
       subcategoryId: activeSubcategoryId,
       profileId: activeProfileId,
     })
@@ -32,11 +32,11 @@ export const SelectStyleGeneration = () => {
   }
 
   const handleStyleSelect = (styleId: number) => {
-    setActiveStyleId(styleId)
     if(creatorMode) {
+      setActiveStyleId(styleId)
       setIsFocusInput(true)
     }else{
-      handleGenerateImage()
+      handleGenerateImage(styleId)
     }
   }
 
@@ -76,7 +76,7 @@ export const SelectStyleGeneration = () => {
           <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
             <ShadowWrapper
               borderRadius={9}
-              className={`!bg-white fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] border ${activeStyleId === styleItem.id ? 'border-primary': 'border-transparent'}`}
+              className={`!bg-white fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] border ${(activeStyleId === styleItem.id && creatorMode) ? 'border-primary': 'border-transparent'}`}
             >
               {styleItem.title}
             </ShadowWrapper>
