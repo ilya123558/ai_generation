@@ -16,7 +16,7 @@ export const SelectStyleGeneration = () => {
   const [isFocusInput, setIsFocusInput] = useState(false)
 
   const [createGenerations, { data: createGenerationsData }] = useCreateGenerationsMutation()
-  const [getGenerationsById, { data: getGenerationsData }] = useLazyGetGenerationsByIdQuery()
+  const [getGenerationsById, { data: getGenerationsData, reset }] = useLazyGetGenerationsByIdQuery()
 
   const handleGenerateImage = () => {
     createGenerations({
@@ -50,10 +50,19 @@ export const SelectStyleGeneration = () => {
   }, [createGenerationsData])
 
   useEffect(() => {
-    if(getGenerationsData) {
-      alert(JSON.stringify(getGenerationsData))
+    if (getGenerationsData && createGenerationsData) {
+      if (getGenerationsData.status === 'pending') {
+        const timeout = setTimeout(() => {
+          reset();
+          getGenerationsById({ jobId: createGenerationsData.jobId });
+        }, 2000);
+  
+        return () => clearTimeout(timeout);
+      } else {
+        alert(JSON.stringify(getGenerationsData.status));
+      }
     }
-  }, [getGenerationsData])
+  }, [getGenerationsData, createGenerationsData]);
 
   return (
     <div className="flex flex-col gap-[2.43vw] mb-[15.78vw] items-end w-full bg-transparent relative z-[2]">
