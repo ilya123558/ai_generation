@@ -6,13 +6,15 @@ import { useEffect, useState } from 'react'
 import { useCreateGenerationsMutation, useLazyGetGenerationsByIdQuery } from '@/entities/generations/api/generations.api'
 import { setDisplayPrompt, useAppDispatch, useAppSelector } from '@/views/store'
 import { useGetStylesQuery } from '@/entities/styles/api/styles.api'
+import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyModal'
 
 
 export const SelectStyleGeneration = () => {
   const dispatch = useAppDispatch()
-  const { resolution, creatorMode, activeProfileId, activeSubcategoryId } = useAppSelector(state => state.main.accountData)
+  const { resolution, creatorMode, activeProfileId, activeSubcategoryId, generationPoints } = useAppSelector(state => state.main.accountData)
   const { displayPrompt } = useAppSelector(state => state.main.meta)
 
+  const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
   const { data: style, isSuccess } = useGetStylesQuery()
   const [activeStyleId, setActiveStyleId] = useState<number>(1)
   const [prompt, setPrompt] = useState('')
@@ -22,15 +24,33 @@ export const SelectStyleGeneration = () => {
   const [getGenerationsById, { data: getGenerationsData, reset: getGenerationsReset }] = useLazyGetGenerationsByIdQuery()
 
   const handleGenerateImage = (styleId?: number) => {
-    createGenerations({
-      prompt: creatorMode ? prompt: '',
-      resolution,
-      styleId: styleId ? styleId : activeStyleId,
-      subcategoryId: activeSubcategoryId,
-      profileId: activeProfileId,
-    })
+    if(creatorMode && (generationPoints > 2)) {
+      createGenerations({
+        prompt: creatorMode ? prompt: '',
+        resolution,
+        styleId: styleId ? styleId : activeStyleId,
+        subcategoryId: activeSubcategoryId,
+        profileId: activeProfileId,
+      })
+      
+      setPrompt('')
+      return
+    }
 
-    setPrompt('')
+    if(creatorMode && (generationPoints > 2)) {
+      createGenerations({
+        prompt: '',
+        resolution,
+        styleId: styleId ? styleId : activeStyleId,
+        subcategoryId: activeSubcategoryId,
+        profileId: activeProfileId,
+      })
+
+      setPrompt('')
+      return
+    }
+
+    setGenerationBuyModalIsOpen(false)
   }
 
   const handleStyleSelect = (styleId: number) => {
@@ -76,6 +96,7 @@ export const SelectStyleGeneration = () => {
   
   return (
     <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[15.78vw] items-end w-full bg-transparent relative z-[2]`}>
+      <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
       <CreatorMode />
       <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-[30vw] overflow-y-scroll pb-[5vw]">
         {style?.styles?.map((styleItem, index) => (
