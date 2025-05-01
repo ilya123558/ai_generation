@@ -8,7 +8,7 @@ export const ChatList = () => {
   const { data } = useGetGenerationsChatQuery({limit: 50})
 
   return (
-    <ListWrapper className='mb-[10px]' >
+    <ListWrapper className='mb-[10px] relative z-[10]' scrollToBottom>
       <ul className='flex flex-col gap-[5.88vw]'>
         {data?.generations?.slice().reverse().map((chatItem) => {
           if (chatItem.sender === 'user') {

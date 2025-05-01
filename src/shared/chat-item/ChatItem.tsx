@@ -2,15 +2,10 @@
 import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { useState } from "react";
 import { PhotoModal } from "../photo-modal/PhotoModal";
-import { useAppSelector } from "@/views/store";
-import { calculateImageSize } from "@/utils/types/calculateImageSize";
 import { IChat } from "@/entities/generations/types/chat";
 
 export const ChatItem = (props: IChat) => {
   const { image, text, createdAt } = props
-
-  const { resolution } = useAppSelector(state => state.main.accountData)
-  const imageSize = calculateImageSize(resolution)
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -26,7 +21,6 @@ export const ChatItem = (props: IChat) => {
         photo={image}
       />
       <button 
-        style={imageSize}
         onClick={handleClickImage} 
         className="w-[53.89vw] h-fit overflow-hidden rounded-[16px]"
       >
@@ -35,7 +29,6 @@ export const ChatItem = (props: IChat) => {
           alt="chat-item-img"
           width={1000}
           height={1000}
-          // className="object-cover object-center w-full h-full"
         />
       </button>
 
