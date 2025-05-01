@@ -1,14 +1,22 @@
 'use client'
-import { useGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
+import { useGetGenerationsChatQuery, useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
 import { ChatItemUser } from '@/shared/chat-item-user/ChatItemUser'
 import { ChatItem } from '@/shared/chat-item/ChatItem'
 import { LoadingGrenerateChatImage } from '@/shared/loading-grenerate-chat-image/LoadingGrenerateChatImage'
 import { ListWrapper } from '@/shared/wrappers/list-wrapper/ListWrapper'
 import { useAppSelector } from '@/views/store'
+import { useEffect } from 'react'
 
 export const ChatList = () => {
   const { displayPrompt } = useAppSelector(state => state.main.meta)
-  const { data } = useGetGenerationsChatQuery({limit: 50})
+  const [getGenerationsChat, { data, reset }] = useLazyGetGenerationsChatQuery()
+
+  useEffect(() => {
+    if(displayPrompt === null) {
+      reset()
+      getGenerationsChat({limit: 50})
+    }
+  }, [displayPrompt])
 
   return (
     <ListWrapper className='mb-[10px]' scrollToBottomDeps={[data, displayPrompt]}>

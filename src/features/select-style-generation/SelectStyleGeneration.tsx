@@ -3,7 +3,7 @@ import { GenerationInput } from '@/shared/generation-input/GenerationInput'
 import { ShadowWrapper } from '@/shared/wrappers/shadow-wrapper/ShadowWrapper'
 import { CreatorMode } from '../creator-mode/CreatorMode'
 import { useEffect, useState } from 'react'
-import { useCreateGenerationsMutation, useGetGenerationsByIdQuery, useLazyGetGenerationsByIdQuery, useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
+import { useCreateGenerationsMutation, useLazyGetGenerationsByIdQuery } from '@/entities/generations/api/generations.api'
 import { setDisplayPrompt, useAppDispatch, useAppSelector } from '@/views/store'
 import { useGetStylesQuery } from '@/entities/styles/api/styles.api'
 
@@ -18,7 +18,6 @@ export const SelectStyleGeneration = () => {
 
   const [createGenerations, { data: createGenerationsData }] = useCreateGenerationsMutation()
   const [getGenerationsById, { data: getGenerationsData, reset: getGenerationsReset }] = useLazyGetGenerationsByIdQuery()
-  const [getGenerationsChat, { reset: getGenerationsChatReset }] = useLazyGetGenerationsChatQuery()
 
   const handleGenerateImage = () => {
     createGenerations({
@@ -62,8 +61,6 @@ export const SelectStyleGeneration = () => {
   
         return () => clearTimeout(timeout);
       } else {
-        getGenerationsChatReset()
-        getGenerationsChat({limit: 50})
         dispatch(setDisplayPrompt(null))
       }
     }
