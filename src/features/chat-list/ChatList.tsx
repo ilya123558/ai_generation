@@ -8,25 +8,26 @@ import { useEffect, useRef } from 'react'
 export const ChatList = () => {
   const { data } = useGetGenerationsChatQuery({limit: 50})
 
-  // useEffect(() => {
-  //   (async() => {
-  //     await getGenerationsChat({limit: 50})
-  //   })()
-  // }, [])
+  useEffect(() => {
+    if(data) {
+      alert(JSON.stringify(data))
+    }
+  }, [data])
 
-  if(!(data && data.generations)) return <></>
+  // if(!(data && data.generations)) return <></>
 
   return (
-    <ListWrapper className='mb-[10px]' >
-      <ul className='flex flex-col gap-[5.88vw]'>
-        {data.generations.reverse().map((chatItem, index) => {
-          if(chatItem.sender === 'user') return (
-            <ChatItemUser key={index} {...chatItem} />
-          )
+    <></>
+    // <ListWrapper className='mb-[10px]' >
+    //   <ul className='flex flex-col gap-[5.88vw]'>
+    //     {data.generations.reverse().map((chatItem, index) => {
+    //       if(chatItem.sender === 'user') return (
+    //         <ChatItemUser key={index} {...chatItem} />
+    //       )
 
-          return <ChatItem key={index} {...chatItem} />
-        })}
-      </ul>
-    </ListWrapper>
+    //       return <ChatItem key={index} {...chatItem} />
+    //     })}
+    //   </ul>
+    // </ListWrapper>
   )
 }
