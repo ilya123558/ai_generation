@@ -3,6 +3,9 @@ import { TResolution } from '@/utils/types/resolution'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface IInitialState {
+  meta: {
+    displayPrompt: string | null
+  },
   accountData: {
     generationPoints: number
     profilePoints: number
@@ -16,6 +19,9 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
+  meta: {
+    displayPrompt: null
+  },
   accountData: {
     generationPoints: 0,
     profilePoints: 0,
@@ -50,6 +56,9 @@ const mainSlice = createSlice({
     setActiveSubcategoryId: (state, action: PayloadAction<IInitialState['accountData']['activeSubcategoryId']>) => {
       state.accountData.activeSubcategoryId = action.payload
     },
+    setDisplayPrompt: (state, action: PayloadAction<IInitialState['meta']['displayPrompt']>) => {
+      state.meta.displayPrompt = action.payload
+    },
   },
 })
 
@@ -60,5 +69,6 @@ export const {
   setResolution,
   setActiveProfileId,
   setActiveSubcategoryId,
+  setDisplayPrompt
 } = mainSlice.actions
 export const mainReducer = mainSlice.reducer

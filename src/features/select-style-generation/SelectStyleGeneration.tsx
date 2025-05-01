@@ -3,12 +3,13 @@ import { GenerationInput } from '@/shared/generation-input/GenerationInput'
 import { ShadowWrapper } from '@/shared/wrappers/shadow-wrapper/ShadowWrapper'
 import { CreatorMode } from '../creator-mode/CreatorMode'
 import { useEffect, useState } from 'react'
-import { useCreateGenerationsMutation, useGetGenerationsByIdQuery, useLazyGetGenerationsByIdQuery } from '@/entities/generations/api/generations.api'
-import { useAppSelector } from '@/views/store'
+import { useCreateGenerationsMutation, useGetGenerationsByIdQuery, useLazyGetGenerationsByIdQuery, useLazyGetGenerationsChatQuery } from '@/entities/generations/api/generations.api'
+import { setDisplayPrompt, useAppDispatch, useAppSelector } from '@/views/store'
 import { useGetStylesQuery } from '@/entities/styles/api/styles.api'
 
 
 export const SelectStyleGeneration = () => {
+  const dispatch = useAppDispatch()
   const { resolution, creatorMode, activeProfileId, activeSubcategoryId } = useAppSelector(state => state.main.accountData)
   const { data: style, isSuccess } = useGetStylesQuery()
   const [activeStyleId, setActiveStyleId] = useState<number>(1)
@@ -16,7 +17,8 @@ export const SelectStyleGeneration = () => {
   const [isFocusInput, setIsFocusInput] = useState(false)
 
   const [createGenerations, { data: createGenerationsData }] = useCreateGenerationsMutation()
-  const [getGenerationsById, { data: getGenerationsData, reset }] = useLazyGetGenerationsByIdQuery()
+  const [getGenerationsById, { data: getGenerationsData, reset: getGenerationsReset }] = useLazyGetGenerationsByIdQuery()
+  const [getGenerationsChat, { reset: getGenerationsChatReset }] = useLazyGetGenerationsChatQuery()
 
   const handleGenerateImage = () => {
     createGenerations({
@@ -46,6 +48,7 @@ export const SelectStyleGeneration = () => {
   useEffect(() => {
     if(createGenerationsData) {
       getGenerationsById({jobId: createGenerationsData.jobId})
+      dispatch(setDisplayPrompt(createGenerationsData.displayPrompt))
     }
   }, [createGenerationsData])
 
@@ -53,13 +56,15 @@ export const SelectStyleGeneration = () => {
     if (getGenerationsData && createGenerationsData) {
       if (getGenerationsData.status === 'pending') {
         const timeout = setTimeout(() => {
-          reset();
+          getGenerationsReset();
           getGenerationsById({ jobId: createGenerationsData.jobId });
         }, 2000);
   
         return () => clearTimeout(timeout);
       } else {
-        alert(JSON.stringify(getGenerationsData.status));
+        getGenerationsChatReset()
+        getGenerationsChat({limit: 50})
+        dispatch(setDisplayPrompt(null))
       }
     }
   }, [getGenerationsData, createGenerationsData]);
