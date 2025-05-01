@@ -28,14 +28,14 @@ export const ChatItem = (props: IChat) => {
       <button 
         style={imageSize}
         onClick={handleClickImage} 
-        className="w-[53.89vw] overflow-hidden rounded-[16px]"
+        className="w-[53.89vw] h-fit overflow-hidden rounded-[16px]"
       >
         <ImageWithSkeleton
           src={image}
           alt="chat-item-img"
           width={203}
           height={256}
-          className="object-cover object-center w-full"
+          className="object-cover object-center w-full h-full"
         />
       </button>
 
