@@ -4,7 +4,7 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
-import { downloadFile } from '@telegram-apps/sdk';
+import { downloadFile, shareURL } from '@telegram-apps/sdk';
 
 interface IProps {
   isOpen: boolean
@@ -29,12 +29,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     // link.click();
 
   const handleRepost = async() => {
-    const link = document.createElement('a');
-    link.href = photo;
-    link.target = '_blank'
-    link.rel = "noopener noreferrer"
-    link.download = 'image.jpg';
-    link.click();
+    shareURL(photo, 'ai generation photo @link_to_bot')
 
     // if (navigator.share) {
     //   try {
