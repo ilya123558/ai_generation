@@ -34,7 +34,7 @@ export const ChatItem = (props: IChat) => {
 
       <div className="flex gap-[3.47vw] items-center mt-[2.35vw]">
         <p className="fs-12 font-normal text-gray">{createdAt}</p>
-        {text && <p className="fs-15 font-medium" dangerouslySetInnerHTML={{ __html: text }}>{text}</p>}
+        {text && <p className="fs-15 font-medium">{text}</p>}
       </div>
     </div>
   );
