@@ -6,27 +6,28 @@ import { ListWrapper } from '@/shared/wrappers/list-wrapper/ListWrapper'
 import { useEffect, useRef } from 'react'
 
 export const ChatList = () => {
-  const [getGenerationsChat, { data }] = useLazyGetGenerationsChatQuery()
+  // const [getGenerationsChat, { data }] = useLazyGetGenerationsChatQuery()
 
   const ref = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
-    (async() => {
-      await getGenerationsChat({limit: 50})
-    })()
-  }, [])
+  // useEffect(() => {
+  //   (async() => {
+  //     await getGenerationsChat({limit: 50})
+  //   })()
+  // }, [])
 
   return (
-    <ListWrapper depsForScroll={data?.generations} className='mb-[10px]'>
-      <ul ref={ref} className='flex flex-col gap-[5.88vw]'>
-        {data?.generations?.map((chatItem, index) => {
-          if(chatItem.sender === 'user') return (
-            <ChatItemUser key={index} {...chatItem} />
-          )
+    <></>
+    // <ListWrapper depsForScroll={data?.generations} className='mb-[10px]'>
+    //   <ul ref={ref} className='flex flex-col gap-[5.88vw]'>
+    //     {data?.generations?.map((chatItem, index) => {
+    //       if(chatItem.sender === 'user') return (
+    //         <ChatItemUser key={index} {...chatItem} />
+    //       )
 
-          return <ChatItem key={index} {...chatItem} />
-        })}
-      </ul>
-    </ListWrapper>
+    //       return <ChatItem key={index} {...chatItem} />
+    //     })}
+    //   </ul>
+    // </ListWrapper>
   )
 }
