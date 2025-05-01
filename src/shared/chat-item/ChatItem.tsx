@@ -33,9 +33,9 @@ export const ChatItem = (props: IChat) => {
         <ImageWithSkeleton
           src={image}
           alt="chat-item-img"
-          width={203}
-          height={256}
-          className="object-cover object-center w-full h-full"
+          width={1000}
+          height={1000}
+          // className="object-cover object-center w-full h-full"
         />
       </button>
 

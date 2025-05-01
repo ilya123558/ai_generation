@@ -12,16 +12,13 @@ export const ListWrapper = ({ children, className, scrollToBottom }: PropsWithCh
   const { height } = useGetHeight({ containerRef })
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (containerRef.current && scrollToBottom) {
-        containerRef.current.scrollTop = containerRef.current.scrollHeight;
-      }
-    }, 500)
-
-    return () => {
-      clearTimeout(timeout)
+    if (containerRef.current && scrollToBottom) {
+      const scroll = () => {
+        containerRef.current!.scrollTop = containerRef.current!.scrollHeight;
+      };
+      requestAnimationFrame(scroll);
     }
-  }, []);
+  }, [scrollToBottom, height]);
 
   return (
     <div style={{ height, paddingBottom: height ? '15px': '0px' }} ref={containerRef} className={`overflow-y-auto ${className ? className: ''}`}>
