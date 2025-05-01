@@ -14,7 +14,7 @@ export const ChatList = () => {
     })()
   }, [])
 
-  if(!(data?.generations)) return <></>
+  if(!(data && data.generations)) return <></>
 
   return (
     <ListWrapper className='mb-[10px]' >
