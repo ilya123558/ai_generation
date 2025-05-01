@@ -3,9 +3,12 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { useState } from "react";
 import { PhotoModal } from "../photo-modal/PhotoModal";
 import { IChat } from "@/entities/generations/types/chat";
+import { formatChatText } from "@/utils/libs/formatChatText";
 
 export const ChatItem = (props: IChat) => {
   const { image, text, createdAt } = props
+
+  const formatChatTextData = formatChatText(text)
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -33,8 +36,8 @@ export const ChatItem = (props: IChat) => {
       </button>
 
       <div className="flex gap-[3.47vw] items-center mt-[2.35vw]">
-        <p className="fs-12 font-normal text-gray">{createdAt}</p>
-        {text && <p className="fs-15 font-medium">{text}</p>}
+        <p className="fs-12 font-normal text-gray">{createdAt.split(' ')[1]}</p>
+        {text && <p className="fs-15 font-medium">{formatChatTextData.style}</p>}
       </div>
     </div>
   );
