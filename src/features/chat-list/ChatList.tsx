@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 
 export const ChatList = () => {
   const { displayPrompt } = useAppSelector(state => state.main.meta)
-  const { data, refetch } = useGetGenerationsChatQuery({ limit: 50 })
+  const { data, refetch, isFetching } = useGetGenerationsChatQuery({ limit: 50 })
 
   useEffect(() => {
     if (displayPrompt === null) {
@@ -20,7 +20,7 @@ export const ChatList = () => {
   return (
     <ListWrapper className='mb-[10px]' scrollToBottomDeps={[data, displayPrompt]}>
       <ul className='flex flex-col gap-[5.88vw]'>
-        {data?.generations?.slice().reverse().map((chatItem) => {
+        {!isFetching && data?.generations?.slice().reverse().map((chatItem) => {
           if (chatItem.sender === 'user') {
             return <ChatItemUser key={chatItem.id} {...chatItem} />
           }
