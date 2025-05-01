@@ -9,18 +9,19 @@ import { useEffect } from 'react'
 
 export const ChatList = () => {
   const { displayPrompt } = useAppSelector(state => state.main.meta)
-  const [getGenerationsChat, { data, reset }] = useLazyGetGenerationsChatQuery()
+  const [getGenerationsChat, { data, isLoading }] = useLazyGetGenerationsChatQuery()
 
   useEffect(() => {
-    getGenerationsChat({limit: 50})
-  }, [])
-
-  useEffect(() => {
-    if(displayPrompt === null) {
-      reset()
-      getGenerationsChat({limit: 50})
+    if (!data && !isLoading) {
+      getGenerationsChat({ limit: 50 })
     }
-  }, [displayPrompt])
+  }, [data, isLoading, getGenerationsChat])
+
+  useEffect(() => {
+    if (displayPrompt === null && !isLoading && !data) {
+      getGenerationsChat({ limit: 50 })
+    }
+  }, [displayPrompt, isLoading, data, getGenerationsChat])
 
   return (
     <ListWrapper className='mb-[10px]' scrollToBottomDeps={[data, displayPrompt]}>
