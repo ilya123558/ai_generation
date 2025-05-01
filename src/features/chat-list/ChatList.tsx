@@ -17,7 +17,7 @@ export const ChatList = () => {
   }, [])
 
   return (
-    <ListWrapper className='mb-[10px]' scrollToBottom >
+    <ListWrapper className='mb-[10px]' >
       <ul ref={ref} className='flex flex-col gap-[5.88vw]'>
         {data?.generations?.reverse().map((chatItem, index) => {
           if(chatItem.sender === 'user') return (
