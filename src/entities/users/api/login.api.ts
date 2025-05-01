@@ -64,11 +64,11 @@ export class LoginApiClient {
 		const response = await this.axiosInstance.post<ILoginByInitDataResponse>(
       "/users/loginByInitData",
       formData,
-      // {
-      //   headers: {
-      //     "Content-Type": "application/x-www-form-urlencoded",
-      //   },
-      // }
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
     );
 
     localStorage.setItem("accessToken", response.data.user.token.accessToken);
