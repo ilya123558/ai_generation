@@ -7,13 +7,17 @@ import { useImageUpload } from '@/utils/hooks/useImageUpload'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { base64StringToFile } from '@/utils/libs/base64StringToFile'
-import { useAppSelector } from '@/views/store'
+import { setGenerationPoints, useAppDispatch, useAppSelector } from '@/views/store'
+import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyModal'
 
 export default function Page() {
   const router = useRouter()
-  const { user } = useAppSelector(state => state.main)
+  const dispatch = useAppDispatch()
+  const { user, accountData: {generationPoints} } = useAppSelector(state => state.main)
 
   const [inputValue, setInputValue] = useState('')
+  const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
+  
   const { ImageUploadInput, ImageUploadComponent, error, images } = useImageUpload({
     maxImages: 10,
     size: { maxHeight: 105, maxWidth: 105 },
@@ -26,7 +30,16 @@ export default function Page() {
     setInputValue(value)
   }
 
-    const handleClick = async () => {
+  const handleClick = async () => {
+    if(user && user.role === 'user') {
+      if(generationPoints >= 10) {
+        dispatch(setGenerationPoints(generationPoints - 10))
+      }else{
+        setGenerationBuyModalIsOpen(true)
+        return
+      }
+    }
+
     const formData = new FormData();
   
     for (let index = 0; index < images.length; index++) {
@@ -56,6 +69,7 @@ export default function Page() {
   return (
     <section>
       <Container>
+        <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
         <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
         <div className="mt-[10.7vw] mb-[8vw] text-center">
           <h2 className="fs-30 font-bold text-primary mb-[2.67vw] urbanist">Загрузка профиля</h2>

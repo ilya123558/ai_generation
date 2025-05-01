@@ -4,7 +4,7 @@ import { ShadowWrapper } from '@/shared/wrappers/shadow-wrapper/ShadowWrapper'
 import { CreatorMode } from '../creator-mode/CreatorMode'
 import { useEffect, useState } from 'react'
 import { useCreateGenerationsMutation, useLazyGetGenerationsByIdQuery } from '@/entities/generations/api/generations.api'
-import { setDisplayPrompt, useAppDispatch, useAppSelector } from '@/views/store'
+import { setDisplayPrompt, setGenerationPoints, useAppDispatch, useAppSelector } from '@/views/store'
 import { useGetStylesQuery } from '@/entities/styles/api/styles.api'
 import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyModal'
 
@@ -32,12 +32,14 @@ export const SelectStyleGeneration = () => {
         subcategoryId: activeSubcategoryId,
         profileId: activeProfileId,
       })
+
+      dispatch(setGenerationPoints(generationPoints - 2))
       
       setPrompt('')
       return
     }
 
-    if(creatorMode && (generationPoints > 2)) {
+    if(generationPoints > 1) {
       createGenerations({
         prompt: '',
         resolution,
@@ -45,6 +47,8 @@ export const SelectStyleGeneration = () => {
         subcategoryId: activeSubcategoryId,
         profileId: activeProfileId,
       })
+
+      dispatch(setGenerationPoints(generationPoints - 2))
 
       setPrompt('')
       return
