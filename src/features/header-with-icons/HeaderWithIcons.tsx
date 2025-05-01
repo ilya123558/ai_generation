@@ -38,11 +38,11 @@ export const HeaderWithIcons = () => {
           <ShadowWrapper borderRadius={10} className={`p-[3.6vw_6.81vw] flex items-center justify-center ${creatorMode ? '!bg-primary': ''}`}>
             <p 
               style={{color: generationPoints < 4 ? (generationPoints < 2 ? '#E93F21' : '#E79D25') : ''}} 
-              className={`fs-15 font-semibold ${creatorMode ? 'text-white': ''}`}
+              className={`fs-15 font-semibold text-nowrap ${creatorMode ? 'text-white': ''}`}
             >
               {generationPoints}
             </p>
-            {creatorMode && <p className="ml-[1vw] text-red fs-13 font-medium">-x2</p>}
+            {creatorMode && <p className="ml-[1vw] text-nowrap text-red fs-13 font-medium">-x2</p>}
           </ShadowWrapper>
         </div>
         <h2 className="fs-20 font-semibold text-[#141718] text-center col-span-1">AI.bot</h2>

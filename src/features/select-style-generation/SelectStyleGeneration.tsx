@@ -27,6 +27,8 @@ export const SelectStyleGeneration = () => {
       subcategoryId: activeSubcategoryId,
       profileId: activeProfileId,
     })
+
+    setPrompt('')
   }
 
   const handleStyleSelect = (styleId: number) => {
@@ -74,7 +76,7 @@ export const SelectStyleGeneration = () => {
           <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
             <ShadowWrapper
               borderRadius={9}
-              className="!bg-white fs-16 font-normal flex items-center justify-center h-[14.17vw]"
+              className={`!bg-white fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] border ${activeStyleId === styleItem.id ? 'border-primary': 'border-transparent'}`}
             >
               {styleItem.title}
             </ShadowWrapper>
