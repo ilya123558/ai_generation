@@ -33,27 +33,20 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   }
 
   const handleRepost = async() => {
-    const preparedMessage = {
-      text: photo,
-      parse_mode: 'HTML',
-    };
-    
-    window.Telegram.WebApp.savePreparedInlineMessage(preparedMessage, (msg_id: any) => {
-      alert(`Message prepared with ID: ${msg_id}`);
-    
+    if (navigator.share) {
       try {
-        window.Telegram.WebApp.shareMessage(msg_id, (isSent: any) => {
-          if (isSent) {
-            alert("Message shared successfully!");
-          } else {
-            alert("Failed to share message.");
-          }
+        await navigator.share({
+          title: 'Check this out!',
+          text: 'Check out this image!',
+          url: photo,
         });
-      } catch (e) {
-        // @ts-ignore
-        alert('Error: ' + e?.message);
+        alert('Shared successfully!');
+      } catch (error) {
+        alert(`Error sharing: ${JSON.stringify(error)}`);
       }
-    });
+    } else {
+      alert('Sharing is not supported on this device.');
+    }
   }
 
   return (
