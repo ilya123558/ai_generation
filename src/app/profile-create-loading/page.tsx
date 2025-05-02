@@ -5,7 +5,11 @@ import './ProfileCreateLoading.scss'
 
 export default function Page() {
   const closeWebApp = () => {
-    closeMiniApp()
+    if(closeMiniApp.isAvailable()) {
+      closeMiniApp()
+    }else{
+      alert('closeWebApp not available')
+    }
   }
 
   return (

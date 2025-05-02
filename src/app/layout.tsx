@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import '@/views/style/global.scss'
 import { Menu } from "@/widgets/menu/Menu";
 import { ProviderWrapper } from "@/shared/wrappers/provider-wrapper/ProviderWrapper";
+import Head from "next/head";
 
 // if add next js font 
 // import { Inter } from "next/font/google";
@@ -20,6 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
+      </Head>
       <ProviderWrapper>
         <body>
           {children}
