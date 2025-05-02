@@ -33,18 +33,31 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   }
 
   const handleRepost = async() => {
-    try {
-      window.Telegram.WebApp.shareMessage({
-        media: {
-          type: 'photo',
-          media_url: photo,
-        },
-        caption: 'This photo was created in @new_ai444_bot'
-      });
-    } catch (e) {
-      // @ts-ignore
-      alert('Error: ' + e?.message);
-    }
+    const preparedMessage = {
+      text: 'This photo was created in @new_ai444_bot',
+      parse_mode: 'HTML',
+      media: {
+        type: 'photo',
+        media_url: photo,
+      }
+    };
+    
+    window.Telegram.WebApp.savePreparedInlineMessage(preparedMessage, (msg_id: any) => {
+      alert(`Message prepared with ID: ${msg_id}`);
+    
+      try {
+        window.Telegram.WebApp.shareMessage(msg_id, (isSent: any) => {
+          if (isSent) {
+            alert("Message shared successfully!");
+          } else {
+            alert("Failed to share message.");
+          }
+        });
+      } catch (e) {
+        // @ts-ignore
+        alert('Error: ' + e?.message);
+      }
+    });
   }
 
   return (
