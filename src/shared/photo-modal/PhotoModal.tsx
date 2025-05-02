@@ -4,7 +4,7 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
-import { downloadFile } from "@telegram-apps/sdk";
+import { closeMiniApp, downloadFile } from "@telegram-apps/sdk";
 
 interface IProps {
   isOpen: boolean
@@ -17,7 +17,8 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
 
   const handleDownload = async() => {
-    window?.Telegram?.WebApp?.downloadFile?.(photo, 'image.jpg')
+    closeMiniApp.isAvailable() && closeMiniApp()
+    // window?.Telegram?.WebApp?.downloadFile?.(photo, 'image.jpg')
     // const link = document.createElement('a');
     // link.href = photo;
     // link.download = 'image.jpg';
