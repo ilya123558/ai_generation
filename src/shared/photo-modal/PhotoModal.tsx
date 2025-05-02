@@ -4,7 +4,6 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
-import { closeMiniApp, downloadFile } from "@telegram-apps/sdk";
 
 interface IProps {
   isOpen: boolean
@@ -24,7 +23,8 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
       })
     }
     catch (e) {
-      alert(JSON.stringify(e))
+      // @ts-ignore
+      alert(JSON.stringify(e?.message))
     }
     // const link = document.createElement('a');
     // link.href = photo;
