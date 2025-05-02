@@ -5,7 +5,7 @@ import { ReturnButton } from '@/shared/buttons/return-button/ReturnButton'
 import { Container } from '@/shared/container/Container'
 import { useImageUpload } from '@/utils/hooks/useImageUpload'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { base64StringToFile } from '@/utils/libs/base64StringToFile'
 import { setGenerationPoints, useAppDispatch, useAppSelector } from '@/views/store'
 import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyModal'
@@ -65,6 +65,12 @@ export default function Page() {
       })
       .catch(data => alert(JSON.stringify(data)));
   };
+
+  useEffect(() => {
+    if(images.length !== 0) {
+      alert(JSON.stringify(images))
+    }
+  }, [images])
 
   return (
     <section>
