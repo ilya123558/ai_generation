@@ -34,12 +34,8 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 
   const handleRepost = async() => {
     const preparedMessage = {
-      text: 'This photo was created in @new_ai444_bot',
+      text: photo,
       parse_mode: 'HTML',
-      media: {
-        type: 'photo',
-        media_url: photo,
-      }
     };
     
     window.Telegram.WebApp.savePreparedInlineMessage(preparedMessage, (msg_id: any) => {
