@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 interface IProps {
   images: string[]
@@ -7,12 +8,21 @@ interface IProps {
     maxWidth: number
     maxHeight: number
   }
-  maxImages: number
+  maxImages?: number
   handleDelete: (index: number) => void
   handleImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const ImageUploadComponent = ({ images, size, maxImages = 0, handleDelete, handleImageChange }: IProps) => {
+export const ImageUploadComponent = ({ images, size, handleDelete, handleImageChange }: IProps) => {
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const [acceptMultiple, setAcceptMultiple] = useState(false);
+
+  useEffect(() => {
+    if (!isAndroid) {
+      setAcceptMultiple(true);
+    }
+  }, []);
+
   return (
     <>
       {
@@ -58,7 +68,7 @@ export const ImageUploadComponent = ({ images, size, maxImages = 0, handleDelete
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                multiple
+                multiple={acceptMultiple}
                 className="opacity-0 w-full h-full absolute z-10"
               />
             </div>
