@@ -16,7 +16,10 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
   const [error, setError] = useState<string | null>(null)
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    alert('handleImageChange is work')
+
     const files = event.target.files
+
     if (files) {
       const newImages: string[] = []
 
