@@ -32,15 +32,11 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
         reader.onloadend = () => {
           const img = new Image()
           img.onload = () => {
-            if (isSquare && img.width !== img.height) {
-              setError('Изображение должно быть квадратным')
-            } else {
-              setError(null)
-              newImages.push(reader.result as string)
+            setError(null)
+            newImages.push(reader.result as string)
 
-              if (newImages.length === files.length) {
-                setImages((prevImages) => [...prevImages, ...newImages])
-              }
+            if (newImages.length === files.length) {
+              setImages((prevImages) => [...prevImages, ...newImages])
             }
           }
           img.src = reader.result as string

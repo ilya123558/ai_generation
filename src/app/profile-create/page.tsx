@@ -66,12 +66,6 @@ export default function Page() {
       .catch(data => alert(JSON.stringify(data)));
   };
 
-  useEffect(() => {
-    if(images.length !== 0) {
-      alert(JSON.stringify(images))
-    }
-  }, [images])
-
   return (
     <section>
       <Container>
