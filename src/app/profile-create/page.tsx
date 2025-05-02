@@ -77,9 +77,9 @@ export default function Page() {
             Вы можете загрузить до 10-ти <br /> фотографий в профиль
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-[2.67vw] h-[60vw] overflow-hidden overflow-y-scroll">
+        <form onSubmit={e => e.preventDefault()} className="grid grid-cols-3 gap-[2.67vw] h-[60vw] overflow-hidden overflow-y-scroll">
           <ImageUploadComponent />
-        </div>
+        </form>
         <input
           value={inputValue}
           onChange={handleChange}

@@ -1,6 +1,4 @@
 'use client'
-
-import { requestPhoneAccess } from '@telegram-apps/sdk'
 import Image from 'next/image'
 
 interface IProps {
@@ -15,19 +13,6 @@ interface IProps {
 }
 
 export const ImageUploadComponent = ({ images, size, maxImages = 0, handleDelete, handleImageChange }: IProps) => {
-  const requestFileAccess = async () => {
-    try {
-      if(requestPhoneAccess.isAvailable()) {
-        await requestPhoneAccess();
-      }else{
-        alert(`requestPhoneAccess не существует`);
-      }
-    } catch (error) {
-      alert(`Ошибка при запросе разрешения: ${JSON.stringify(error)}`);
-    }
-  }
-  
-
   return (
     <>
       {
@@ -75,7 +60,6 @@ export const ImageUploadComponent = ({ images, size, maxImages = 0, handleDelete
                 onChange={handleImageChange}
                 multiple
                 className="opacity-0 w-full h-full absolute z-10"
-                onClick={requestFileAccess}
               />
             </div>
           ))
