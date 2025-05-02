@@ -1,6 +1,5 @@
 'use client'
 import { ImageUploadComponent } from '@/shared/image-upload-component/ImageUploadComponent'
-import { requestWriteAccess } from '@telegram-apps/sdk'
 import React, { useEffect, useState } from 'react'
 
 interface IProps {
@@ -16,13 +15,6 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
   const [images, setImages] = useState<string[]>([])
   const [error, setError] = useState<string | null>(null)
 
-  const requestFileAccess = async () => {
-    try {
-      await requestWriteAccess();
-    } catch (error) {
-      alert(`Ошибка при запросе разрешения: ${JSON.stringify(error)}`);
-    }
-  }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -65,7 +57,6 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
         multiple
         onChange={handleImageChange}
         className="opacity-0 w-full h-full absolute z-10"
-        onClick={requestFileAccess}
       />
     </div>
   )
