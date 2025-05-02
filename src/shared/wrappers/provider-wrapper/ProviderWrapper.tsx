@@ -32,6 +32,24 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
     }
   }, []);
 
+  useEffect(() => {
+    // @ts-ignore
+    if (typeof window !== "undefined" && !window.Telegram) {
+      const script = document.createElement('script');
+      script.src = "https://telegram.org/js/telegram-web-app.js?57";
+      script.async = true;
+      document.head.appendChild(script);
+
+      script.onload = () => {
+        alert('Telegram Web App script loaded');
+      };
+
+      script.onerror = () => {
+        alert('Error loading Telegram Web App script');
+      };
+    }
+  }, []);
+
   return (
     <>
       <Provider store={store}>{children}</Provider>

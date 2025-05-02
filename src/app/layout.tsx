@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-        <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
+        <script src="https://telegram.org/js/telegram-web-app.js?57" async></script>
       </Head>
       <ProviderWrapper>
         <body>
