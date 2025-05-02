@@ -17,12 +17,11 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
 
   const handleDownload = async() => {
-    // window?.Telegram?.WebApp?.downloadFile?.({
-    //   file_url: photo,
-    //   file_name: 'image.jpg'
-    // })
     try{
-      window.Telegram.WebApp.close()
+      window.Telegram.WebApp.downloadFile({
+        file_url: photo,
+        file_name: 'image.jpg'
+      })
     }
     catch (e) {
       alert(JSON.stringify(e))

@@ -5,11 +5,7 @@ import './ProfileCreateLoading.scss'
 
 export default function Page() {
   const closeWebApp = () => {
-    if(closeMiniApp.isAvailable()) {
-      closeMiniApp()
-    }else{
-      alert('closeWebApp not available')
-    }
+    window.Telegram.WebApp.close()
   }
 
   return (
