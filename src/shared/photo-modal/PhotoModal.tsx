@@ -18,7 +18,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const handleDownload = async() => {
     try{
       window.Telegram.WebApp.downloadFile({
-        file_url: photo,
+        url: photo,
         file_name: 'image.jpg'
       })
     }
