@@ -17,8 +17,10 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
 
   const handleDownload = async() => {
-    closeMiniApp.isAvailable() && closeMiniApp()
-    // window?.Telegram?.WebApp?.downloadFile?.(photo, 'image.jpg')
+    window?.Telegram?.WebApp?.downloadFile?.({
+      file_url: photo,
+      file_name: 'image.jpg'
+    });
     // const link = document.createElement('a');
     // link.href = photo;
     // link.download = 'image.jpg';
