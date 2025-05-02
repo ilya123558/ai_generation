@@ -33,19 +33,17 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   }
 
   const handleRepost = async() => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Check this out!',
-          text: 'Check out this image!',
-          url: photo,
-        });
-        console.log('Shared successfully!');
-      } catch (error) {
-        console.error('Error sharing:', error);
-      }
-    } else {
-      alert('Sharing is not supported on this device.');
+    try {
+      window.Telegram.WebApp.shareMessage({
+        media: {
+          type: 'photo',
+          media_url: photo,
+        },
+        caption: 'This photo was created in @new_ai444_bot'
+      });
+    } catch (e) {
+      // @ts-ignore
+      alert('Error: ' + e?.message);
     }
   }
 
