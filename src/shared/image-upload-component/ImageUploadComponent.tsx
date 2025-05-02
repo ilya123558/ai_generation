@@ -57,7 +57,7 @@ export const ImageUploadComponent = ({ images, size, maxImages = 0, handleDelete
               <input
                 type="file"
                 accept="image/*"
-                onChange={e => alert('its work')}
+                onChange={handleImageChange}
                 multiple
                 className="opacity-0 w-full h-full absolute z-10"
               />
