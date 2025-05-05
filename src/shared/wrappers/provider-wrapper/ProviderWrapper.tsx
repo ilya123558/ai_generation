@@ -33,6 +33,7 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
 
     if (window.Telegram && window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
+      alert(JSON.stringify(tg))
     
       tg.requestFullscreen();
     }
