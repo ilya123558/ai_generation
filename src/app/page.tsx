@@ -41,7 +41,7 @@ export default function Home() {
   }, [dispatch, router]);
 
   return (
-    <section className="w-screen h-screen bg-primary flex items-center justify-center">
+    <section className="fixed w-screen h-screen top-0 left-0 bg-primary flex items-center justify-center">
       <h1 className="fs-30 font-medium text-background">AI.bot</h1>
     </section>
   )
