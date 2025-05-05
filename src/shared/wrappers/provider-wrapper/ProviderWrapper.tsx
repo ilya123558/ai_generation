@@ -2,7 +2,7 @@
 import { store } from '@/views/store'
 import { PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'react-redux'
-import { viewport } from '@telegram-apps/sdk'
+import { requestFullscreen } from '@telegram-apps/sdk'
 
 export const ProviderWrapper = ({ children }: PropsWithChildren) => {
 
@@ -28,16 +28,13 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     const tg = window.Telegram?.WebApp
-    if (viewport?.expand?.isAvailable()) {
-      viewport.expand();
+    if (requestFullscreen.isAvailable()) {
+      requestFullscreen();
     }
 
-    if(tg) {
-      if(tg.viewport?.requestFullscreen?.isAvailable?.()) {
-        tg.viewport.requestFullscreen();
-      }
-      tg.expand?.();
-    } 
+    if(tg?.viewport?.requestFullscreen?.isAvailable?.()) {
+      tg.viewport.requestFullscreen();
+    }
   }, []);
 
   useEffect(() => {
