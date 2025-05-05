@@ -9,26 +9,18 @@ import { useEffect, useState } from 'react'
 import { base64StringToFile } from '@/utils/libs/base64StringToFile'
 import { setGenerationPoints, useAppDispatch, useAppSelector } from '@/views/store'
 import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyModal'
+import { ProfileCreateInput } from '@/shared/profile-create-input/ProfileCreateInput'
+import { ImageUploadComponentForm } from '@/features/image-upload-component-form/ImageUploadComponentForm'
 
 export default function Page() {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { user, accountData: {generationPoints} } = useAppSelector(state => state.main)
+  const { createProfile: {error, images, title} } = useAppSelector(state => state.main.meta)
 
-  const [inputValue, setInputValue] = useState('')
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
-  
-  const { ImageUploadInput, ImageUploadComponent, error, images } = useImageUpload({
-    maxImages: 10,
-    size: { maxHeight: 105, maxWidth: 105 },
-  })
 
   const [uploadProfile] = useUploadProfileMutation()
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setInputValue(value)
-  }
 
   const handleClick = async () => {
     if(user && user.role === 'user') {
@@ -48,7 +40,7 @@ export default function Page() {
       formData.append('images', file);
     }
 
-    formData.append('title', inputValue);
+    formData.append('title', title);
   
     uploadProfile(formData)
       .then((data) => {
@@ -71,26 +63,19 @@ export default function Page() {
       <Container>
         <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
         <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
-        <div className="mt-[10.7vw] mb-[8vw] text-center">
-          <h2 className="fs-30 font-bold text-primary mb-[2.67vw] urbanist">Загрузка профиля</h2>
+        <div className="mt-[3vw] mb-[4vw] text-center">
+          <h2 className="fs-30 font-bold text-primary mb-[1vw] urbanist">Загрузка профиля</h2>
           <p className="fs-15 font-medium text-[#ACADB9]">
             Вы можете загрузить до 10-ти <br /> фотографий в профиль
           </p>
         </div>
-        <form onSubmit={e => e.preventDefault()} className="grid grid-cols-3 gap-[2.67vw] h-[60vw] overflow-hidden overflow-y-scroll">
-          <ImageUploadComponent />
-        </form>
-        <input
-          value={inputValue}
-          onChange={handleChange}
-          placeholder="Введите название профиля"
-          className="montserrat h-[44px] w-full bg-[#F2F2F2] rounded-[9px] mt-[4vw] mb-[18vw] placeholder:text-opacity-50 placeholder:text-primary fs-12 font-normal p-[0px_0px_0px_6.1vw]"
-        />
-        <div className="">
+        <ImageUploadComponentForm />
+        <ProfileCreateInput />
+        <div className="mt-[10vw]">
           <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
             {error ? error : 'Загрузите минимум 10 фотографий'}
           </p>
-          <ImageUploadInput />
+          {/* <ImageUploadInput /> */}
           <div className={`transition-all ${images.length < 10 ? 'pointer-events-none': ''}`}>
             <EllipseButton onClick={handleClick} className={images.length < 10 ? '!bg-[#E3E3E3]': ''}>
               <p className={`transition-all ${images.length < 10 ? 'text-[#B1B1B1]': ''}`}>Загрузить</p>

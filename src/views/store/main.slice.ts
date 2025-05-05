@@ -6,6 +6,11 @@ interface IInitialState {
   meta: {
     displayPrompt: string | null
     searchValue: string
+    createProfile: {
+      images: string[]
+      error: string | null
+      title: string
+    }
   },
   accountData: {
     generationPoints: number
@@ -22,7 +27,12 @@ interface IInitialState {
 const initialState: IInitialState = {
   meta: {
     displayPrompt: null,
-    searchValue: ''
+    searchValue: '',
+    createProfile: {
+      images: [],
+      error: null,
+      title: ''
+    }
   },
   accountData: {
     generationPoints: 0,
@@ -64,6 +74,15 @@ const mainSlice = createSlice({
     setSearchValue: (state, action: PayloadAction<IInitialState['meta']['searchValue']>) => {
       state.meta.searchValue = action.payload
     },
+    setCreateProfileImages: (state, action: PayloadAction<IInitialState['meta']['createProfile']['images']>) => {
+      state.meta.createProfile.images = action.payload
+    },
+    setCreateProfileError: (state, action: PayloadAction<IInitialState['meta']['createProfile']['error']>) => {
+      state.meta.createProfile.error = action.payload
+    },
+    setCreateProfileTitle: (state, action: PayloadAction<IInitialState['meta']['createProfile']['title']>) => {
+      state.meta.createProfile.title = action.payload
+    },
   },
 })
 
@@ -75,6 +94,9 @@ export const {
   setActiveProfileId,
   setActiveSubcategoryId,
   setDisplayPrompt,
-  setSearchValue
+  setSearchValue,
+  setCreateProfileImages,
+  setCreateProfileError,
+  setCreateProfileTitle
 } = mainSlice.actions
 export const mainReducer = mainSlice.reducer

@@ -14,14 +14,14 @@ interface IProps {
 }
 
 export const ImageUploadComponent = ({ images, size, handleDelete, handleImageChange }: IProps) => {
-  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isAndroid = typeof navigator !== 'undefined' && navigator.userAgent ? /Android/i.test(navigator.userAgent) : false;
   const [acceptMultiple, setAcceptMultiple] = useState(false);
 
   useEffect(() => {
     if (!isAndroid) {
       setAcceptMultiple(true);
     }
-  }, []);
+  }, [isAndroid]);
 
   return (
     <>

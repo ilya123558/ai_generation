@@ -27,9 +27,17 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
   }, [])
 
   useEffect(() => {
+    const tg = window.Telegram?.WebApp
     if (viewport?.expand?.isAvailable()) {
       viewport.expand();
     }
+
+    if(tg) {
+      if(tg.viewport?.requestFullscreen?.isAvailable?.()) {
+        tg.viewport.requestFullscreen();
+      }
+      tg.expand?.();
+    } 
   }, []);
 
   useEffect(() => {

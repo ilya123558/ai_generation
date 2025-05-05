@@ -1,5 +1,6 @@
 'use client'
 import { ImageUploadComponent } from '@/shared/image-upload-component/ImageUploadComponent'
+import { setCreateProfileImages, useAppDispatch } from '@/views/store'
 import React, { useEffect, useState } from 'react'
 
 interface IProps {
@@ -12,9 +13,9 @@ interface IProps {
 }
 
 export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
+  const dispatch = useAppDispatch()
   const [images, setImages] = useState<string[]>([])
   const [error, setError] = useState<string | null>(null)
-
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -38,6 +39,7 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
             newImages.push(reader.result as string)
 
             if (newImages.length === files.length) {
+              dispatch(setCreateProfileImages([...images, ...newImages]))
               setImages((prevImages) => [...prevImages, ...newImages])
             }
           }
@@ -63,11 +65,13 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
 
   const handleDelete = (value: number) => {
     const result = images.filter((_, index) => index !== value)
+    dispatch(setCreateProfileImages(result))
     setImages(result)
   }
 
   useEffect(() => {
     if(images.length > 10) {
+      dispatch(setCreateProfileImages(images.slice(0, 10)))
       setImages(images.slice(0, 10))
     }
   }, [images])
