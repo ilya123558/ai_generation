@@ -46,13 +46,16 @@ export default function Home() {
       requestFullscreen();
     }
 
-    if (window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      alert(JSON.stringify(tg))
-    
-      tg.requestFullscreen();
-    }
-  }, []);
+    setTimeout(() => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        alert(JSON.stringify(tg))
+      
+        tg.requestFullscreen();
+      }
+    }, 5000)
+
+  }, [requestFullscreen]);
 
   return (
     <section className="w-screen h-screen bg-primary flex items-center justify-center">
