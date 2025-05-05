@@ -34,6 +34,18 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
     }
   }, []);
 
+  useEffect(() => {
+    const checkTelegramWebApp = setInterval(() => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        tg.requestFullscreen();
+        clearInterval(checkTelegramWebApp);
+      }
+    }, 100);
+  
+    return () => clearInterval(checkTelegramWebApp);
+  }, []);
+
   return (
     <>
       <Provider store={store}>{children}</Provider>
