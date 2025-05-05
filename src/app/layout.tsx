@@ -27,8 +27,10 @@ export default function RootLayout({
       </Head>
       <ProviderWrapper>
         <body>
-          {children}
-          <Menu />
+          <div className="mt-[30px]">
+            {children}
+            <Menu />
+          </div>
         </body>
       </ProviderWrapper>
     </html>

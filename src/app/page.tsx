@@ -1,7 +1,6 @@
 'use client'
 import { LoginApiClient } from "@/entities/users/api/login.api"
-import { useGetProfilesQuery } from "@/entities/users/api/users.api"
-import { setActiveProfileId, setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
+import { setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
 import { requestFullscreen, retrieveRawInitData } from "@telegram-apps/sdk"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
@@ -42,20 +41,13 @@ export default function Home() {
   }, [dispatch, router]);
 
   useEffect(() => {
-    if (requestFullscreen.isAvailable()) {
-      requestFullscreen();
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      alert(JSON.stringify(tg))
+    
+      tg.requestFullscreen();
     }
-
-    setTimeout(() => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        const tg = window.Telegram.WebApp;
-        alert(JSON.stringify(tg))
-      
-        tg.requestFullscreen();
-      }
-    }, 5000)
-
-  }, [requestFullscreen]);
+  }, [window.Telegram.WebApp]);
 
   return (
     <section className="w-screen h-screen bg-primary flex items-center justify-center">
