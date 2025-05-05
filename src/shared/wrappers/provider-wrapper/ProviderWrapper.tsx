@@ -27,14 +27,15 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
   }, [])
 
   useEffect(() => {
-    // const tg = window.Telegram?.WebApp
     if (requestFullscreen.isAvailable()) {
       requestFullscreen();
     }
 
-    // if(tg?.viewport?.requestFullscreen?.isAvailable?.()) {
-    //   tg.viewport.requestFullscreen();
-    // }
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+    
+      tg.requestFullscreen();
+    }
   }, [requestFullscreen]);
 
   useEffect(() => {
