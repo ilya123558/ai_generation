@@ -27,7 +27,7 @@ export default function RootLayout({
       </Head>
       <ProviderWrapper>
         <body>
-          <div className="mt-[70px]">
+          <div className="pt-[70px]">
             {children}
             <Menu />
           </div>
