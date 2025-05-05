@@ -27,15 +27,15 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
   }, [])
 
   useEffect(() => {
-    const tg = window.Telegram?.WebApp
+    // const tg = window.Telegram?.WebApp
     if (requestFullscreen.isAvailable()) {
       requestFullscreen();
     }
 
-    if(tg?.viewport?.requestFullscreen?.isAvailable?.()) {
-      tg.viewport.requestFullscreen();
-    }
-  }, []);
+    // if(tg?.viewport?.requestFullscreen?.isAvailable?.()) {
+    //   tg.viewport.requestFullscreen();
+    // }
+  }, [requestFullscreen]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && !window.Telegram) {
