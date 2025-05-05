@@ -2,7 +2,6 @@
 import { store } from '@/views/store'
 import { PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'react-redux'
-import { requestFullscreen } from '@telegram-apps/sdk'
 
 export const ProviderWrapper = ({ children }: PropsWithChildren) => {
 
@@ -25,19 +24,6 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
       document.removeEventListener("gesturestart", preventGesture)
     }
   }, [])
-
-  useEffect(() => {
-    if (requestFullscreen.isAvailable()) {
-      requestFullscreen();
-    }
-
-    if (window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      alert(JSON.stringify(tg))
-    
-      tg.requestFullscreen();
-    }
-  }, [requestFullscreen]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && !window.Telegram) {

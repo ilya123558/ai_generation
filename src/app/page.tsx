@@ -2,7 +2,7 @@
 import { LoginApiClient } from "@/entities/users/api/login.api"
 import { useGetProfilesQuery } from "@/entities/users/api/users.api"
 import { setActiveProfileId, setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
-import { retrieveRawInitData } from "@telegram-apps/sdk"
+import { requestFullscreen, retrieveRawInitData } from "@telegram-apps/sdk"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
@@ -41,6 +41,18 @@ export default function Home() {
     login();
   }, [dispatch, router]);
 
+  useEffect(() => {
+    if (requestFullscreen.isAvailable()) {
+      requestFullscreen();
+    }
+
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      alert(JSON.stringify(tg))
+    
+      tg.requestFullscreen();
+    }
+  }, []);
 
   return (
     <section className="w-screen h-screen bg-primary flex items-center justify-center">
