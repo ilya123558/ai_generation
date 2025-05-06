@@ -1,5 +1,6 @@
 'use client'
 import { store } from '@/views/store'
+import { viewportSafeAreaInsets } from '@telegram-apps/sdk'
 import { PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'react-redux'
 
@@ -56,8 +57,8 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
           tg.requestFullscreen();
         }
 
-        const topSafeArea = tg.safeArea.top;
-        document.body.style.paddingTop = `${topSafeArea + 10}px`;
+        const topSafeArea = viewportSafeAreaInsets();
+        document.body.style.paddingTop = `${topSafeArea.top + 10}px`;
 
         clearInterval(checkTelegramWebApp);
       }
