@@ -5,7 +5,6 @@ import { PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'react-redux'
 
 export const ProviderWrapper = ({ children }: PropsWithChildren) => {
-
   useEffect(() => {
     const preventPinchZoom = (e: TouchEvent) => {
       if (e.touches.length > 1) {
