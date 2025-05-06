@@ -23,6 +23,7 @@ export const OnboardingSlider = () => {
   const handleNextSlide = () => {
     if (activeIndex === 2) {
       router.push('/gender-selection')
+      return
     }
 
     if (swiperRef.current) {
