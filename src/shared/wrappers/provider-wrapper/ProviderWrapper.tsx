@@ -51,7 +51,10 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
     const checkTelegramWebApp = setInterval(() => {
       if (window.Telegram && window.Telegram.WebApp) {
         const tg = window.Telegram.WebApp;
-        const isDesktop = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp.isDesktop : false;
+
+        const isAndroid = typeof navigator !== 'undefined' && navigator.userAgent ? /Android/i.test(navigator.userAgent) : false;
+        const isIos = typeof navigator !== 'undefined' && navigator.userAgent ? /iPhone|iPad|iPod/i.test(navigator.userAgent) : false;
+        const isDesktop = isAndroid || isIos ? false : true
 
         if(!isDesktop) {
           tg.requestFullscreen();
