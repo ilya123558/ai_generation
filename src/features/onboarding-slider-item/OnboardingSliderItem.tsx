@@ -1,15 +1,18 @@
 import Image from 'next/image'
 import './OnboardingSliderItem.scss' 
 import { ImageWithSkeleton } from '@/shared/image-with-skeleton/ImageWithSkeleton'
+import { useGetDevice } from '@/utils/hooks/useGetDevice'
 
 interface IProps {
   activeIndex: number
 }
 
 export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
+  const { isDesktop } = useGetDevice()
+
   if(activeIndex === 0) return (
     <div className={`w-full h-full`}>
-      <div className="p-[5vw_0px_0px_0px] flex flex-col items-center w-full">
+      <div style={{padding: isDesktop ? 'p-[0vw_0px_0px_0px]': 'p-[10.68vw_0px_0px_0px]'}} className=" flex flex-col items-center w-full">
         <Image
           src={'/images/onboarding/image-1.png'}
           alt="onboarding-image"
@@ -115,7 +118,7 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
             className="w-full object-cover object-center opacity-[0.1]"
           />
         </div>
-        <div className="p-[0px_13px] text-white mb-[20vw] mt-[80px]">
+        <div style={{marginTop: `${isDesktop ? 30 : 80}px`, marginBottom: `${isDesktop ? 8 : 20}vw`}} className="p-[0px_13px] text-white mb-[]">
           <h2 className="fs-43 font-bold leading-[10vw]">Творите легко</h2>
           <p className='mt-[4.54vw] fs-14'>Просто загрузите фото и дайте нейросети сделать всё остальное. Получайте оригинальные изображения, полные жизни и новизны!</p>
         </div>
