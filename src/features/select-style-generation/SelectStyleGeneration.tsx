@@ -102,14 +102,14 @@ export const SelectStyleGeneration = () => {
     <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[15.78vw] items-end w-full bg-transparent relative z-[2]`}>
       <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
       <CreatorMode />
-      <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-128px overflow-y-scroll pb-[5vw] pt-[2vw] relative">
+      <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-128px overflow-y-scroll pb-[5vw] pt-[0vw] relative">
         <div style={{
-            boxShadow: '0px -2px 10px 8px rgba(247, 248, 250, 1)',
+            boxShadow: '0px -2px 10px 14px rgba(247, 248, 250, 1)',
             backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
           }} className="absolute w-full h-[1px]"
         ></div>
         <div style={{
-            boxShadow: '0px 2px 10px 8px rgba(247, 248, 250, 1)',
+            boxShadow: '0px 2px 10px 14px rgba(247, 248, 250, 1)',
             backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
           }} className="absolute w-full h-[1px] bottom-0"
         ></div>
