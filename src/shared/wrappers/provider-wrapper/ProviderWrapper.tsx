@@ -61,7 +61,7 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
         }
 
         const topSafeArea = 60;
-        document.body.style.paddingTop = `${topSafeArea + 10}px`;
+        document.body.style.marginTop = `${topSafeArea + 10}px`;
 
         clearInterval(checkTelegramWebApp);
       }
