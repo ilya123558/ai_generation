@@ -61,7 +61,7 @@ export const OnboardingSlider = () => {
   return (
     <div className={`w-screen h-screen`}>
       <div className={`transition-all h-full relative overflow-hidden`}>
-        <div className="absolute z-[50] p-[0px_13px] top-[67px] w-full h-[5px] flex gap-[4px] items-center justify-center ">
+        <div className="absolute z-[50] p-[0px_13px] top-[80px] w-full h-[5px] flex gap-[4px] items-center justify-center ">
           <div className="w-full bg-[#ffffff33] h-full rounded-[10px]">
             {activeIndex === 0 && <div style={{width: `${storyWidth}%`}} className="h-full rounded-[10px] bg-[#ffffff33] transition-all"></div>}
           </div>
