@@ -62,16 +62,18 @@ export default function Page() {
     <section>
       <Container>
         <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
-        <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
-        <div className="mt-[3vw] mb-[4vw] text-center">
+        <div className="mt-[2vw]">
+          <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
+        </div>
+        <div className="mt-[1vw] mb-[3vw] text-center">
           <h2 className="fs-30 font-bold text-primary mb-[1vw] urbanist">Загрузка профиля</h2>
           <p className="fs-15 font-medium text-[#ACADB9]">
-            Вы можете загрузить до 10-ти <br /> фотографий в профиль
+            Вы можете загрузить до 30-ти <br /> фотографий в профиль
           </p>
         </div>
         <ImageUploadComponentForm />
         <ProfileCreateInput />
-        <div className="mt-[10vw]">
+        <div className="mt-[4vw]">
           <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
             {error ? error : 'Загрузите минимум 10 фотографий'}
           </p>
