@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import './OnboardingSliderItem.scss' 
 import { ImageWithSkeleton } from '@/shared/image-with-skeleton/ImageWithSkeleton'
 
@@ -9,7 +10,7 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
   if(activeIndex === 0) return (
     <div className={`w-full h-full`}>
       <div className="p-[10.68vw_0px_0px_0px] flex flex-col items-center w-full">
-        <ImageWithSkeleton
+        <Image
           src={'/images/onboarding/image-1.png'}
           alt="onboarding-image"
           width={375}
