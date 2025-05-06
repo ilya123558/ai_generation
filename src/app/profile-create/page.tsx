@@ -62,7 +62,7 @@ export default function Page() {
     <section>
       <Container>
         <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
-        <div className="mt-[2vw]">
+        <div className="pt-[2vw]">
           <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
         </div>
         <div className="mt-[1vw] mb-[3vw] text-center">
