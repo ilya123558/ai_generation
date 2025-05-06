@@ -24,7 +24,7 @@ export const GenerationInput = ({prompt, setPrompt, handleGenerateImage, isFocus
   }
 
   return (
-    <form onSubmit={handleSubmit} style={creatorMode ? {}: {pointerEvents: 'none', opacity: 0}} className='fixed p-[0px_8.53vw_7.22vw] w-full bottom-0 left-0 right-0 transition-all'>
+    <form onSubmit={handleSubmit} style={creatorMode ? {}: {pointerEvents: 'none', opacity: 0}} className='fixed p-[0px_8.53vw_4.5vw] w-full bottom-0 left-0 right-0 transition-all'>
       <input 
         value={prompt} 
         onChange={handleChange} 
