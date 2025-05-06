@@ -57,9 +57,8 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
           tg.requestFullscreen();
         }
 
-        alert(JSON.stringify(viewportSafeAreaInsets()))
-        const topSafeArea = viewportSafeAreaInsets();
-        document.body.style.paddingTop = `${topSafeArea.top + 10}px`;
+        const topSafeArea = 60;
+        document.body.style.paddingTop = `${topSafeArea + 10}px`;
 
         clearInterval(checkTelegramWebApp);
       }
