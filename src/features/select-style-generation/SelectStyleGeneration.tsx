@@ -99,10 +99,10 @@ export const SelectStyleGeneration = () => {
   }, [getGenerationsData, createGenerationsData]);
   
   return (
-    <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[15.78vw] items-end w-full bg-transparent relative z-[2]`}>
+    <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[9vw] items-end w-full bg-transparent relative z-[2]`}>
       <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
       <CreatorMode />
-      <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-140px overflow-y-scroll pb-[6vw] pt-[4vw] relative">
+      <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-140px overflow-y-scroll pb-[3vw] pt-[3vw] relative">
         <div style={{
             boxShadow: '0px -2px 10px 14px rgba(247, 248, 250, 1)',
             backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
