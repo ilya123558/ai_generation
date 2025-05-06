@@ -57,6 +57,7 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
           tg.requestFullscreen();
         }
 
+        alert(JSON.stringify(viewportSafeAreaInsets()))
         const topSafeArea = viewportSafeAreaInsets();
         document.body.style.paddingTop = `${topSafeArea.top + 10}px`;
 
