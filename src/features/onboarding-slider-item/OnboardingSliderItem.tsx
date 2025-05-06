@@ -115,7 +115,7 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
             className="w-full object-cover object-center opacity-[0.1]"
           />
         </div>
-        <div className="p-[0px_13px] text-white mb-[20vw]">
+        <div className="p-[0px_13px] text-white mb-[20vw] mt-[80px]">
           <h2 className="fs-43 font-bold leading-[10vw]">Творите легко</h2>
           <p className='mt-[4.54vw] fs-14'>Просто загрузите фото и дайте нейросети сделать всё остальное. Получайте оригинальные изображения, полные жизни и новизны!</p>
         </div>
