@@ -26,6 +26,18 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
   }, [])
 
   useEffect(() => {
+    const metaViewport = document.createElement('meta');
+    metaViewport.name = 'viewport';
+    metaViewport.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no';
+
+    document.head.appendChild(metaViewport);
+
+    return () => {
+      document.head.removeChild(metaViewport);
+    };
+  }, []);
+
+  useEffect(() => {
     if (typeof window !== "undefined" && !window.Telegram) {
       const script = document.createElement('script');
       script.src = "https://telegram.org/js/telegram-web-app.js?57";
@@ -38,7 +50,11 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
     const checkTelegramWebApp = setInterval(() => {
       if (window.Telegram && window.Telegram.WebApp) {
         const tg = window.Telegram.WebApp;
-        tg.requestFullscreen();
+        const isDesktop = typeof navigator !== 'undefined' && navigator.userAgent ? !/Mobi/i.test(navigator.userAgent) : false;
+
+        if(!isDesktop) {
+          tg.requestFullscreen();
+        }
 
         const topSafeArea = tg.safeArea.top;
         document.body.style.marginTop = `${topSafeArea + 10}px`;
