@@ -4,7 +4,7 @@ import { memo } from "react";
 
 export const ImageUploadComponentForm = memo(() => {
   const { ImageUploadComponent } = useImageUpload({
-    maxImages: 10,
+    maxImages: 30,
     size: { maxHeight: 105, maxWidth: 105 },
   })
 

@@ -8,12 +8,12 @@ interface IProps {
     maxWidth: number
     maxHeight: number
   }
-  maxImages?: number
+  maxImages: number
   handleDelete: (index: number) => void
   handleImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const ImageUploadComponent = ({ images, size, handleDelete, handleImageChange }: IProps) => {
+export const ImageUploadComponent = ({ images, size, maxImages, handleDelete, handleImageChange }: IProps) => {
   const isAndroid = typeof navigator !== 'undefined' && navigator.userAgent ? /Android/i.test(navigator.userAgent) : false;
   const [acceptMultiple, setAcceptMultiple] = useState(false);
 
@@ -55,7 +55,7 @@ export const ImageUploadComponent = ({ images, size, handleDelete, handleImageCh
           ))
         }
         {
-          Array(images.length >= 10 ? 0: (images.length >= 5 ? 1 : 5 - images.length)).fill(null).map((_, index) => (
+          Array(images.length >= maxImages ? 0: (images.length >= 5 ? 1 : 5 - images.length)).fill(null).map((_, index) => (
             <div
               key={index}
               style={{

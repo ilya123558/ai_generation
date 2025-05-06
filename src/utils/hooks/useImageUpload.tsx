@@ -70,9 +70,9 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
   }
 
   useEffect(() => {
-    if(images.length > 10) {
-      dispatch(setCreateProfileImages(images.slice(0, 10)))
-      setImages(images.slice(0, 10))
+    if(images.length > maxImages) {
+      dispatch(setCreateProfileImages(images.slice(0, maxImages)))
+      setImages(images.slice(0, maxImages))
     }
   }, [images])
 
