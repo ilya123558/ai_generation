@@ -9,10 +9,13 @@ import 'swiper/css'
 export const OnboardingSlider = () => {
   const router = useRouter()
   const [activeIndex, setActiveIndex] = useState(0)
+  const [storyWidth, setStoryWidth] = useState(0)
   const swiperRef = useRef<SwiperRef | null>(null)
 
   const handlePrevSlide = () => {
+    
     if (swiperRef.current) {
+      setStoryWidth(0)
       swiperRef.current.swiper.slidePrev()
     }
   }
@@ -23,6 +26,7 @@ export const OnboardingSlider = () => {
     }
 
     if (swiperRef.current) {
+      setStoryWidth(0)
       swiperRef.current.swiper.slideNext()
     }
   }
@@ -31,9 +35,43 @@ export const OnboardingSlider = () => {
     setActiveIndex(swiper.activeIndex)
   }
 
+  useEffect(() => {
+    if(activeIndex > 2) return;
+
+    setStoryWidth(0)
+    const duration = 3000;
+    const interval = 50;
+    
+    let currentTime = 0;
+    
+    const intervalId = setInterval(() => {
+      currentTime += interval;
+      const progress = Math.min((currentTime / duration) * 100, 100);
+      setStoryWidth(progress);
+
+      if (currentTime >= duration) {
+        setStoryWidth(0)
+        handleNextSlide()
+      }
+    }, interval);
+
+    return () => clearInterval(intervalId)
+  }, [activeIndex])
+
   return (
     <div className={`w-screen h-screen`}>
       <div className={`transition-all h-full relative overflow-hidden`}>
+        <div className="absolute z-[50] p-[0px_13px] top-[67px] w-full h-[5px] flex gap-[4px] items-center justify-center ">
+          <div className="w-full bg-[#ffffff33] h-full rounded-[10px]">
+            {activeIndex === 0 && <div style={{width: `${storyWidth}%`}} className="h-full rounded-[10px] bg-[#ffffff33] transition-all"></div>}
+          </div>
+          <div className="w-full bg-[#ffffff33] h-full rounded-[10px]">
+            {activeIndex === 1 && <div style={{width: `${storyWidth}%`}} className="h-full rounded-[10px] bg-[#ffffff33] transition-all"></div>}
+            </div>
+          <div className="w-full bg-[#ffffff33] h-full rounded-[10px]">
+            {activeIndex === 2 && <div style={{width: `${storyWidth}%`}} className="h-full rounded-[10px] bg-[#ffffff33] transition-all"></div>}
+          </div>
+        </div>
         <button onClick={handlePrevSlide} className="left-0 top-0 bg-transparent h-full w-[30vw] absolute z-50"></button>
         <button onClick={handleNextSlide} className="right-0 top-0 bg-transparent h-full w-[30vw] absolute z-50"></button>
         <Swiper
