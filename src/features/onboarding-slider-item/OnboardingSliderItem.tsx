@@ -20,7 +20,7 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
           height={375}
           className="w-full object-cover object-center"
         />
-        <div className="p-[0px_13px] text-white">
+        <div style={{marginTop: isDesktop ? '-12vw': '0px'}} className="p-[0px_13px] text-white">
           <h2 className="fs-35 font-bold leading-[10vw]">Создайте шедевры за секунды</h2>
           <p className='mt-[4.54vw] fs-14'>Загружай свои фотографии и дай волю креативу! Наша нейросеть преобразует твои снимки, добавляя уникальные стили</p>
         </div>
