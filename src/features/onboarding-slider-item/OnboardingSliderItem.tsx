@@ -9,7 +9,7 @@ interface IProps {
 export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
   if(activeIndex === 0) return (
     <div className={`w-full h-full`}>
-      <div className="p-[10.68vw_0px_0px_0px] flex flex-col items-center w-full">
+      <div className="p-[5vw_0px_0px_0px] flex flex-col items-center w-full">
         <Image
           src={'/images/onboarding/image-1.png'}
           alt="onboarding-image"
