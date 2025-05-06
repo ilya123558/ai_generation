@@ -39,6 +39,10 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
       if (window.Telegram && window.Telegram.WebApp) {
         const tg = window.Telegram.WebApp;
         tg.requestFullscreen();
+
+        const topSafeArea = tg.safeArea.top;
+        document.body.style.marginTop = `${topSafeArea + 10}px`;
+
         clearInterval(checkTelegramWebApp);
       }
     }, 100);

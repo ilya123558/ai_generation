@@ -26,7 +26,7 @@ export default function RootLayout({
         <script src="https://telegram.org/js/telegram-web-app.js?57" async></script>
       </Head>
       <ProviderWrapper>
-        <body className="pt-[70px]">
+        <body>
           {children}
           <Menu />
         </body>
