@@ -102,7 +102,7 @@ export const SelectStyleGeneration = () => {
     <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[15.78vw] items-end w-full bg-transparent relative z-[2]`}>
       <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
       <CreatorMode />
-      <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-128px overflow-y-scroll pb-[5vw] pt-[4vw] relative">
+      <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-140px overflow-y-scroll pb-[6vw] pt-[4vw] relative">
         <div style={{
             boxShadow: '0px -2px 10px 14px rgba(247, 248, 250, 1)',
             backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
@@ -117,7 +117,7 @@ export const SelectStyleGeneration = () => {
           <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
             <ShadowWrapper
               borderRadius={9}
-              className={`!bg-white fs-16 font-normal flex items-center transition-all justify-center h-[16vw] border ${(activeStyleId === styleItem.id && creatorMode) ? 'border-primary': 'border-transparent'}`}
+              className={`!bg-white fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] border ${(activeStyleId === styleItem.id && creatorMode) ? 'border-primary': 'border-transparent'}`}
             >
               {styleItem.title}
             </ShadowWrapper>
