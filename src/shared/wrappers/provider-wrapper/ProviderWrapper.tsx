@@ -1,5 +1,6 @@
 'use client'
 import { store } from '@/views/store'
+import { disableVerticalSwipes } from '@telegram-apps/sdk'
 import { PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'react-redux'
 
@@ -57,6 +58,9 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
         if(!isDesktop) {
           tg.requestFullscreen();
           tg.disableSwipes?.()
+          if(disableVerticalSwipes.ifAvailable()) {
+            disableVerticalSwipes()
+          }
         }
 
         const topSafeArea = isAndroid ? 70 : 80;

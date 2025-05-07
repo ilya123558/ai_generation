@@ -30,7 +30,7 @@ export const SubcategoryList = () => {
               <motion.ul {...animationImg} className="grid grid-cols-3 gap-[4.28vw_5.34vw]">
                 {data?.subcategories.map(({title, preview, id}, index) => (
                   <li key={index} className="flex flex-col gap-[2.14vw] w-full">
-                    <div className="w-full h-122px rounded-[16px] overflow-hidden relative">
+                    <div onClick={() => handleClick(id)} className="w-full h-122px rounded-[16px] overflow-hidden relative">
                       <ImageWithSkeleton 
                         src={preview} 
                         alt="subcategory-img" 
@@ -38,7 +38,7 @@ export const SubcategoryList = () => {
                         height={131} 
                         className="object-cover object-center w-full h-full"
                       />
-                      <SubcategoryButton onClick={() => handleClick(id)}/>
+                      <SubcategoryButton />
                     </div>
                     <h5 className="fs-11 font-medium text-center">{title}</h5>
                   </li>
