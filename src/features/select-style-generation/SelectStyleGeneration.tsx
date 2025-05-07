@@ -117,7 +117,7 @@ export const SelectStyleGeneration = () => {
       {isLoading
         ? <SelectStyleLoading />
         : (
-          <div className="w-full overflow-hidden h-140px overflow-y-scroll pt-[3vw] pb-[3vw] relative">
+          <div className="relative w-full">
             <div style={{
                 boxShadow: '0px -2px 5px 6px rgba(247, 248, 250, 1)',
                 backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
@@ -128,40 +128,42 @@ export const SelectStyleGeneration = () => {
                 backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
               }} className="absolute w-full left-0 h-[1px] bottom-0"
             ></div>
-            <div className="grid grid-cols-2 gap-[2.14vw] p-[0px_4.27vw]">
-              {
-                style && style.styles.length !== 0 
-                  ? (
-                    style.styles.map((styleItem, index) => (
-                      <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
-                        <ShadowWrapper
-                          borderRadius={9}
-                          className={`fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] ${(activeStyleId === styleItem.id) ? '!bg-primary text-white': '!bg-white'}`}
-                        >
-                          {styleItem.title}
-                        </ShadowWrapper>
-                      </button>
-                    ))
-                  )
-                  : <></>
-              }
-              {
-                style && style.styles.length !== 0 
-                  ? (
-                    style.styles.map((styleItem, index) => (
-                      <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
-                        <ShadowWrapper
-                          borderRadius={9}
-                          className={`fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] ${(activeStyleId === styleItem.id) ? '!bg-primary text-white': '!bg-white'}`}
-                        >
-                          {styleItem.title}
-                        </ShadowWrapper>
-                      </button>
-                    ))
-                  )
-                  : <></>
-              }
-            </div>
+            <div className="w-full overflow-hidden h-140px overflow-y-scroll pt-[3vw] pb-[3vw]">
+              <div className="grid grid-cols-2 gap-[2.14vw] p-[0px_4.27vw]">
+                {
+                  style && style.styles.length !== 0 
+                    ? (
+                      style.styles.map((styleItem, index) => (
+                        <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
+                          <ShadowWrapper
+                            borderRadius={9}
+                            className={`fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] ${(activeStyleId === styleItem.id) ? '!bg-primary text-white': '!bg-white'}`}
+                          >
+                            {styleItem.title}
+                          </ShadowWrapper>
+                        </button>
+                      ))
+                    )
+                    : <></>
+                }
+                {
+                  style && style.styles.length !== 0 
+                    ? (
+                      style.styles.map((styleItem, index) => (
+                        <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
+                          <ShadowWrapper
+                            borderRadius={9}
+                            className={`fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] ${(activeStyleId === styleItem.id) ? '!bg-primary text-white': '!bg-white'}`}
+                          >
+                            {styleItem.title}
+                          </ShadowWrapper>
+                        </button>
+                      ))
+                    )
+                    : <></>
+                }
+              </div>
+          </div>
           </div>
         )
       }
