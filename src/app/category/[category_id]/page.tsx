@@ -21,7 +21,7 @@ export default function Page() {
         <div className="">
           <div 
             style={{ height: 1000, maxHeight: active ? 290 : 0, marginTop: active ? '10.14vw' : 0}} 
-            className="overflow-hidden overflow-y-auto transition-all"
+            className="overflow-hidden overflow-y-auto transition-all rounded-[16px] pt-[2vw]"
           >
             <CategoryList />
           </div>

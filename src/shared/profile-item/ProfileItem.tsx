@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
+import { animationImg } from "@/utils/const/animation";
 
 interface IProps {
   title: string;
@@ -10,7 +12,7 @@ interface IProps {
 
 export const ProfileItem = ({photos, title, isActive, handleSetActive}: IProps) => {
   return (
-    <li onClick={handleSetActive}>
+    <motion.li {...animationImg} onClick={handleSetActive}>
       <ShadowWrapper borderRadius={22} className={`${isActive ? 'border border-primary' : 'border border-transparent'} p-[3.74vw_4.82vw_3.47vw_3.47vw]`}>
         <div className="flex flex-col gap-[2.67vw]">
           <div className="flex justify-between items-center">
@@ -45,6 +47,6 @@ export const ProfileItem = ({photos, title, isActive, handleSetActive}: IProps) 
           </div>
         </div>
       </ShadowWrapper>
-    </li>
+    </motion.li>
   );
 };

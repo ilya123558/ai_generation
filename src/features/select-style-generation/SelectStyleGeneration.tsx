@@ -4,36 +4,38 @@ import { ShadowWrapper } from '@/shared/wrappers/shadow-wrapper/ShadowWrapper'
 import { CreatorMode } from '../creator-mode/CreatorMode'
 import { useEffect, useState } from 'react'
 import { useCreateGenerationsMutation, useLazyGetGenerationsByIdQuery } from '@/entities/generations/api/generations.api'
-import { setDisplayPrompt, setGenerationPoints, useAppDispatch, useAppSelector } from '@/views/store'
+import { createImage, imageCreating, setDisplayPrompt, setGenerationPoints, useAppDispatch, useAppSelector } from '@/views/store'
 import { useGetStylesQuery } from '@/entities/styles/api/styles.api'
 import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyModal'
+import { SelectStyleLoading } from '../select-style-loading/SelectStyleLoading'
 
 
 export const SelectStyleGeneration = () => {
   const dispatch = useAppDispatch()
   const { resolution, creatorMode, activeProfileId, activeSubcategoryId, generationPoints } = useAppSelector(state => state.main.accountData)
-  const { displayPrompt } = useAppSelector(state => state.main.meta)
+  const { displayPrompt, isCreatingImage } = useAppSelector(state => state.main.meta)
 
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
-  const { data: style, isSuccess } = useGetStylesQuery()
+  const { data: style, isSuccess, isLoading } = useGetStylesQuery()
   const [activeStyleId, setActiveStyleId] = useState<number>(1)
   const [prompt, setPrompt] = useState('')
   const [isFocusInput, setIsFocusInput] = useState(false)
   
-  const [createGenerations, { data: createGenerationsData }] = useCreateGenerationsMutation()
-  const [getGenerationsById, { data: getGenerationsData, reset: getGenerationsReset }] = useLazyGetGenerationsByIdQuery()
+  const [createGenerations] = useCreateGenerationsMutation()
 
   const handleGenerateImage = (styleId?: number) => {
+    if(isCreatingImage) return
+
     if(creatorMode && (generationPoints > 2)) {
       createGenerations({
-        prompt: creatorMode ? prompt: '',
+        prompt: prompt,
         resolution,
         styleId: styleId ? styleId : activeStyleId,
         subcategoryId: activeSubcategoryId,
         profileId: activeProfileId,
       })
 
-      dispatch(setGenerationPoints(generationPoints - 2))
+      dispatch(createImage(prompt))
       
       setPrompt('')
       return
@@ -48,13 +50,13 @@ export const SelectStyleGeneration = () => {
         profileId: activeProfileId,
       })
 
-      dispatch(setGenerationPoints(generationPoints - 2))
+      dispatch(createImage(null))
 
       setPrompt('')
       return
     }
 
-    setGenerationBuyModalIsOpen(false)
+    setGenerationBuyModalIsOpen(true)
   }
 
   const handleStyleSelect = (styleId: number) => {
@@ -73,57 +75,74 @@ export const SelectStyleGeneration = () => {
   }, [style, isSuccess])
 
   useEffect(() => {
-    if(createGenerationsData) {
-      getGenerationsById({jobId: createGenerationsData.jobId})
-      dispatch(setDisplayPrompt(createGenerationsData.displayPrompt))
-    }
-    
     return () => {
-      dispatch(setDisplayPrompt(null))
+      dispatch(imageCreating())
     }
-  }, [createGenerationsData])
+  }, [])
 
-  useEffect(() => {
-    if (getGenerationsData && createGenerationsData) {
-      if (getGenerationsData.status === 'pending') {
-        const timeout = setTimeout(() => {
-          getGenerationsReset();
-          getGenerationsById({ jobId: createGenerationsData.jobId });
-        }, 2000);
+  // useEffect(() => {
+  //   if(createGenerationsData) {
+  //     getGenerationsById({jobId: createGenerationsData.jobId})
+  //     dispatch(setDisplayPrompt(createGenerationsData.displayPrompt))
+  //   }
+    
+  //   return () => {
+  //     dispatch(setDisplayPrompt(null))
+  //   }
+  // }, [createGenerationsData])
+
+  // useEffect(() => {
+  //   if (getGenerationsData && createGenerationsData) {
+  //     if (getGenerationsData.status === 'pending') {
+  //       const timeout = setTimeout(() => {
+  //         getGenerationsReset();
+  //         getGenerationsById({ jobId: createGenerationsData.jobId });
+  //       }, 2000);
   
-        return () => clearTimeout(timeout);
-      } else {
-        dispatch(setDisplayPrompt(null))
-      }
-    }
-  }, [getGenerationsData, createGenerationsData]);
+  //       return () => clearTimeout(timeout);
+  //     } else {
+  //       dispatch(setDisplayPrompt(null))
+  //     }
+  //   }
+  // }, [getGenerationsData, createGenerationsData]);
   
   return (
     <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[9vw] items-end w-full bg-transparent relative z-[2]`}>
       <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
       <CreatorMode />
-      <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-140px overflow-y-scroll pb-[3vw] pt-[3vw] relative">
-        <div style={{
-            boxShadow: '0px -2px 10px 14px rgba(247, 248, 250, 1)',
-            backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
-          }} className="absolute w-full h-[1px]"
-        ></div>
-        <div style={{
-            boxShadow: '0px 2px 10px 14px rgba(247, 248, 250, 1)',
-            backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
-          }} className="absolute w-full h-[1px] bottom-0"
-        ></div>
-        {style?.styles?.map((styleItem, index) => (
-          <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
-            <ShadowWrapper
-              borderRadius={9}
-              className={`!bg-white fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] border ${(activeStyleId === styleItem.id && creatorMode) ? 'border-primary': 'border-transparent'}`}
-            >
-              {styleItem.title}
-            </ShadowWrapper>
-          </button>
-        ))}
-      </div>
+      {isLoading
+        ? <SelectStyleLoading />
+        : (
+          <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-140px overflow-y-scroll pb-[3vw] pt-[3vw] relative">
+            <div style={{
+                boxShadow: '0px -2px 10px 14px rgba(247, 248, 250, 1)',
+                backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
+              }} className="absolute w-full h-[1px]"
+            ></div>
+            <div style={{
+                boxShadow: '0px 2px 10px 14px rgba(247, 248, 250, 1)',
+                backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
+              }} className="absolute w-full h-[1px] bottom-0"
+            ></div>
+            {
+              style && style.styles.length !== 0 
+                ? (
+                  style.styles.map((styleItem, index) => (
+                    <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
+                      <ShadowWrapper
+                        borderRadius={9}
+                        className={`!bg-white fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] border ${(activeStyleId === styleItem.id && creatorMode) ? 'border-primary': 'border-transparent'}`}
+                      >
+                        {styleItem.title}
+                      </ShadowWrapper>
+                    </button>
+                  ))
+                )
+                : <></>
+            }
+          </div>
+        )
+      }
       <GenerationInput 
         prompt={prompt} 
         setPrompt={setPrompt} 

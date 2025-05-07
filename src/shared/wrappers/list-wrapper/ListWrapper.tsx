@@ -1,17 +1,17 @@
 'use client'
 import { useGetHeight } from "@/utils/hooks/useGetHeight";
-import { DependencyList, PropsWithChildren, useEffect, useRef } from "react";
+import { memo, PropsWithChildren, useEffect, useRef } from "react";
 
 interface IProps {
   className?: string
-  scrollToBottomDeps?: DependencyList
+  scrollToBottomDeps?: any
 }
 
-export const ListWrapper = ({ children, className, scrollToBottomDeps }: PropsWithChildren<IProps>) => {
+export const ListWrapper = memo(({ children, className, scrollToBottomDeps }: PropsWithChildren<IProps>) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const { height } = useGetHeight({ containerRef })
 
-  if(scrollToBottomDeps) {
+  if(typeof scrollToBottomDeps !== "undefined") {
     useEffect(() => {
       const timeout = setTimeout(() => {
         if (containerRef.current) {
@@ -30,4 +30,4 @@ export const ListWrapper = ({ children, className, scrollToBottomDeps }: PropsWi
       {children}
     </div>
   );
-};
+})

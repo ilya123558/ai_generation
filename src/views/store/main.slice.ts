@@ -4,6 +4,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface IInitialState {
   meta: {
+    isCreatingImage: boolean
     displayPrompt: string | null
     searchValue: string
     createProfile: {
@@ -26,6 +27,7 @@ interface IInitialState {
 
 const initialState: IInitialState = {
   meta: {
+    isCreatingImage: false,
     displayPrompt: null,
     searchValue: '',
     createProfile: {
@@ -35,7 +37,7 @@ const initialState: IInitialState = {
     }
   },
   accountData: {
-    generationPoints: 0,
+    generationPoints: 100,
     profilePoints: 0,
     creatorMode: false,
     creatorModeIsBuy: true,
@@ -83,6 +85,15 @@ const mainSlice = createSlice({
     setCreateProfileTitle: (state, action: PayloadAction<IInitialState['meta']['createProfile']['title']>) => {
       state.meta.createProfile.title = action.payload
     },
+    createImage: (state, action: PayloadAction<IInitialState['meta']['displayPrompt']>) => {
+      state.meta.displayPrompt = action.payload
+      state.meta.isCreatingImage = true
+      state.accountData.generationPoints = state.accountData.generationPoints - 2
+    },
+    imageCreating: (state) => {
+      state.meta.displayPrompt = null
+      state.meta.isCreatingImage = false
+    },
   },
 })
 
@@ -97,6 +108,8 @@ export const {
   setSearchValue,
   setCreateProfileImages,
   setCreateProfileError,
-  setCreateProfileTitle
+  setCreateProfileTitle,
+  createImage,
+  imageCreating
 } = mainSlice.actions
 export const mainReducer = mainSlice.reducer

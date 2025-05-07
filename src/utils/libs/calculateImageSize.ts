@@ -1,4 +1,4 @@
-import { TResolution } from './resolution';
+import { TResolution } from "../types/resolution";
 
 export const calculateImageSize = (resolution: TResolution, maxWidth = 203) => {
   const aspectRatios: { [key in typeof resolution]: number[] } = {

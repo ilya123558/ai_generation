@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { PhotoModal } from "../photo-modal/PhotoModal";
+import { motion } from "framer-motion";
+import { animationImg } from "@/utils/const/animation";
 
 interface IProps {
   photo: string
@@ -12,7 +14,7 @@ export const ProfilePhotoItem = ({ photo, handleDelete }: IProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <li className="w-full">
+    <motion.li {...animationImg} className="w-full">
       <PhotoModal 
         handleDelete={handleDelete}
         setIsOpen={setIsOpen} 
@@ -28,6 +30,6 @@ export const ProfilePhotoItem = ({ photo, handleDelete }: IProps) => {
           className="w-full h-full object-cover object-center"
         />
       </div>
-    </li>
+    </motion.li>
   );
 };

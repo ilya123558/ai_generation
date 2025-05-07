@@ -1,9 +1,12 @@
 'use client'
+import { calculateImageSize } from "@/utils/libs/calculateImageSize";
 import { formatChatText } from "@/utils/libs/formatChatText";
 import { useAppSelector } from "@/views/store";
 
 export const LoadingGrenerateChatImage = () => {
-  const { displayPrompt } = useAppSelector(state => state.main.meta)
+  const { displayPrompt, isCreatingImage } = useAppSelector(state => state.main.meta)
+  const { resolution } = useAppSelector(state => state.main.accountData)
+  const { height } = calculateImageSize(resolution)
 
   const formatChatTextData = formatChatText(displayPrompt || '')
 
@@ -14,7 +17,7 @@ export const LoadingGrenerateChatImage = () => {
     return `${hours}:${minutes}`;
   };
 
-  if(displayPrompt === null) return <></>
+  if(!isCreatingImage) return <></>
 
   return (
     <li>
@@ -28,7 +31,7 @@ export const LoadingGrenerateChatImage = () => {
         </div>
       </div>
 
-      <div className="w-[53.89vw] aspect-square overflow-hidden rounded-[16px] relative" >
+      <div style={{height}} className="w-[53.89vw] overflow-hidden rounded-[16px] relative" >
         <div className="absolute w-full h-full bg-[#ABB0BC] animate-pulse z-[9]"></div>
       </div>
     </li>
