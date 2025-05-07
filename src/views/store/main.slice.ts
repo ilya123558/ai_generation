@@ -6,7 +6,8 @@ interface IInitialState {
   meta: {
     isCreatingImage: boolean
     displayPrompt: string | null
-    searchValue: string
+    activeStyle: string | null
+    searchValue: string | null
     createProfile: {
       images: string[]
       error: string | null
@@ -30,6 +31,7 @@ const initialState: IInitialState = {
     isCreatingImage: false,
     displayPrompt: null,
     searchValue: '',
+    activeStyle: null,
     createProfile: {
       images: [],
       error: null,
@@ -85,14 +87,16 @@ const mainSlice = createSlice({
     setCreateProfileTitle: (state, action: PayloadAction<IInitialState['meta']['createProfile']['title']>) => {
       state.meta.createProfile.title = action.payload
     },
-    createImage: (state, action: PayloadAction<IInitialState['meta']['displayPrompt']>) => {
-      state.meta.displayPrompt = action.payload
+    createImage: (state, action: PayloadAction<{prompt: string, activeStyle: string | null}>) => {
+      state.meta.displayPrompt = action.payload.prompt
       state.meta.isCreatingImage = true
       state.accountData.generationPoints = state.accountData.generationPoints - 2
+      state.meta.activeStyle = action.payload.activeStyle
     },
     imageCreating: (state) => {
       state.meta.displayPrompt = null
       state.meta.isCreatingImage = false
+      state.meta.activeStyle = null
     },
   },
 })

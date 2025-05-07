@@ -26,16 +26,19 @@ export const SelectStyleGeneration = () => {
   const handleGenerateImage = (styleId?: number) => {
     if(isCreatingImage) return
 
+    const styleIdValue = styleId ? styleId : activeStyleId
+    const activeStyleValue = style?.styles?.find(item => item.id === styleIdValue)?.title || null
+
     if(creatorMode && (generationPoints > 2)) {
       createGenerations({
         prompt: prompt,
         resolution,
-        styleId: styleId ? styleId : activeStyleId,
+        styleId: styleIdValue,
         subcategoryId: activeSubcategoryId,
         profileId: activeProfileId,
       })
 
-      dispatch(createImage(prompt))
+      dispatch(createImage({prompt, activeStyle: activeStyleValue}))
       
       setPrompt('')
       return
@@ -50,7 +53,7 @@ export const SelectStyleGeneration = () => {
         profileId: activeProfileId,
       })
 
-      dispatch(createImage(null))
+      dispatch(createImage({prompt: '', activeStyle: activeStyleValue}))
 
       setPrompt('')
       return
