@@ -16,7 +16,7 @@ export const CategoryList = () => {
   const [getCategories, { data, isLoading }] = useLazyGetCategoriesQuery()
 
   useEffect(() => {
-    getCategories({ limit: 50, q: searchValue })
+    getCategories({ limit: 50, q: searchValue || "" })
   }, [searchValue])
 
 

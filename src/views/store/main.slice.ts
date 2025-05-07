@@ -7,7 +7,7 @@ interface IInitialState {
     isCreatingImage: boolean
     displayPrompt: string | null
     activeStyle: string | null
-    searchValue: string | null
+    searchValue: string
     createProfile: {
       images: string[]
       error: string | null
