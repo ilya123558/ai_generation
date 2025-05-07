@@ -119,12 +119,12 @@ export const SelectStyleGeneration = () => {
         : (
           <div className="w-full overflow-hidden h-140px overflow-y-scroll p-[3vw_0px] relative">
             <div style={{
-                boxShadow: '0px -2px 10px 14px rgba(247, 248, 250, 1)',
+                boxShadow: '0px -2px 5px 6px rgba(247, 248, 250, 1)',
                 backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
               }} className="absolute w-full h-[1px] top-0 left-0"
             ></div>
             <div style={{
-                boxShadow: '0px 2px 10px 14px rgba(247, 248, 250, 1)',
+                boxShadow: '0px 2px 5px 6px rgba(247, 248, 250, 1)',
                 backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
               }} className="absolute w-full left-0 h-[1px] bottom-0"
             ></div>
