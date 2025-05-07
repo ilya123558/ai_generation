@@ -9,7 +9,7 @@ export const ImageUploadComponentForm = memo(() => {
   })
 
   return (
-    <form id='create-profile-form' onSubmit={e => e.preventDefault()} className="grid grid-cols-3 gap-[2.67vw] h-[60vw] overflow-hidden overflow-y-scroll">
+    <form id='create-profile-form' onSubmit={e => e.preventDefault()} className="grid grid-cols-3 gap-[2.67vw] h-[60vw] overflow-hidden rounded-[16px] overflow-y-scroll">
       <ImageUploadComponent />
     </form>
   );

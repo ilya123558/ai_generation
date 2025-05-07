@@ -4,11 +4,13 @@ import { setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
 import { requestFullscreen, retrieveRawInitData } from "@telegram-apps/sdk"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export default function Home() {
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const [pagesPrefetched, setPagesPrefetched] = useState(false)
+  const [redirectPage, setRedirectPage] = useState<null | string>(null)
 
   useEffect(() => {
     const login = async () => {
@@ -20,13 +22,15 @@ export default function Home() {
           dispatch(setGenerationPoints(data.user.tokensCount + 100)); // 100 УБРАТЬ
           
           if(data.user.role === 'new') {
-            router.push('/onboarding');
+            // router.push('/onboarding');
+            setRedirectPage('/onboarding')
           }
           else if(data.user.role === 'pending') {
             router.push('/profile-create-loading')
           }
           else {
-            router.push('/home');
+            // router.push('/home');
+            setRedirectPage('/home')
           }
 
         } else {
@@ -40,6 +44,50 @@ export default function Home() {
 
     login();
   }, [dispatch, router]);
+
+  useEffect(() => {
+    // const prefetchPage = () => {
+    //   router.prefetch('/onboarding') 
+    //   router.prefetch('/gender-selection') 
+    //   router.prefetch('/home') 
+    //   router.prefetch('/generation') 
+    //   router.prefetch('/profile') 
+    //   router.prefetch('/profile-create') 
+    //   router.prefetch('/profile-create-loading') 
+    //   router.prefetch('/store') 
+    //   router.prefetch('/store/generation') 
+    // }
+
+    // prefetchPage()
+
+    const prefetchPages = async () => {
+      try {
+        await Promise.all([
+          router.prefetch('/onboarding'),
+          router.prefetch('/gender-selection'),
+          router.prefetch('/home'),
+          router.prefetch('/generation'),
+          router.prefetch('/profile'),
+          router.prefetch('/profile-create'),
+          router.prefetch('/profile-create-loading'),
+          router.prefetch('/store'),
+          router.prefetch('/store/generation')
+        ])
+        // Все страницы подгружены
+        setPagesPrefetched(true)
+      } catch (error) {
+        console.error("Ошибка при предзагрузке страниц:", error)
+      }
+    }
+
+    prefetchPages()
+  }, [])
+
+  useEffect(() => {
+    if(pagesPrefetched && redirectPage) {
+      router.push(redirectPage)
+    }
+  }, [pagesPrefetched, redirectPage])
 
   return (
     <section className="fixed w-screen h-screen top-0 left-0 bg-primary flex items-center justify-center">
