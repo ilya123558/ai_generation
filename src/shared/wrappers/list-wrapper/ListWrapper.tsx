@@ -17,7 +17,7 @@ export const ListWrapper = memo(({ children, className, scrollToBottomDeps }: Pr
         if (containerRef.current) {
           containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
-      }, 500)
+      }, 1500)
   
       return () => {
         clearTimeout(timeout)
