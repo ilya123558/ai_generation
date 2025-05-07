@@ -58,9 +58,6 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
         if(!isDesktop) {
           tg.requestFullscreen();
           tg.disableSwipes?.()
-          if(disableVerticalSwipes.ifAvailable()) {
-            disableVerticalSwipes()
-          }
         }
 
         const topSafeArea = isAndroid ? 70 : 80;
