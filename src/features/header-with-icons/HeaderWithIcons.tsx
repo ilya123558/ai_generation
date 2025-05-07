@@ -22,7 +22,7 @@ export const HeaderWithIcons = () => {
   }
 
   return (
-    <div>
+    <div className="w-screen p-[0px_4.27vw]">
       <SttingsModalContent isOpen={isOpenSettings} setIsOpen={setIsOpenSettings} />
       <QuestionModalContent isOpen={isOpenQuestion} setIsOpen={setIsOpenQuestion} />
       <div className="w-full mt-[20px] grid grid-cols-7 items-center">

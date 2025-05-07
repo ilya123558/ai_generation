@@ -17,7 +17,7 @@ export const SelectStyleGeneration = () => {
 
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
   const { data: style, isSuccess, isLoading } = useGetStylesQuery()
-  const [activeStyleId, setActiveStyleId] = useState<number>(1)
+  const [activeStyleId, setActiveStyleId] = useState<number | null>(null)
   const [prompt, setPrompt] = useState('')
   const [isFocusInput, setIsFocusInput] = useState(false)
   
@@ -26,7 +26,7 @@ export const SelectStyleGeneration = () => {
   const handleGenerateImage = (styleId?: number) => {
     if(isCreatingImage) return
 
-    const styleIdValue = styleId ? styleId : activeStyleId
+    const styleIdValue = styleId ? styleId : (activeStyleId || 1)
     const activeStyleValue = style?.styles?.find(item => item.id === styleIdValue)?.title || null
 
     if(creatorMode && (generationPoints > 2)) {
@@ -40,6 +40,7 @@ export const SelectStyleGeneration = () => {
 
       dispatch(createImage({prompt, activeStyle: activeStyleValue}))
       
+
       setPrompt('')
       return
     }
@@ -48,13 +49,14 @@ export const SelectStyleGeneration = () => {
       createGenerations({
         prompt: '',
         resolution,
-        styleId: styleId ? styleId : activeStyleId,
+        styleId: styleIdValue,
         subcategoryId: activeSubcategoryId,
         profileId: activeProfileId,
       })
 
       dispatch(createImage({prompt: '', activeStyle: activeStyleValue}))
 
+      setActiveStyleId(null)
       setPrompt('')
       return
     }
@@ -67,6 +69,7 @@ export const SelectStyleGeneration = () => {
       setActiveStyleId(styleId)
       setIsFocusInput(true)
     }else{
+      setActiveStyleId(styleId)
       handleGenerateImage(styleId)
     }
   }
@@ -116,33 +119,35 @@ export const SelectStyleGeneration = () => {
       {isLoading
         ? <SelectStyleLoading />
         : (
-          <div className="grid grid-cols-2 gap-[2.14vw] w-full overflow-hidden h-140px overflow-y-scroll pb-[3vw] pt-[3vw] relative">
+          <div className="w-full overflow-hidden h-140px overflow-y-scroll p-[3vw_0px] relative">
             <div style={{
                 boxShadow: '0px -2px 10px 14px rgba(247, 248, 250, 1)',
                 backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
-              }} className="absolute w-full h-[1px]"
+              }} className="absolute w-full h-[1px] top-0 left-0"
             ></div>
             <div style={{
                 boxShadow: '0px 2px 10px 14px rgba(247, 248, 250, 1)',
                 backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
-              }} className="absolute w-full h-[1px] bottom-0"
+              }} className="absolute w-full left-0 h-[1px] bottom-0"
             ></div>
-            {
-              style && style.styles.length !== 0 
-                ? (
-                  style.styles.map((styleItem, index) => (
-                    <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
-                      <ShadowWrapper
-                        borderRadius={9}
-                        className={`!bg-white fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] border ${(activeStyleId === styleItem.id && creatorMode) ? 'border-primary': 'border-transparent'}`}
-                      >
-                        {styleItem.title}
-                      </ShadowWrapper>
-                    </button>
-                  ))
-                )
-                : <></>
-            }
+            <div className="grid grid-cols-2 gap-[2.14vw] p-[0px_4.17vw]">
+              {
+                style && style.styles.length !== 0 
+                  ? (
+                    style.styles.map((styleItem, index) => (
+                      <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
+                        <ShadowWrapper
+                          borderRadius={9}
+                          className={`fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] ${(activeStyleId === styleItem.id) ? '!bg-primary text-white': '!bg-white'}`}
+                        >
+                          {styleItem.title}
+                        </ShadowWrapper>
+                      </button>
+                    ))
+                  )
+                  : <></>
+              }
+            </div>
           </div>
         )
       }

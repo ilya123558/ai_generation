@@ -8,10 +8,10 @@ export default function Page() {
       <div className="absolute w-full h-full flex items-center justify-center z-[-1] fs-40 font-semibold opacity-5 select-none pointer-events-none">
         AI.bot
       </div>
-      <Container className="z-[1]">
+      <div className="z-[1]">
         <HeaderWithIcons />
         <GenerationChat />
-      </Container>
+      </div>
     </section>
   )
 }

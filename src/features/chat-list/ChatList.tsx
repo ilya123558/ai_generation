@@ -36,7 +36,7 @@ export const ChatList = () => {
   }, [])
 
   return (
-    <ListWrapper className='mb-[10px] rounded-[16px]' scrollToBottomDeps={isCreatingImage}>
+    <ListWrapper className='mb-[10px] rounded-[16px] w-screen p-[0px_4.27vw]' scrollToBottomDeps={isCreatingImage}>
       {isLoading
         ? <ChatListLoading />
         : (
