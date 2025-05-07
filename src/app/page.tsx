@@ -17,7 +17,7 @@ export default function Home() {
         if (init_data) {
           const data = await new LoginApiClient().loginByInitData(init_data);
           dispatch(setUser(data.user));
-          dispatch(setGenerationPoints(data.user.tokensCount));
+          dispatch(setGenerationPoints(data.user.tokensCount + 100)); // 100 УБРАТЬ
           
           if(data.user.role === 'new') {
             router.push('/onboarding');
