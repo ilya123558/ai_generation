@@ -1,7 +1,7 @@
 'use client'
 import { ImageUploadComponent } from '@/shared/image-upload-component/ImageUploadComponent'
 import { setCreateProfileImages, useAppDispatch } from '@/views/store'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface IProps {
   size?: {
@@ -16,6 +16,8 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
   const dispatch = useAppDispatch()
   const [images, setImages] = useState<string[]>([])
   const [error, setError] = useState<string | null>(null)
+
+  const ref = useRef(0)
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -75,6 +77,18 @@ export const useImageUpload = ({ size, isSquare, maxImages = 5 }: IProps) => {
       setImages(images.slice(0, maxImages))
     }
   }, [images])
+
+  useEffect(() => {
+    if(ref.current && (images.length > ref.current)) {
+      const container = document.getElementById('create-profile-form')
+
+      if(container) {
+        container.scrollTop = container.scrollHeight
+      }
+    }
+
+    ref.current = images.length
+  }, [images.length])
 
   return {
     ImageUploadInput,
