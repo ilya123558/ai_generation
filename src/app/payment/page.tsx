@@ -45,7 +45,7 @@ export default function Page() {
           <ShadowWrapper borderRadius={22} className="w-full p-[4.27vw_5.88vw]">
             <div className="mb-[3.47vw]">
               <p className="fs-20 font-semibold">Способ оплаты</p>
-              <p className="text-gray fs-12 font-normal">Банковская карта</p>
+              <p className="text-gray text-[16px] font-normal">Банковская карта</p>
             </div>
             <PaymentInput type="card" value={cardValue} setValue={setCardValue} placeholder="Номер карты" handleError={setCardError} />
           </ShadowWrapper>

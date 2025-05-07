@@ -31,7 +31,7 @@ export const Search = () => {
           value={searchValue}
           onChange={handleChange}
           placeholder="Search..."
-          className="w-full p-[4vw_4.27vw_4vw_15.22vw] placeholder:text-[#ACADB9] bg-[#2E2E2E] bg-opacity-[0.03] rounded-[16px]"
+          className="w-full text-[16px] p-[4vw_4.27vw_4vw_15.22vw] placeholder:text-[#ACADB9] bg-[#2E2E2E] bg-opacity-[0.03] rounded-[16px]"
         />
         <div className="h-full w-[15.22vw] flex items-center justify-center absolute top-0 pointer-events-none">
           <svg className="w-[8.01vw] h-[8.01vw]" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

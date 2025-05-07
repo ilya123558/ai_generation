@@ -30,7 +30,7 @@ export const GenerationInput = ({prompt, setPrompt, handleGenerateImage, isFocus
       <input 
         value={prompt} 
         onChange={handleChange} 
-        className={`fs-15 font-normal urbanist border transition-all ${isFocusInput ? 'border-primary': 'border-[#E1E1E1]'} w-full rounded-[7px] p-[2.68vw_14.45vw_2.68vw_3.34vw]`}
+        className={`text-[16px] font-normal urbanist border transition-all ${isFocusInput ? 'border-primary': 'border-[#E1E1E1]'} w-full rounded-[7px] p-[2.68vw_14.45vw_2.68vw_3.34vw]`}
         placeholder='Введите запрос'
         onFocus={() => setIsFocusInput(true)}
         onBlur={() => setIsFocusInput(false)}
