@@ -28,7 +28,7 @@ export const CreatorMode = () => {
     <>
       <CreatorModeInfoModal isOpen={isOpenCreatorModeInfo} setIsOpen={setIsOpenCreatorModeInfo} />
       <CreatorModeBuyModal isOpen={isOpenCreatorModeBuy} setIsOpen={setIsOpenCreatorModeBuy} />
-      <div className="pr-[4.27vw] absolute top-[-14.3vw]">
+      <div className="pr-[4.27vw] absolute top-[-14.3vw] right-0">
         <button onClick={handleCreatorModeClick} className="border-[2px] gap-[2.14vw] rounded-[8px] w-fit border-[#CCCCCC] bg-[#F7F8FA] p-[2.6vw_2.81vw] flex items-center justify-center">
           <svg className="w-[5.07vw] h-[5.07vw]" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle className={`transition-all ${creatorMode ? 'fill-green': 'fill-[#D9D9D9]'}`} cx="9.44824" cy="9.94855" r="9" fill="#D9D9D9"/>
