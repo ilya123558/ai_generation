@@ -40,7 +40,6 @@ export const SelectStyleGeneration = () => {
 
       dispatch(createImage({prompt, activeStyle: activeStyleValue}))
       
-
       setPrompt('')
       return
     }
@@ -56,7 +55,6 @@ export const SelectStyleGeneration = () => {
 
       dispatch(createImage({prompt: '', activeStyle: activeStyleValue}))
 
-      setActiveStyleId(null)
       setPrompt('')
       return
     }
@@ -130,7 +128,7 @@ export const SelectStyleGeneration = () => {
                 backgroundImage: 'linear-gradient(rgba(247, 248, 250, 1), rgba(247, 248, 250, 1))'
               }} className="absolute w-full left-0 h-[1px] bottom-0"
             ></div>
-            <div className="grid grid-cols-2 gap-[2.14vw] p-[0px_4.17vw]">
+            <div className="grid grid-cols-2 gap-[2.14vw] p-[0px_4.27vw]">
               {
                 style && style.styles.length !== 0 
                   ? (
