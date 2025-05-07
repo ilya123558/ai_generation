@@ -1,8 +1,8 @@
 'use client'
+import Image from "next/image"
 import { LoginApiClient } from "@/entities/users/api/login.api"
 import { setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
-import { requestFullscreen, retrieveRawInitData } from "@telegram-apps/sdk"
-import Image from "next/image"
+import { retrieveRawInitData } from "@telegram-apps/sdk"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -22,14 +22,12 @@ export default function Home() {
           dispatch(setGenerationPoints(data.user.tokensCount + 100)); // 100 УБРАТЬ
           
           if(data.user.role === 'new') {
-            // router.push('/onboarding');
             setRedirectPage('/onboarding')
           }
           else if(data.user.role === 'pending') {
             router.push('/profile-create-loading')
           }
           else {
-            // router.push('/home');
             setRedirectPage('/home')
           }
 
@@ -46,20 +44,6 @@ export default function Home() {
   }, [dispatch, router]);
 
   useEffect(() => {
-    // const prefetchPage = () => {
-    //   router.prefetch('/onboarding') 
-    //   router.prefetch('/gender-selection') 
-    //   router.prefetch('/home') 
-    //   router.prefetch('/generation') 
-    //   router.prefetch('/profile') 
-    //   router.prefetch('/profile-create') 
-    //   router.prefetch('/profile-create-loading') 
-    //   router.prefetch('/store') 
-    //   router.prefetch('/store/generation') 
-    // }
-
-    // prefetchPage()
-
     const prefetchPages = async () => {
       try {
         await Promise.all([
@@ -71,13 +55,12 @@ export default function Home() {
           router.prefetch('/profile-create'),
           router.prefetch('/profile-create-loading'),
           router.prefetch('/store'),
-          router.prefetch('/store/generation')
+          router.prefetch('/store/generation'),
+          router.prefetch('/category/id')
         ])
         // Все страницы подгружены
         setPagesPrefetched(true)
-      } catch (error) {
-        console.error("Ошибка при предзагрузке страниц:", error)
-      }
+      } catch (error) {}
     }
 
     prefetchPages()

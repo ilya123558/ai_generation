@@ -60,7 +60,7 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
           tg.disableSwipes?.()
         }
 
-        const topSafeArea = isAndroid ? 70 : 80;
+        const topSafeArea = isAndroid ? 80 : 90;
         document.body.style.marginTop = `${isDesktop ? 0 : topSafeArea}px`;
 
         clearInterval(checkTelegramWebApp);
