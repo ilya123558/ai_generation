@@ -2,7 +2,6 @@
 import Image from "next/image"
 import { LoginApiClient } from "@/entities/users/api/login.api"
 import { setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
-import { retrieveRawInitData } from "@telegram-apps/sdk"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useTelegram } from "@/utils/hooks/useTelegram"
