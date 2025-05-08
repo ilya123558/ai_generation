@@ -41,7 +41,7 @@ export default function Page() {
       <div className="absolute w-full h-full flex items-center justify-center z-[-1] fs-25 font-semibold opacity-5 select-none pointer-events-none">
         {/* Photiqe */}
         {/* {viewportHeight} */}
-        <pre>{JSON.stringify(devices, null, 2)}</pre>
+        <pre>{JSON.stringify(getDevices(), null, 2)}</pre>
       </div>
       <div className="z-[1]">
         <HeaderWithIcons />
