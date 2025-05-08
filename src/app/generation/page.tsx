@@ -3,12 +3,14 @@
 import { HeaderWithIcons } from '@/features/header-with-icons/HeaderWithIcons'
 import { Container } from '@/shared/container/Container'
 import { useGetDevice } from '@/utils/hooks/useGetDevice'
+import { useTelegram } from '@/utils/hooks/useTelegram'
 import { GenerationChat } from '@/widgets/generation-chat/GenerationChat'
 import { useEffect, useState } from 'react'
 
 export default function Page() {
   const [viewportHeight, setViewportHeight] = useState<number | null>(null)
-  // const { getDevices } = useGetDevice()
+  const { getDevices } = useGetDevice()
+  const { webApp } = useTelegram()
 
   useEffect(() => {
     // Функция для обновления состояния высоты
@@ -42,7 +44,7 @@ export default function Page() {
         {/* Photiqe */}
         {/* {viewportHeight} */}
         {/* <pre>{JSON.stringify(getDevices(), null, 2)}</pre> */}
-        {window?.Telegram?.WebApp?.platform || 'null'}
+        {webApp?.platform || 'null'}
       </div>
       <div className="z-[1]">
         <HeaderWithIcons />
