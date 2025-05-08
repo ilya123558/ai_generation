@@ -38,10 +38,10 @@ export default function Page() {
 
   return (
     <section className="relative h-screen w-screen overflow-hidden">
-      <div className="absolute w-full h-full flex items-center justify-center z-[-1] fs-40 font-semibold opacity-5 select-none pointer-events-none">
+      <div className="absolute w-full h-full flex items-center justify-center z-[-1] fs-25 font-semibold opacity-5 select-none pointer-events-none">
         {/* Photiqe */}
         {/* {viewportHeight} */}
-        <pre>{JSON.stringify(getDevices())}</pre>
+        <pre>{JSON.stringify(devices, null, 2)}</pre>
       </div>
       <div className="z-[1]">
         <HeaderWithIcons />
