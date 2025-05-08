@@ -1,11 +1,6 @@
-declare global {
-  interface TelegramWebApp {
-    initData: string;
-    initDataUnsafe: string;
-    version: string;
-    WebApp: any
-  }
+import { Telegram as TelegramWebApp } from "@twa-dev/types";
 
+declare global {
   interface Window {
     Telegram: TelegramWebApp;
   }
