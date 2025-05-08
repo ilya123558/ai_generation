@@ -1,18 +1,26 @@
 import { useEffect } from "react";
+import { useTelegram } from "./useTelegram";
 
 export const useFixViewportHeight = () => {
+  const { webApp } = useTelegram()
+
   useEffect(() => {
-    const updateViewportHeight = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    if (!webApp) return
+    
+    const updateStableViewportHeight = () => {
+      const stableHeight = webApp.viewportStableHeight;
+      document.documentElement.style.setProperty('--tg-viewport-stable-height', `${stableHeight}px`);
     };
+    webApp.onEvent('viewportChanged', (event) => {
+      if (event.isStateStable) {
+        updateStableViewportHeight();
+      }
+    });
 
-    window.addEventListener('resize', updateViewportHeight);
-
-    updateViewportHeight();
+    updateStableViewportHeight();
 
     return () => {
-      window.removeEventListener('resize', updateViewportHeight);
+      webApp.offEvent('viewportChanged', updateStableViewportHeight);
     };
-  }, []);
+  }, [webApp]);
 };
