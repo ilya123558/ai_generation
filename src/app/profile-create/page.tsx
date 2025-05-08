@@ -10,9 +10,11 @@ import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyM
 import { ProfileCreateInput } from '@/shared/profile-create-input/ProfileCreateInput'
 import { ImageUploadComponentForm } from '@/features/image-upload-component-form/ImageUploadComponentForm'
 import { ProgressProfileLoader } from '@/widgets/progress-profile-loader/ProgressProfileLoader'
+import { useGetDevice } from '@/utils/hooks/useGetDevice'
 
 export default function Page() {
   const dispatch = useAppDispatch()
+  const {isAndroid, isDesktop, isIos} = useGetDevice()
   const [loadingProfile, setLoadingProfile] = useState(false)
   const { user, accountData: {generationPoints} } = useAppSelector(state => state.main)
   const { createProfile: {error, images, title} } = useAppSelector(state => state.main.meta)
@@ -59,7 +61,7 @@ export default function Page() {
       <div className={`transition-all font-extralight urbanist ${loadingProfile ? '' : 'opacity-0 pointer-events-none'}`}>
         {loadingProfile && <ProgressProfileLoader />}
       </div>
-      <div className="fixed top-0 left-0 w-screen h-fit">
+      <div style={{marginTop: isDesktop ? 20 : (isAndroid ? 80: 90)}} className="fixed top-0 left-0 w-screen h-fit">
         <Container className={`transition-all ${loadingProfile ? 'opacity-0 pointer-events-none' : ''}`}>
           <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
           <div className="pt-[5vw]">
