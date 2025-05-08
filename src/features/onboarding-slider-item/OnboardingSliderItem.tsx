@@ -18,7 +18,7 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
           alt="onboarding-image"
           width={375}
           height={375}
-          className="w-full min-h-[90vw] object-cover object-center aspect-square"
+          className="min-w-[90vw] min-h-[90vw] object-cover object-center aspect-square"
         />
         <div style={{marginTop: isDesktop ? '-18vw': '0px'}} className="p-[0px_13px] text-white w-screen">
           <h2 className="fs-35 font-bold leading-[10vw]">Создайте шедевры за секунды</h2>
