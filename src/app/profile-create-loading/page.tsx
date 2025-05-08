@@ -21,7 +21,7 @@ export default function Page() {
             </svg>
           </button>
         </div>
-        <div className="w-full p-[0px_8.17vw] h-[80vw] relative">
+        <div className="w-full p-[0px_8.17vw] h-[80vw] relative pointer-events-none">
           <div className="w-full h-full flex items-center justify-center absolute left-0 top-0 spin-animation-1">
             <svg className="w-69px" width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_506_672)">
