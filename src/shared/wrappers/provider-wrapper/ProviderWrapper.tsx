@@ -9,14 +9,14 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
   usePreventZoom()
   const { webApp } = useTelegram()
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined" && !window.Telegram) {
-  //     const script = document.createElement('script');
-  //     script.src = "https://telegram.org/js/telegram-web-app.js?57";
-  //     script.async = true;
-  //     document.head.appendChild(script);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined" && !window.Telegram) {
+      const script = document.createElement('script');
+      script.src = "https://telegram.org/js/telegram-web-app.js?57";
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
 
   useEffect(() => {
     if (webApp) {
