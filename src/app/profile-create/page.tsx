@@ -19,6 +19,8 @@ export default function Page() {
   const { user, accountData: {generationPoints} } = useAppSelector(state => state.main)
   const { createProfile: {error, images, title} } = useAppSelector(state => state.main.meta)
 
+  const [isFocus, setIsFocus] = useState(false) 
+
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
 
   const [uploadProfile] = useUploadProfileMutation()
@@ -61,7 +63,10 @@ export default function Page() {
       <div className={`transition-all font-extralight urbanist ${loadingProfile ? '' : 'opacity-0 pointer-events-none'}`}>
         {loadingProfile && <ProgressProfileLoader />}
       </div>
-      <div style={{marginTop: isDesktop ? 20 : (isAndroid ? 80: 90)}} className="fixed top-0 left-0 w-screen h-fit">
+      <div 
+        style={{marginTop: isDesktop ? 20 : (isAndroid ? 80: 90), justifyContent: (isFocus && !isDesktop) ? 'end' : 'start'}} 
+        className="fixed top-0 left-0 w-screen h-fit flex flex-col"
+      >
         <Container className={`transition-all ${loadingProfile ? 'opacity-0 pointer-events-none' : ''}`}>
           <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
           <div className="pt-[5vw]">
@@ -74,7 +79,7 @@ export default function Page() {
             </p>
           </div>
           <ImageUploadComponentForm />
-          <ProfileCreateInput />
+          <ProfileCreateInput setIsFocus={setIsFocus} />
           <div className="mt-[4vw]">
             <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
               {error ? error : 'Загрузите минимум 10 фотографий'}
