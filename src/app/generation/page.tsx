@@ -17,6 +17,9 @@ export default function Page() {
     const updateViewportHeight = () => {
       const stableHeight = window.Telegram.WebApp.viewportStableHeight
       setViewportHeight(stableHeight)
+      if(viewportHeight) {
+        alert('событие работает')
+      }
     }
 
     // Проверка, доступен ли Telegram Web App

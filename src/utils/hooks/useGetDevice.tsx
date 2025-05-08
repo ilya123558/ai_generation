@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useTelegram } from "./useTelegram";
 
 export const useGetDevice = () => {
   const [isAndroid, setIsAndroid] = useState(false);
@@ -46,3 +45,6 @@ export const useGetDevice = () => {
     getTelegramTopPaddingValue,
   };
 };
+
+
+// export type Platform = 'android' | 'android_x' | 'ios' | 'macos' | 'tdesktop' | 'unigram' | 'unknown' | 'web' | 'weba' | string;
