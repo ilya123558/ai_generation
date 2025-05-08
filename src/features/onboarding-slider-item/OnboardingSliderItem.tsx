@@ -12,7 +12,7 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
 
   if(activeIndex === 0) return (
     <div className={`w-full h-full`}>
-      <div style={{padding: isDesktop ? 'p-[0vw_0px_0px_0px]': 'p-[25vw_0px_0px_0px]'}} className=" flex flex-col items-center w-full">
+      <div style={{padding: isDesktop ? 'p-[0px]': 'pt-[25vw]'}} className=" flex flex-col items-center w-full">
         <Image
           src={'/images/onboarding/image-1.png'}
           alt="onboarding-image"

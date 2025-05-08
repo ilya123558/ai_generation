@@ -14,7 +14,7 @@ import { useGetDevice } from '@/utils/hooks/useGetDevice'
 
 export default function Page() {
   const dispatch = useAppDispatch()
-  const {isDesktop} = useGetDevice()
+  const { isDesktop } = useGetDevice()
   const [loadingProfile, setLoadingProfile] = useState(false)
   const { user, accountData: {generationPoints} } = useAppSelector(state => state.main)
   const { createProfile: {error, images, title} } = useAppSelector(state => state.main.meta)
