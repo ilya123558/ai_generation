@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 export const ProviderWrapper = ({ children }: PropsWithChildren) => {
   usePreventZoom()
   const { webApp } = useTelegram()
-  const { getDevices } = useGetDevice()
+  const { getTelegramTopPaddingValue, getDevices } = useGetDevice()
 
   useEffect(() => {
     if (typeof window !== "undefined" && !window.Telegram) {
@@ -22,17 +22,8 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (webApp) {
-      const {isAndroid, isDesktop, isIos} = getDevices()
-
-      let topSafeArea = 0
-
-      if(isAndroid) {
-        topSafeArea = 80
-      }else if(isIos) {
-        topSafeArea = 90
-      }else {
-        topSafeArea = 0
-      }
+      const { isDesktop } = getDevices()
+      const topSafeArea = getTelegramTopPaddingValue()
 
       if(!isDesktop) {
         webApp.requestFullscreen();

@@ -27,5 +27,13 @@ export const useGetDevice = () => {
     return 'desktop'
   }
 
-  return { isAndroid, isIos, isDesktop, getActiveDevice, getDevices }
+  const getTelegramTopPaddingValue = () => {
+    const activeDevice = getActiveDevice()
+
+    if(activeDevice === 'android') return 80
+    if(activeDevice === 'isIos') return 94
+    if(activeDevice === 'desktop') return 0
+  }
+
+  return { isAndroid, isIos, isDesktop, getActiveDevice, getDevices, getTelegramTopPaddingValue }
 };
