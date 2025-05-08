@@ -56,7 +56,7 @@ export default function Page() {
 
   return (
     <section>
-      <div className={`transition-all ${loadingProfile ? '' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`transition-all font-extralight urbanist ${loadingProfile ? '' : 'opacity-0 pointer-events-none'}`}>
         {loadingProfile && <ProgressProfileLoader />}
       </div>
       <Container className={`transition-all ${loadingProfile ? 'opacity-0 pointer-events-none' : ''}`}>

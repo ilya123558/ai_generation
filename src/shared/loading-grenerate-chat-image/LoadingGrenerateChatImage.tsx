@@ -31,8 +31,8 @@ export const LoadingGrenerateChatImage = () => {
         </div>
       </div>
 
-      <div style={{height}} className="w-[53.89vw] overflow-hidden rounded-[16px] relative" >
-        <div className="absolute w-full h-full bg-[#ABB0BC] animate-pulse z-[9]"></div>
+      <div style={{height, borderRadius: 16}} className="w-[53.89vw] overflow-hidden rounded-[16px] relative" >
+        <div className="absolute w-full h-full bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
       </div>
     </li>
   );

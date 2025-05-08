@@ -52,7 +52,7 @@ export const ProgressProfileLoader = () => {
   }, []);
 
   return (
-    <div className="fixed font-extralight urbanist w-screen h-screen top-0 left-0 flex items-center justify-center bg-white z-50">
+    <div className="fixed w-screen h-screen top-0 left-0 flex items-center justify-center bg-white z-50">
       <div style={{ width: 130, height: 130 }}>
         <CircularProgressbar
           value={progress}

@@ -20,7 +20,7 @@ export const HeaderWithIcons = () => {
   const handleSettingsClick = () => {
     setIsOpenSettings(true)
   }
-
+  
   return (
     <div className="w-screen p-[0px_4.27vw]">
       <SttingsModalContent isOpen={isOpenSettings} setIsOpen={setIsOpenSettings} />
