@@ -42,7 +42,7 @@ export default function Page() {
         {/* Photiqe */}
         {/* {viewportHeight} */}
         {/* <pre>{JSON.stringify(getDevices(), null, 2)}</pre> */}
-        {window?.Telegram?.WebApp.platform}
+        {window?.Telegram?.WebApp?.platform || 'null'}
       </div>
       <div className="z-[1]">
         <HeaderWithIcons />
