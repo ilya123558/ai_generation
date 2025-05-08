@@ -5,6 +5,7 @@ import { setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
 import { retrieveRawInitData } from "@telegram-apps/sdk"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useTelegram } from "@/utils/hooks/useTelegram"
 
 export default function Home() {
   const router = useRouter()
@@ -12,9 +13,14 @@ export default function Home() {
   const [pagesPrefetched, setPagesPrefetched] = useState(false)
   const [redirectPage, setRedirectPage] = useState<null | string>(null)
 
+  const { webApp } = useTelegram()
+
   useEffect(() => {
-    const login = async () => {
-      const init_data = retrieveRawInitData()
+    const login = async() => {
+      if(!webApp) return
+
+      const init_data = webApp.initData
+  
       try {
         if (init_data) {
           const data = await new LoginApiClient().loginByInitData(init_data);
@@ -30,7 +36,7 @@ export default function Home() {
           else {
             setRedirectPage('/home')
           }
-
+  
         } else {
           alert("initData не доступно");
         }
@@ -38,10 +44,12 @@ export default function Home() {
       catch (e) {
         alert(JSON.stringify(e))
       }
-    };
 
-    login();
-  }, [dispatch, router]);
+    }
+
+    login()
+
+  }, [dispatch, router, webApp]);
 
   useEffect(() => {
     const prefetchPages = async () => {
@@ -58,6 +66,7 @@ export default function Home() {
           router.prefetch('/store/generation'),
           router.prefetch('/category/id')
         ])
+        
         // Все страницы подгружены
         setPagesPrefetched(true)
       } catch (error) {}
