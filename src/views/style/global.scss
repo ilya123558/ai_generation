@@ -10,6 +10,9 @@ body {
   color: var($--primary);
   font-weight: 500;
   overflow: hidden;
+  width: 100vw;
+  height: auto;
+  min-height: 100dvh;
 }
 
 .poppins {
