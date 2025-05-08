@@ -2,11 +2,13 @@
 
 import { HeaderWithIcons } from '@/features/header-with-icons/HeaderWithIcons'
 import { Container } from '@/shared/container/Container'
+import { useGetDevice } from '@/utils/hooks/useGetDevice'
 import { GenerationChat } from '@/widgets/generation-chat/GenerationChat'
 import { useEffect, useState } from 'react'
 
 export default function Page() {
   const [viewportHeight, setViewportHeight] = useState<number | null>(null)
+  const { getDevices } = useGetDevice()
 
   useEffect(() => {
     // Функция для обновления состояния высоты
@@ -38,7 +40,8 @@ export default function Page() {
     <section className="relative h-screen w-screen overflow-hidden">
       <div className="absolute w-full h-full flex items-center justify-center z-[-1] fs-40 font-semibold opacity-5 select-none pointer-events-none">
         {/* Photiqe */}
-        {viewportHeight}
+        {/* {viewportHeight} */}
+        <pre>{JSON.stringify(getDevices())}</pre>
       </div>
       <div className="z-[1]">
         <HeaderWithIcons />
