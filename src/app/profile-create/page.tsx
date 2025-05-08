@@ -79,7 +79,8 @@ export default function Page() {
             position: 'fixed',
             left: 0,
             bottom: 15,
-            width: '100%'
+            width: '100%',
+            padding: '0px 4.27vw'
           }: {}}
           className='mt-[3vw] bg-background'
         >
