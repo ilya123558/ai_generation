@@ -13,7 +13,7 @@ import { SelectStyleLoading } from '../select-style-loading/SelectStyleLoading'
 export const SelectStyleGeneration = () => {
   const dispatch = useAppDispatch()
   const { resolution, creatorMode, activeProfileId, activeSubcategoryId, generationPoints } = useAppSelector(state => state.main.accountData)
-  const { displayPrompt, isCreatingImage } = useAppSelector(state => state.main.meta)
+  const { isCreatingImage } = useAppSelector(state => state.main.meta)
 
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
   const { data: style, isSuccess, isLoading } = useGetStylesQuery()
@@ -85,7 +85,7 @@ export const SelectStyleGeneration = () => {
   }, [])
 
   return (
-    <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[9vw] items-end w-full bg-background relative z-[2]`}>
+    <div className={`flex flex-col gap-[2.43vw] mb-[9vw] items-end w-full bg-background relative z-[2]`}>
       <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
       <CreatorMode />
       {isLoading
@@ -109,7 +109,7 @@ export const SelectStyleGeneration = () => {
                     style && style.styles.length !== 0 
                       ? (
                         style.styles.map((styleItem, index) => (
-                          <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
+                          <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className={`${!isCreatingImage ? 'pointer-events-auto': 'pointer-events-none'} transition-all active:scale-95`}>
                             <ShadowWrapper
                               borderRadius={9}
                               className={`fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] ${(activeStyleId === styleItem.id) ? '!bg-primary text-white': '!bg-white'}`}

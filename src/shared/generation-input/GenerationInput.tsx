@@ -12,6 +12,7 @@ interface IProps {
 
 export const GenerationInput = ({prompt, setPrompt, handleGenerateImage, isFocusInput, setIsFocusInput}: IProps) => {
   const { creatorMode } = useAppSelector(state => state.main.accountData)
+  const { isCreatingImage } = useAppSelector(state => state.main.meta)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
@@ -26,7 +27,7 @@ export const GenerationInput = ({prompt, setPrompt, handleGenerateImage, isFocus
   if(!creatorMode) return <></>
 
   return (
-    <form onSubmit={handleSubmit} style={creatorMode ? {}: {pointerEvents: 'none', opacity: 0}} className='p-[0px_8.53vw_0vw] w-full transition-all relative'>
+    <form onSubmit={handleSubmit} style={creatorMode ? {}: {pointerEvents: 'none', opacity: 0}} className={`${!isCreatingImage ? 'pointer-events-auto': 'pointer-events-none'} p-[0px_8.53vw_0vw] w-full transition-all relative`}>
       <input 
         value={prompt} 
         onChange={handleChange} 
