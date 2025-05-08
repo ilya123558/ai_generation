@@ -35,7 +35,7 @@ export const HeaderWithIcons = () => {
               <path d="M6.0091 1.46658L1.66699 5.53421L6.0091 9.87631" stroke="black" strokeWidth="1.73684" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-          <ShadowWrapper borderRadius={10} className={`p-[3.6vw_6.81vw] flex items-center justify-center ${creatorMode ? '!bg-primary': ''}`}>
+          <ShadowWrapper borderRadius={10} className={`p-[3.2vw_6vw] flex items-center justify-center ${creatorMode ? '!bg-primary': ''}`}>
             <p 
               style={{color: generationPoints < 4 ? (generationPoints < 2 ? '#E93F21' : '#E79D25') : ''}} 
               className={`fs-15 font-semibold text-nowrap ${creatorMode ? 'text-white': ''}`}
@@ -45,7 +45,7 @@ export const HeaderWithIcons = () => {
             {creatorMode && <p className="ml-[1vw] text-nowrap text-red fs-13 font-medium">-x2</p>}
           </ShadowWrapper>
         </div>
-        <h2 className="fs-20 font-semibold text-[#141718] text-center col-span-1">AI.bot</h2>
+        <h2 className="fs-20 font-semibold text-[#141718] text-center col-span-1">Photiqe</h2>
         <div className="flex justify-end gap-[2.6vw] col-span-3">
           <button onClick={handleQuestionClick}>
             <ShadowWrapper borderRadius={"full"} className="w-[12.81vw] h-[12.81vw] flex items-center justify-center transition-all active:scale-95">

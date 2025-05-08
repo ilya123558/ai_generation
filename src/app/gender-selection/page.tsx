@@ -25,7 +25,7 @@ export default function Page() {
           <path d="M50.3617 80.7078C50.1533 83.9917 51.0674 87.249 52.954 89.9449L59.2046 98.8768C67.6744 110.98 54.7487 126.521 41.305 120.398L20.8887 111.1C13.5968 107.779 10.3777 99.1757 13.6986 91.8838L22.7985 71.9029C29.4751 57.2426 51.5008 62.7581 50.4806 78.8348L50.3617 80.7078Z" fill="#23262F"/>
           <path d="M77.7189 71.205C75.1645 69.1306 71.9808 67.9862 68.6904 67.9596L57.789 67.8715C43.0173 67.7521 37.8532 48.2091 50.6378 40.8081L70.053 29.5686C76.9875 25.5543 85.8632 27.9215 89.8775 34.8559L100.877 53.8572C108.948 67.7987 91.6808 82.543 79.1757 72.388L77.7189 71.205Z" fill="#23262F"/>
         </svg>
-        <h1 className="fs-35 font-bold m-[7.4vw_0px] urbanist">Welcome to <br/> AI.bot</h1>
+        <h1 className="fs-35 font-bold m-[7.4vw_0px] urbanist">Welcome to <br/> Photiqe</h1>
         <div className="w-full">
           <p className="text-[#ACADB9]">Укажите Ваш пол</p>
           <EllipseButton onClick={() => handleClick("female")} className="mt-[12px] mb-[20px]">Женщина</EllipseButton>

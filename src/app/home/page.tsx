@@ -43,7 +43,7 @@ export default function Page() {
     <section>
       <Container>
         <div className="m-[4vw_0px]">
-          <h2 onClick={() => navigator.clipboard.writeText(`Bearer ${user?.token.accessToken || ''}`)} className="text-center fs-20 font-semibold">AI.bot</h2>
+          <h2 onClick={() => navigator.clipboard.writeText(`Bearer ${user?.token.accessToken || ''}`)} className="text-center fs-20 font-semibold">Photiqe</h2>
         </div>
       </Container>
       <Search />

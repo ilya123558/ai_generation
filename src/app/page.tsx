@@ -74,7 +74,7 @@ export default function Home() {
 
   return (
     <section className="fixed w-screen h-screen top-0 left-0 bg-primary flex items-center justify-center">
-      <h1 className="fs-30 font-medium text-background">AI.bot</h1>
+      <h1 className="fs-30 font-medium text-background">Photiqe</h1>
       <div className="absolute opacity-0">
         <Image
           src={'/images/onboarding/image-1.png'}
