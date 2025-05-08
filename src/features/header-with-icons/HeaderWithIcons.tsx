@@ -45,7 +45,9 @@ export const HeaderWithIcons = () => {
             {creatorMode && <p className="ml-[1vw] text-nowrap text-red fs-13 font-medium">-x2</p>}
           </ShadowWrapper>
         </div>
-        <h2 className="fs-20 font-semibold text-[#141718] text-center col-span-1">Photiqe</h2>
+        <div className="flex items-center justify-center">
+          <h2 className="fs-20 font-semibold text-[#141718] text-center col-span-1">Photiqe</h2>
+        </div>
         <div className="flex justify-end gap-[2.6vw] col-span-3">
           <button onClick={handleQuestionClick}>
             <ShadowWrapper borderRadius={"full"} className="w-[12.81vw] h-[12.81vw] flex items-center justify-center transition-all active:scale-95">
