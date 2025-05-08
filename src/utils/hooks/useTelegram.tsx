@@ -7,9 +7,7 @@ export const useTelegram = () => {
   useEffect(() => {
     const checkReady = () => {
       if(typeof window !== 'undefined' && window.Telegram?.WebApp) {
-        setTimeout(() => {
-          setWebApp(window.Telegram.WebApp)
-        }, 1000)
+        setWebApp(window.Telegram.WebApp)
       }
       else {
         setTimeout(checkReady, 100)

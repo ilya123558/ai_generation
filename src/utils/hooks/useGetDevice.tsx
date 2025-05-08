@@ -1,39 +1,47 @@
 import { useEffect, useState } from "react";
 
 export const useGetDevice = () => {
-  const [isAndroid, setIsAndroid] = useState(false)
-  const [isIos, setIsIos] = useState(false)
-  const [isDesktop, setIsDesktop] = useState(false)
+  const [isAndroid, setIsAndroid] = useState(false);
+  const [isIos, setIsIos] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    if(navigator) {
-      const isAndroidDevice = typeof navigator !== 'undefined' && navigator.userAgent ? /Android/i.test(navigator.userAgent) : false;
-      const isIosDevice = typeof navigator !== 'undefined' && navigator.userAgent ? /iPhone|iPad|iPod/i.test(navigator.userAgent) : false;
-      const isDesktopDevice = isAndroid || isIos ? false : true
+    if (typeof window !== "undefined" && navigator.userAgent) {
+      const userAgent = navigator.userAgent;
 
-      setIsAndroid(isAndroidDevice)
-      setIsIos(isIosDevice)
-      setIsDesktop(isDesktopDevice)
-    } 
-  }, [navigator])
+      const isAndroidDevice = /Android/i.test(userAgent);
+      const isIosDevice = /iPhone|iPad|iPod/i.test(userAgent);
+      const isDesktopDevice = !isAndroidDevice && !isIosDevice;
+
+      setIsAndroid(isAndroidDevice);
+      setIsIos(isIosDevice);
+      setIsDesktop(isDesktopDevice);
+    }
+  }, []);
 
   const getDevices = () => {
-    return { isAndroid, isIos, isDesktop }
-  }
+    return { isAndroid, isIos, isDesktop };
+  };
 
   const getActiveDevice = () => {
-    if(isAndroid) return 'android'
-    if(isIos) return 'isIos'
-    return 'desktop'
-  }
+    if (isAndroid) return "android";
+    if (isIos) return "ios";
+    return "desktop";
+  };
 
   const getTelegramTopPaddingValue = () => {
-    const activeDevice = getActiveDevice()
+    const activeDevice = getActiveDevice();
+    if (activeDevice === "android") return 80;
+    if (activeDevice === "ios") return 94;
+    return 0;
+  };
 
-    if(activeDevice === 'android') return 80
-    if(activeDevice === 'isIos') return 94
-    if(activeDevice === 'desktop') return 0
-  }
-
-  return { isAndroid, isIos, isDesktop, getActiveDevice, getDevices, getTelegramTopPaddingValue }
+  return {
+    isAndroid,
+    isIos,
+    isDesktop,
+    getActiveDevice,
+    getDevices,
+    getTelegramTopPaddingValue,
+  };
 };
