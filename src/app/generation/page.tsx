@@ -38,6 +38,7 @@ export default function Page() {
     <section className="relative h-screen w-screen overflow-hidden">
       <div className="absolute w-full h-full flex items-center justify-center z-[-1] fs-40 font-semibold opacity-5 select-none pointer-events-none">
         {/* Photiqe */}
+        {viewportHeight}
       </div>
       <div className="z-[1]">
         <HeaderWithIcons />
