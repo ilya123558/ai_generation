@@ -85,7 +85,7 @@ export const SelectStyleGeneration = () => {
   }, [])
 
   return (
-    <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[9vw] items-end w-full bg-transparent relative z-[2]`}>
+    <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[9vw] items-end w-full bg-background relative z-[2]`}>
       <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
       <CreatorMode />
       {isLoading
