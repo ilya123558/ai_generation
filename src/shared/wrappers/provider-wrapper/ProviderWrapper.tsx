@@ -1,4 +1,5 @@
 'use client'
+import { useFixViewportHeight } from '@/utils/hooks/useFixViewportHeight'
 import { useGetDevice } from '@/utils/hooks/useGetDevice'
 import { usePreventZoom } from '@/utils/hooks/usePreventZoom'
 import { useTelegram } from '@/utils/hooks/useTelegram'
@@ -8,6 +9,7 @@ import { Provider } from 'react-redux'
 
 export const ProviderWrapper = ({ children }: PropsWithChildren) => {
   usePreventZoom()
+  useFixViewportHeight()
   const { webApp } = useTelegram()
   const { getTelegramTopPaddingValue, getDevices } = useGetDevice()
 
