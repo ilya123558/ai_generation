@@ -33,16 +33,12 @@ export const ProfileContent = () => {
         </div>
       </ShadowWrapper>
       <div className="flex items-center justify-center gap-[1.61vw] mb-[5.62vw] urbanist">
-        <button onClick={() => setActiveValue("photos")} className="w-full">
-          <ShadowWrapper borderRadius={9} className={`${activeValue === 'photos' ? '': 'opacity-50'} w-full text-center p-[2.81vw_0px]`}>
-            <p className="fs-16 font-semibold">Мои фото</p>
-          </ShadowWrapper>
-        </button>
-        <button onClick={() => setActiveValue("profiles")} className="w-full">
-          <ShadowWrapper borderRadius={9} className={`${activeValue === 'profiles' ? '': 'opacity-50'} w-full text-center p-[2.81vw_0px]`}>
-            <p className="fs-16 font-semibold">Профили</p>
-          </ShadowWrapper>
-        </button>
+        <ShadowWrapper borderRadius={9} onClick={() => setActiveValue("photos")} className={`${activeValue === 'photos' ? '': 'opacity-50'} w-full text-center p-[2.81vw_0px]`}>
+          <p className="fs-16 font-semibold">Мои фото</p>
+        </ShadowWrapper>
+        <ShadowWrapper onClick={() => setActiveValue("profiles")} borderRadius={9} className={`${activeValue === 'profiles' ? '': 'opacity-50'} w-full text-center p-[2.81vw_0px]`}>
+          <p className="fs-16 font-semibold">Профили</p>
+        </ShadowWrapper>
       </div>
       {activeValue === 'photos' 
         ? <ProfilePhotoList />
