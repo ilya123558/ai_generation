@@ -20,6 +20,8 @@ export default function Home() {
       if(!webApp) return
 
       const init_data = webApp.initData
+
+      alert(init_data)
   
       try {
         if (init_data) {
@@ -66,7 +68,7 @@ export default function Home() {
           router.prefetch('/store/generation'),
           router.prefetch('/category/id')
         ])
-        
+
         // Все страницы подгружены
         setPagesPrefetched(true)
       } catch (error) {}
