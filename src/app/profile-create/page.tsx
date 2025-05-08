@@ -77,8 +77,11 @@ export default function Page() {
         <ImageUploadComponentForm />
         <div style={!isDesktop && isFocus ? {
             position: 'fixed',
-            bottom: 15
+            left: 0,
+            bottom: 15,
+            width: '100%'
           }: {}}
+          className='mt-[3vw] bg-background'
         >
           <ProfileCreateInput setIsFocus={setIsFocus} />
           <div className="mt-[4vw]">
