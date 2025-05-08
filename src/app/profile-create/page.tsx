@@ -63,36 +63,31 @@ export default function Page() {
       <div className={`transition-all font-extralight urbanist ${loadingProfile ? '' : 'opacity-0 pointer-events-none'}`}>
         {loadingProfile && <ProgressProfileLoader />}
       </div>
-      <div 
-        style={{marginTop: isDesktop ? 20 : (isAndroid ? 80: 90), justifyContent: (isFocus && !isDesktop) ? 'flex-end' : 'start'}} 
-        className="fixed top-0 left-0 w-screen h-fit flex flex-col"
-      >
-        <Container className={`transition-all ${loadingProfile ? 'opacity-0 pointer-events-none' : ''}`}>
-          <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
-          <div className="pt-[5vw]">
-            <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
+      <Container className={`transition-all ${loadingProfile ? 'opacity-0 pointer-events-none' : ''}`}>
+        <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
+        <div className="pt-[5vw]">
+          <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
+        </div>
+        <div className="mt-[1vw] mb-[3vw] text-center">
+          <h2 className="fs-30 font-bold text-primary mb-[1vw] urbanist">Загрузка профиля</h2>
+          <p className="fs-15 font-medium text-[#ACADB9]">
+            Вы можете загрузить до 30-ти <br /> фотографий в профиль
+          </p>
+        </div>
+        <ImageUploadComponentForm />
+        <ProfileCreateInput setIsFocus={setIsFocus} />
+        <div className="mt-[4vw]">
+          <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
+            {error ? error : 'Загрузите минимум 10 фотографий'}
+          </p>
+          {/* <ImageUploadInput /> */}
+          <div className={`transition-all ${images.length < 10 ? 'pointer-events-none': ''}`}>
+            <EllipseButton onClick={handleClick} className={images.length < 10 ? '!bg-[#E3E3E3]': ''}>
+              <p className={`transition-all ${images.length < 10 ? 'text-[#B1B1B1]': ''}`}>Загрузить</p>
+            </EllipseButton>
           </div>
-          <div className="mt-[1vw] mb-[3vw] text-center">
-            <h2 className="fs-30 font-bold text-primary mb-[1vw] urbanist">Загрузка профиля</h2>
-            <p className="fs-15 font-medium text-[#ACADB9]">
-              Вы можете загрузить до 30-ти <br /> фотографий в профиль
-            </p>
-          </div>
-          <ImageUploadComponentForm />
-          <ProfileCreateInput setIsFocus={setIsFocus} />
-          <div className="mt-[4vw]">
-            <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
-              {error ? error : 'Загрузите минимум 10 фотографий'}
-            </p>
-            {/* <ImageUploadInput /> */}
-            <div className={`transition-all ${images.length < 10 ? 'pointer-events-none': ''}`}>
-              <EllipseButton onClick={handleClick} className={images.length < 10 ? '!bg-[#E3E3E3]': ''}>
-                <p className={`transition-all ${images.length < 10 ? 'text-[#B1B1B1]': ''}`}>Загрузить</p>
-              </EllipseButton>
-            </div>
-          </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </section>
   )
 }
