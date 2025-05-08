@@ -6,6 +6,7 @@ import { retrieveRawInitData } from "@telegram-apps/sdk"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useTelegram } from "@/utils/hooks/useTelegram"
+import { usePreloadImages } from "@/utils/hooks/usePreloadImages"
 
 export default function Home() {
   const router = useRouter()
@@ -14,6 +15,7 @@ export default function Home() {
   const [redirectPage, setRedirectPage] = useState<null | string>(null)
 
   const { webApp } = useTelegram()
+  usePreloadImages()
 
   useEffect(() => {
     const login = async() => {
