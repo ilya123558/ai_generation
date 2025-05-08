@@ -35,13 +35,13 @@ export const ChatItem = (props: IChat) => {
         />
       </button>
 
-      <div style={{boxShadow: '0px 11.83px 49.3px 0px #251F300D'}} className="p-[2.67vw_5.34vw] rounded-[24px] mt-[2.3vw] bg-white w-[53.89vw]">
+      {/* <div style={{boxShadow: '0px 11.83px 49.3px 0px #251F300D'}} className="p-[2.67vw_5.34vw] rounded-[24px] mt-[2.3vw] bg-white w-[53.89vw]">
         {formatChatTextData.text && <p className="fs-12 font-normal urbanist mb-[2.35vw]">{formatChatTextData.text}</p>}
         <div className="flex gap-[3.47vw] items-center">
           <p className="fs-12 font-normal text-gray">{createdAt}</p>
           <p className="fs-15 font-medium">{formatChatTextData.style}</p>
         </div>
-      </div>
+      </div> */}
     </li>
   );
 };

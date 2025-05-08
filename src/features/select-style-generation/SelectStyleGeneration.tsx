@@ -84,32 +84,6 @@ export const SelectStyleGeneration = () => {
     }
   }, [])
 
-  // useEffect(() => {
-  //   if(createGenerationsData) {
-  //     getGenerationsById({jobId: createGenerationsData.jobId})
-  //     dispatch(setDisplayPrompt(createGenerationsData.displayPrompt))
-  //   }
-    
-  //   return () => {
-  //     dispatch(setDisplayPrompt(null))
-  //   }
-  // }, [createGenerationsData])
-
-  // useEffect(() => {
-  //   if (getGenerationsData && createGenerationsData) {
-  //     if (getGenerationsData.status === 'pending') {
-  //       const timeout = setTimeout(() => {
-  //         getGenerationsReset();
-  //         getGenerationsById({ jobId: createGenerationsData.jobId });
-  //       }, 2000);
-  
-  //       return () => clearTimeout(timeout);
-  //     } else {
-  //       dispatch(setDisplayPrompt(null))
-  //     }
-  //   }
-  // }, [getGenerationsData, createGenerationsData]);
-  
   return (
     <div className={`${displayPrompt === null ? 'pointer-events-auto': 'pointer-events-none'} flex flex-col gap-[2.43vw] mb-[9vw] items-end w-full bg-transparent relative z-[2]`}>
       <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
@@ -146,24 +120,8 @@ export const SelectStyleGeneration = () => {
                     )
                     : <></>
                 }
-                {
-                  style && style.styles.length !== 0 
-                    ? (
-                      style.styles.map((styleItem, index) => (
-                        <button onClick={() => handleStyleSelect(styleItem.id)} key={index} className='transition-all active:scale-95'>
-                          <ShadowWrapper
-                            borderRadius={9}
-                            className={`fs-16 font-normal flex items-center transition-all justify-center h-[14.17vw] ${(activeStyleId === styleItem.id) ? '!bg-primary text-white': '!bg-white'}`}
-                          >
-                            {styleItem.title}
-                          </ShadowWrapper>
-                        </button>
-                      ))
-                    )
-                    : <></>
-                }
               </div>
-          </div>
+            </div>
           </div>
         )
       }
