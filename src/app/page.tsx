@@ -19,13 +19,13 @@ export default function Home() {
         if (init_data) {
           const data = await new LoginApiClient().loginByInitData(init_data);
           dispatch(setUser(data.user));
-          dispatch(setGenerationPoints(data.user.tokensCount + 100)); // 100 УБРАТЬ
+          dispatch(setGenerationPoints(data.user.tokensCount));
           
           if(data.user.role === 'new') {
             setRedirectPage('/onboarding')
           }
           else if(data.user.role === 'pending') {
-            router.push('/profile-create-loading')
+            setRedirectPage('/profile-create-loading')
           }
           else {
             setRedirectPage('/home')
