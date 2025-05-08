@@ -1,4 +1,5 @@
 'use client'
+import { useGetDevice } from '@/utils/hooks/useGetDevice'
 import { usePreventZoom } from '@/utils/hooks/usePreventZoom'
 import { useTelegram } from '@/utils/hooks/useTelegram'
 import { store } from '@/views/store'
@@ -8,6 +9,7 @@ import { Provider } from 'react-redux'
 export const ProviderWrapper = ({ children }: PropsWithChildren) => {
   usePreventZoom()
   const { webApp } = useTelegram()
+  const { getDevices } = useGetDevice()
 
   useEffect(() => {
     if (typeof window !== "undefined" && !window.Telegram) {
@@ -20,16 +22,23 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (webApp) {
-      const isAndroid = typeof navigator !== 'undefined' && navigator.userAgent ? /Android/i.test(navigator.userAgent) : false;
-      const isIos = typeof navigator !== 'undefined' && navigator.userAgent ? /iPhone|iPad|iPod/i.test(navigator.userAgent) : false;
-      const isDesktop = isAndroid || isIos ? false : true
+      const {isAndroid, isDesktop, isIos} = getDevices()
+
+      let topSafeArea = 0
+
+      if(isAndroid) {
+        topSafeArea = 80
+      }else if(isIos) {
+        topSafeArea = 90
+      }else {
+        topSafeArea = 0
+      }
 
       if(!isDesktop) {
         webApp.requestFullscreen();
       }
 
-      const topSafeArea = isAndroid ? 80 : 90;
-      document.body.style.paddingTop = `${isDesktop ? 0 : topSafeArea}px`;
+      document.body.style.paddingTop = `${topSafeArea}px`;
     }
   }, [webApp]);
 
