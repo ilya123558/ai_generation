@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 
 export default function Page() {
   const [viewportHeight, setViewportHeight] = useState<number | null>(null)
-  const { getDevices } = useGetDevice()
+  // const { getDevices } = useGetDevice()
 
   useEffect(() => {
     // Функция для обновления состояния высоты
@@ -41,7 +41,8 @@ export default function Page() {
       <div className="absolute w-full h-full flex items-center justify-center z-[-1] fs-25 font-semibold opacity-5 select-none pointer-events-none">
         {/* Photiqe */}
         {/* {viewportHeight} */}
-        <pre>{JSON.stringify(getDevices(), null, 2)}</pre>
+        {/* <pre>{JSON.stringify(getDevices(), null, 2)}</pre> */}
+        {window?.Telegram?.WebApp.platform}
       </div>
       <div className="z-[1]">
         <HeaderWithIcons />
