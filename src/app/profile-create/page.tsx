@@ -64,7 +64,7 @@ export default function Page() {
         {loadingProfile && <ProgressProfileLoader />}
       </div>
       <div 
-        style={{marginTop: isDesktop ? 20 : (isAndroid ? 80: 90), justifyContent: (isFocus && !isDesktop) ? 'end' : 'start'}} 
+        style={{marginTop: isDesktop ? 20 : (isAndroid ? 80: 90), justifyContent: (isFocus && !isDesktop) ? 'flex-end' : 'start'}} 
         className="fixed top-0 left-0 w-screen h-fit flex flex-col"
       >
         <Container className={`transition-all ${loadingProfile ? 'opacity-0 pointer-events-none' : ''}`}>
