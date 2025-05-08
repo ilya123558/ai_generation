@@ -75,16 +75,22 @@ export default function Page() {
           </p>
         </div>
         <ImageUploadComponentForm />
-        <ProfileCreateInput setIsFocus={setIsFocus} />
-        <div className="mt-[4vw]">
-          <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
-            {error ? error : 'Загрузите минимум 10 фотографий'}
-          </p>
-          {/* <ImageUploadInput /> */}
-          <div className={`transition-all ${images.length < 10 ? 'pointer-events-none': ''}`}>
-            <EllipseButton onClick={handleClick} className={images.length < 10 ? '!bg-[#E3E3E3]': ''}>
-              <p className={`transition-all ${images.length < 10 ? 'text-[#B1B1B1]': ''}`}>Загрузить</p>
-            </EllipseButton>
+        <div style={!isDesktop && isFocus ? {
+            position: 'fixed',
+            bottom: 15
+          }: {}}
+        >
+          <ProfileCreateInput setIsFocus={setIsFocus} />
+          <div className="mt-[4vw]">
+            <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
+              {error ? error : 'Загрузите минимум 10 фотографий'}
+            </p>
+            {/* <ImageUploadInput /> */}
+            <div className={`transition-all ${images.length < 10 ? 'pointer-events-none': ''}`}>
+              <EllipseButton onClick={handleClick} className={images.length < 10 ? '!bg-[#E3E3E3]': ''}>
+                <p className={`transition-all ${images.length < 10 ? 'text-[#B1B1B1]': ''}`}>Загрузить</p>
+              </EllipseButton>
+            </div>
           </div>
         </div>
       </Container>
