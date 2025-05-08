@@ -9,7 +9,7 @@ export const ReturnButton = ({link}: IProps) => {
   const router = useRouter()
 
   return (
-    <div className="w-full mt-[20px]">
+    <div className="w-full mt-[5.34vw]">
       <button 
         className="transition-all active:scale-95 flex items-center justify-center h-[33px] w-[33px] block-custom-shadow rounded-[10px]" 
         onClick={() => router.push(link)}

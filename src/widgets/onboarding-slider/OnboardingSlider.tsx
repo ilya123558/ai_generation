@@ -18,7 +18,7 @@ export const OnboardingSlider = () => {
 
   const swiperRef = useRef<SwiperRef | null>(null)
 
-  const { isDesktop } = useGetDevice()
+  const { isDesktop, getTelegramTopPaddingValue } = useGetDevice()
 
   const handlePrevSlide = () => {
     if (swiperRef.current) {
@@ -86,7 +86,7 @@ export const OnboardingSlider = () => {
   return (
     <div className={`w-screen h-screen`}>
       <div className={`transition-all h-full relative overflow-hidden`}>
-        <div style={{top: `${ isDesktop ? 20 : 92 }px`}} className="absolute z-[50] p-[0px_13px] w-full h-[5px] flex gap-[4px] items-center justify-center ">
+        <div style={{top: `${ getTelegramTopPaddingValue() + 24 }px`}} className="absolute z-[50] p-[0px_13px] w-full h-[5px] flex gap-[4px] items-center justify-center ">
           <div className="w-full bg-[#ffffff33] h-full rounded-[10px]">
             <div 
               style={{width: `${activeIndex > 0 ? 100 : (storyWidthSlider.find(item => item.sliderIndex === 0)?.storyWidth || 0)}%`}} 

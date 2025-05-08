@@ -25,7 +25,7 @@ export const HeaderWithIcons = () => {
     <div className="w-screen p-[0px_4.27vw]">
       <SttingsModalContent isOpen={isOpenSettings} setIsOpen={setIsOpenSettings} />
       <QuestionModalContent isOpen={isOpenQuestion} setIsOpen={setIsOpenQuestion} />
-      <div className="w-full mt-[20px] grid grid-cols-7 items-center">
+      <div className="w-full mt-[5.34vw] grid grid-cols-7 items-center">
         <div className="flex items-center gap-[2.6vw] col-span-3">
           <button 
             className="flex items-center justify-center h-[8.82vw] w-[8.82vw] block-custom-shadow rounded-[10px] transition-all active:scale-95" 
