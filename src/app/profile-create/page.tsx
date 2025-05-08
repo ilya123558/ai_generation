@@ -3,18 +3,17 @@ import { useUploadProfileMutation } from '@/entities/users/api/users.api'
 import { EllipseButton } from '@/shared/buttons/ellipse-button/EllipseButton'
 import { ReturnButton } from '@/shared/buttons/return-button/ReturnButton'
 import { Container } from '@/shared/container/Container'
-import { useImageUpload } from '@/utils/hooks/useImageUpload'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { base64StringToFile } from '@/utils/libs/base64StringToFile'
 import { setGenerationPoints, useAppDispatch, useAppSelector } from '@/views/store'
 import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyModal'
 import { ProfileCreateInput } from '@/shared/profile-create-input/ProfileCreateInput'
 import { ImageUploadComponentForm } from '@/features/image-upload-component-form/ImageUploadComponentForm'
+import { ProgressProfileLoader } from '@/widgets/progress-profile-loader/ProgressProfileLoader'
 
 export default function Page() {
-  const router = useRouter()
   const dispatch = useAppDispatch()
+  const [loadingProfile, setLoadingProfile] = useState(false)
   const { user, accountData: {generationPoints} } = useAppSelector(state => state.main)
   const { createProfile: {error, images, title} } = useAppSelector(state => state.main.meta)
 
@@ -49,18 +48,18 @@ export default function Page() {
           return
         }
 
-        if(user?.role === 'new') {
-          router.push('/profile-create-loading')
-          return
-        }
-        router.push('/home')
       })
       .catch(data => alert(JSON.stringify(data)));
+
+    setLoadingProfile(true)
   };
 
   return (
     <section>
-      <Container>
+      <div className={`transition-all ${loadingProfile ? '' : 'opacity-0 pointer-events-none'}`}>
+        {loadingProfile && <ProgressProfileLoader />}
+      </div>
+      <Container className={`transition-all ${loadingProfile ? 'opacity-0 pointer-events-none' : ''}`}>
         <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
         <div className="pt-[2vw]">
           <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
