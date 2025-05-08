@@ -19,7 +19,7 @@ export default function Home() {
         if (init_data) {
           const data = await new LoginApiClient().loginByInitData(init_data);
           dispatch(setUser(data.user));
-          dispatch(setGenerationPoints(data.user.tokensCount));
+          dispatch(setGenerationPoints(data.user.tokensCount + 20));
           
           if(data.user.role === 'new') {
             setRedirectPage('/onboarding')

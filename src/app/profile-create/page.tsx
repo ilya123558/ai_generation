@@ -62,7 +62,7 @@ export default function Page() {
       <div className="fixed top-0 left-0 w-screen h-fit">
         <Container className={`transition-all ${loadingProfile ? 'opacity-0 pointer-events-none' : ''}`}>
           <GenerationBuyModal isOpen={generationBuyModalIsOpen} setIsOpen={setGenerationBuyModalIsOpen} />
-          <div className="pt-[2vw]">
+          <div className="pt-[5vw]">
             <ReturnButton link={user?.role === 'new' ? '/gender-selection': '/home'} />
           </div>
           <div className="mt-[1vw] mb-[3vw] text-center">
