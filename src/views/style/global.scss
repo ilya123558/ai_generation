@@ -10,6 +10,8 @@ body {
   color: var($--primary);
   font-weight: 500;
   overflow: hidden;
+  width: 100vw;
+  height: calc(var(--vh) * 100);
   padding-top: 90px;
 }
 
