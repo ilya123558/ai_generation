@@ -7,8 +7,6 @@ export const useTelegram = () => {
   useEffect(() => {
     const checkReady = () => {
       if(typeof window !== 'undefined' && window.Telegram?.WebApp) {
-        alert('true')
-
         setWebApp(window.Telegram.WebApp)
       }
       else {

@@ -3,12 +3,6 @@ import '@/views/style/global.scss'
 import { Menu } from "@/widgets/menu/Menu";
 import { ProviderWrapper } from "@/shared/wrappers/provider-wrapper/ProviderWrapper";
 import Head from "next/head";
-import Script from "next/script";
-
-// if add next js font 
-// import { Inter } from "next/font/google";
-// const inter = Inter({ subsets: ["latin"] });
-// <body className={inter.className}>{children}</body>
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,8 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-        {/* <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /> */}
-        <Script src="https://telegram.org/js/telegram-web-app.js?57" strategy="beforeInteractive" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <script src="https://telegram.org/js/telegram-web-app.js?57" />
       </Head>
       <ProviderWrapper>
         <body>
