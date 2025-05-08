@@ -17,7 +17,7 @@ export const HeaderWithNavigation = ({link, title, active, setActive}: IProps) =
 
   return (
     <div>
-      <div className="w-full mt-[5.34vw] grid grid-cols-3 items-center">
+      <div className="w-full mt-[4.54vw] grid grid-cols-3 items-center">
         <button 
           className="flex items-center justify-center h-[8.82vw] w-[8.82vw] block-custom-shadow rounded-[10px] transition-all active:scale-95" 
           onClick={() => router.push(link)}

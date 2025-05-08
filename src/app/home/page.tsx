@@ -42,7 +42,7 @@ export default function Page() {
   return (
     <section>
       <Container>
-        <div className="m-[5.34vw_0px_4vw_]">
+        <div className="m-[4.54vw_0px_4vw_]">
           <h2 onClick={() => navigator.clipboard.writeText(`Bearer ${user?.token.accessToken || ''}`)} className="text-center fs-20 font-semibold">Photiqe</h2>
         </div>
       </Container>

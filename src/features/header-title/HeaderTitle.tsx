@@ -16,7 +16,7 @@ export const HeaderTitle = ({ link, children, withGenerationPoints }: IProps) =>
   if(withGenerationPoints) {
     return (
       <div>
-        <div className="w-full grid grid-cols-3 mt-[5.34vw] items-center">
+        <div className="w-full grid grid-cols-3 mt-[4.54vw] items-center">
           <div className="flex items-center gap-[2.41vw]">
             <button 
               className="active:scale-95 flex items-center justify-center min-h-[8.82vw] min-w-[8.82vw] block-custom-shadow rounded-[10px] transition-all" 

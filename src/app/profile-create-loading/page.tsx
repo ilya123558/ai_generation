@@ -10,7 +10,7 @@ export default function Page() {
 
   return (
     <div className="w-screen h-screen overflow-hidden">
-      <div className="h-full flex flex-col items-center p-[5.34vw_0vw_19.2vw]">
+      <div className="h-full flex flex-col items-center p-[4.54vw_0vw_19.2vw]">
         <div className="pl-[4.27vw] w-full">
           <button 
             className="transition-all active:scale-95 flex items-center justify-center h-[33px] w-[33px] block-custom-shadow rounded-[10px]" 
