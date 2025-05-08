@@ -12,13 +12,13 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
 
   if(activeIndex === 0) return (
     <div className={`w-screen h-full`}>
-      <div style={{padding: isDesktop ? '0px': `${getTelegramTopPaddingValue() + 40}px`}} className="flex flex-col items-center w-full min-h-[90vw] aspect-square">
+      <div style={{padding: isDesktop ? '0px': `${getTelegramTopPaddingValue() + 40}px`}} className="flex flex-col items-center w-full">
         <Image
           src={'/images/onboarding/image-1.png'}
           alt="onboarding-image"
           width={375}
           height={375}
-          className="w-full h-full object-cover object-center"
+          className="w-full min-h-[90vw] object-cover object-center aspect-square"
         />
         <div style={{marginTop: isDesktop ? '-18vw': '0px'}} className="p-[0px_13px] text-white w-screen">
           <h2 className="fs-35 font-bold leading-[10vw]">Создайте шедевры за секунды</h2>
