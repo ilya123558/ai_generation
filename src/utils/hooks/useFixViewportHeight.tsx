@@ -13,7 +13,9 @@ export const useFixViewportHeight = () => {
     };
     webApp.onEvent('viewportChanged', (event) => {
       if (event.isStateStable) {
-        updateStableViewportHeight();
+        setTimeout(() => {
+          updateStableViewportHeight();
+        }, 200)
       }
     });
 
