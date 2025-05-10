@@ -7,7 +7,7 @@ export default function Page() {
   useFixViewportHeight()
 
   return (
-    <section className="relative h-screen w-screen overflow-hidden">
+    <section className="fixed left-0 right-0 h-screen w-screen overflow-hidden">
       <div className="absolute w-full h-full flex items-center justify-center z-[-1] fs-40 font-semibold opacity-5 select-none pointer-events-none">
         Photiqe
       </div>
