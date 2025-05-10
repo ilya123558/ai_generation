@@ -12,6 +12,7 @@ export default function Page() {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   useEffect(() => {
+    // @ts-ignore
     const vk = navigator.virtualKeyboard as any;
 
     if (!vk || typeof vk.addEventListener !== 'function') return;
