@@ -24,10 +24,10 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (webApp) {
-      const { isDesktop } = getDevices()
+      const { isDesktop, isAndroid } = getDevices()
       const topSafeArea = getTelegramTopPaddingValue()
 
-      if(!isDesktop) {
+      if(!isDesktop && !isAndroid) {
         webApp.requestFullscreen();
       }
 
