@@ -27,9 +27,9 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
       const { isDesktop, isAndroid } = getDevices()
       const topSafeArea = getTelegramTopPaddingValue()
 
-      if(!isDesktop && !isAndroid) {
-        webApp.requestFullscreen();
-      }
+      // if(!isDesktop && !isAndroid) {
+      //   webApp.requestFullscreen();
+      // }
 
       document.body.style.paddingTop = `${topSafeArea}px`;
     }
