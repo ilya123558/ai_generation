@@ -18,8 +18,9 @@ export default function Page() {
     if (!vk || typeof vk.addEventListener !== 'function') return;
 
     const handleGeometryChange = () => {
-      const height = vk.boundingRect?.height || 0;
-      setKeyboardHeight(height);
+      alert('handleGeometryChange')
+      // const height = vk.boundingRect?.height || 0;
+      // setKeyboardHeight(height);
     };
 
     vk.addEventListener('geometrychange', handleGeometryChange);
