@@ -28,8 +28,8 @@ export const usePreventZoom = () => {
 
     document.head.appendChild(metaViewport);
 
-    return () => {
-      document.head.removeChild(metaViewport);
-    };
+    // return () => {
+    //   document.head.removeChild(metaViewport);
+    // };
   }, []);
 };

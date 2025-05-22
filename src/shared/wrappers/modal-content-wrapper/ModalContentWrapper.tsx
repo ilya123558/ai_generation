@@ -9,8 +9,8 @@ interface IProps extends PropsWithChildren {
   onClick: () => void
   closeModal?: () => void
   textButton: string | React.JSX.Element
-  title: string
-  description: string | React.JSX.Element
+  title?: string
+  description?: string | React.JSX.Element
   className?: string
   withCloseBtn?: boolean
 }
@@ -37,8 +37,8 @@ export const ModalContentWrapper = (props: IProps) => {
             </svg>
           </button>
         )}
-        <h3 className='mb-[2.7vw] font-semibold fs-20 text-[#323142]'>{title}</h3>
-        <p className='w-245px text-[#ACADB9] fs-13 font-normal'>{description}</p>
+        {title && <h3 className='mb-[2.7vw] font-semibold fs-20 text-[#323142]'>{title}</h3>}
+        {description && <p className='w-245px text-[#ACADB9] fs-13 font-normal'>{description}</p>}
         <div className={className ? className : 'mb-[8.82vw]'}>
           {children}
         </div>

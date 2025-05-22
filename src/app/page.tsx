@@ -59,7 +59,7 @@ export default function Home() {
           router.prefetch('/onboarding'),
           router.prefetch('/gender-selection'),
           router.prefetch('/home'),
-          router.prefetch('/generation'),
+          router.prefetch('/chat'),
           router.prefetch('/profile'),
           router.prefetch('/profile-create'),
           router.prefetch('/profile-create-loading'),

@@ -24,14 +24,17 @@ export const ProviderWrapper = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (webApp) {
-      const { isDesktop, isAndroid } = getDevices()
-      const topSafeArea = getTelegramTopPaddingValue()
-
-      if(!isDesktop) {
-        webApp.requestFullscreen();
+      try{
+        const { isDesktop } = getDevices()
+        const topSafeArea = getTelegramTopPaddingValue()
+  
+        if(!isDesktop) {
+          webApp.requestFullscreen();
+        }
+  
+        document.body.style.paddingTop = `${topSafeArea}px`;
       }
-
-      document.body.style.paddingTop = `${topSafeArea}px`;
+      catch (error) {}
     }
   }, [webApp]);
 
