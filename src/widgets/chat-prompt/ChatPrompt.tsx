@@ -1,7 +1,7 @@
 'use client'
 import { EllipseButton } from "@/shared/buttons/ellipse-button/EllipseButton";
 import { QuestionModalContent } from "@/shared/question-modal-content/QuestionModalContent";
-import { setDisplayPrompt, useAppDispatch, useAppSelector } from "@/views/store";
+import { setCreatorMode, setDisplayPrompt, useAppDispatch, useAppSelector } from "@/views/store";
 import { useState } from "react";
 
 interface IProps {
@@ -10,10 +10,10 @@ interface IProps {
 
 export const ChatPrompt = ({ handleGenerate }: IProps) => {
   const dispatch = useAppDispatch()
+  const creatorMode = useAppSelector(state => state.main.accountData.creatorMode)
   const { displayPrompt } = useAppSelector(state => state.main.meta)
   const [isOpenQuestionModalContent, setIsOpenQuestionModalContent] = useState(false)
   const [isFocus, setIsFocus] = useState(false)
-  const [toggle, setToggle] = useState(false)
 
   const handleSetPrompt = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch(setDisplayPrompt(e.target.value))
@@ -23,10 +23,10 @@ export const ChatPrompt = ({ handleGenerate }: IProps) => {
     <div className={`w-full h-full bg-white mt-[2vw] rounded-[30px_30px_0px_0px] p-[3.8vw_4.5vw]`}>
       <QuestionModalContent isOpen={isOpenQuestionModalContent}  setIsOpen={setIsOpenQuestionModalContent} />
       <div className="flex items-center gap-[10px] mb-[1.5vw]">
-        <button onClick={() => setToggle(!toggle)} className={`relative`}>
-          <div className={`w-45px h-27px transition-all rounded-[15px] overflow-hidden border-[2px] ${toggle ? 'bg-[#23262F] border-transparent': 'bg-["#BEBEBE"] border-[#BEBEBE]'}`}></div>
-          <svg className={`absolute transition-all top-[1.212vw] w-19px h-18px ${toggle ? 'right-[1.3vw]': 'left-[1.3vw]'}`} width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle className="transition-all" cx="9.29173" cy="8.88938" r="8.72727" fill={toggle ? '#ffffff': "#BEBEBE"}/>
+        <button onClick={() => dispatch(setCreatorMode(true))} className={`relative`}>
+          <div className={`w-45px h-27px transition-all rounded-[15px] overflow-hidden border-[2px] ${creatorMode ? 'bg-[#23262F] border-transparent': 'bg-["#BEBEBE"] border-[#BEBEBE]'}`}></div>
+          <svg className={`absolute transition-all top-[1.212vw] w-19px h-18px ${creatorMode ? 'right-[1.3vw]': 'left-[1.3vw]'}`} width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle className="transition-all" cx="9.29173" cy="8.88938" r="8.72727" fill={creatorMode ? '#ffffff': "#BEBEBE"}/>
           </svg>
         </button>
         <div className="relative w-fit">

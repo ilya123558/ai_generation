@@ -47,7 +47,7 @@ export const Menu = () => {
   }
 
   return (
-    <div id='menu' className='fixed bottom-0 w-full bg-[#fcfcfd] border-t-[1px] border-[#DADADA] p-[4vw_11.2vw_3.3vw] z-[20]'>
+    <div id='menu' className='fixed bottom-0 w-full bg-[#ffffff] border-t-[1px] border-[#DADADA] p-[4vw_11.2vw_3.3vw] z-[20]'>
       <nav>
         <ul className='flex justify-between mb-[5px]'>
           {list.map(({svgElement, link, visiblePage}, index) => (
