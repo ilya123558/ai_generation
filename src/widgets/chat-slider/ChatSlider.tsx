@@ -50,7 +50,7 @@ export const ChatSlider = () => {
         onInit={handleInitSwiper}
         coverflowEffect={{
           rotate: 0,
-          stretch: 130,
+          stretch: 75,
           depth: 300,
           slideShadows: false,
         }}
@@ -60,14 +60,14 @@ export const ChatSlider = () => {
         {isLoad
           ? (
             slides.map((src, idx) => (
-              <SwiperSlide key={idx} className="!w-[56vw]">
+              <SwiperSlide key={idx} className="!w-[45vw]">
                 <ChatSliderItem src={src} />
               </SwiperSlide>
             ))
           )
           : Array(5).fill(null).map((_, index) => (
-            <SwiperSlide key={index} className='!w-[56vw]'>
-              <div className="w-211px h-296px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+            <SwiperSlide key={index} className='!w-[45vw]'>
+              <div className="w-168px h-236px bg-[#ABB0BC] z-[9] rounded-[16px]"></div>
             </SwiperSlide>
           ))
         }

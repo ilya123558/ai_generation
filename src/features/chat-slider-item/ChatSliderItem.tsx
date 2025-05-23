@@ -10,8 +10,8 @@ export const ChatSliderItem = ({ src }: IProps) => {
       <ImageWithSkeleton 
         src={src}
         alt="chat-image"
-        width={211}
-        height={296}
+        width={168}
+        height={236}
         className="w-full object-cover object-center"
       />
     </div>

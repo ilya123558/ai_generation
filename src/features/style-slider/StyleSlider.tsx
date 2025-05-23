@@ -17,7 +17,7 @@ export const StyleSlider = () => {
   }
 
   return (
-    <div className="w-full flex items-center mt-[2.67vw]">
+    <div className="w-full flex items-center mt-[2vw]">
       <Swiper
         slidesPerView={'auto'}
         spaceBetween={7}
@@ -28,7 +28,7 @@ export const StyleSlider = () => {
           <SwiperSlide key={index} className='max-w-fit'>
             <div 
               onClick={() => setActiveIndex(index)} 
-              className={`h-38px w-fit transition-all active:scale-95 flex items-center justify-center p-[0px_6vw] fs-13 rounded-[16px] font-semibold border-[1px] border-transparent ${activeIndex === index ? 'text-white border-white': 'text-[#AAAAAB]'}`}
+              className={`h-28px w-fit transition-all active:scale-95 flex items-center justify-center p-[0px_6vw] fs-13 rounded-[16px] font-semibold border-[1px] border-transparent ${activeIndex === index ? 'text-white border-white': 'text-[#AAAAAB]'}`}
             >
               {item}
             </div>

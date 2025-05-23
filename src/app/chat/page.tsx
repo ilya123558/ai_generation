@@ -11,7 +11,7 @@ export default function Page() {
 
   return (
     <section style={{paddingTop: getTelegramTopPaddingValue()}} className="flex flex-col justify-between bg-[#141416] w-full h-full text-white fixed left-0 top-0">
-      <div className="w-full p-[0px_4vw] mt-[4vw] mb-[6.67vw]">
+      <div className="w-full p-[0px_4vw] mt-[2vw] mb-[3vw]">
         <ChatHeader />
         <ChatSlider />
       </div>
