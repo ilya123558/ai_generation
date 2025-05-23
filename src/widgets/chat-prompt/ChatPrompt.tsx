@@ -1,13 +1,23 @@
 'use client'
 import { EllipseButton } from "@/shared/buttons/ellipse-button/EllipseButton";
 import { QuestionModalContent } from "@/shared/question-modal-content/QuestionModalContent";
+import { setDisplayPrompt, useAppDispatch, useAppSelector } from "@/views/store";
 import { useState } from "react";
 
-export const ChatPrompt = () => {
+interface IProps {
+  handleGenerate: () => void
+}
+
+export const ChatPrompt = ({ handleGenerate }: IProps) => {
+  const dispatch = useAppDispatch()
+  const { displayPrompt } = useAppSelector(state => state.main.meta)
   const [isOpenQuestionModalContent, setIsOpenQuestionModalContent] = useState(false)
   const [isFocus, setIsFocus] = useState(false)
   const [toggle, setToggle] = useState(false)
-  const [prompt, setPrompt] = useState('')
+
+  const handleSetPrompt = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    dispatch(setDisplayPrompt(e.target.value))
+  }
 
   return (
     <div className={`w-full h-full bg-white mt-[2vw] rounded-[30px_30px_0px_0px] p-[3.8vw_4.5vw]`}>
@@ -32,20 +42,20 @@ export const ChatPrompt = () => {
       <div className={`${isFocus ? 'fixed w-full h-full left-0 top-0 z-[20] flex items-end backdrop-blur-[20px] bg-[#ffffff03]': ''} transition-all`}>
         <div className={`${isFocus ? 'mb-[50vh] w-full p-[0px_4vw]': ''} transition-all relative`}>
           <textarea 
-            value={prompt} 
-            onChange={(e) => setPrompt(e.target.value)} 
+            value={displayPrompt || ''} 
+            onChange={handleSetPrompt} 
             className={`${isFocus ? 'p-[1vw_2.6vw] rounded-[4px] shadow-black': ''} w-full min-h-[14.4vw] resize-none font-normal italic text-primary fs-12 outline-none`}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
           />
-          {prompt.length === 0 && (
-            <div className="absolute top-1/2 left-1/2 pointer-events-none -translate-x-1/2 -translate-y-[60%] text-center text-primary text-opacity-75 font-normal italic fs-12 text-nowrap">
+          {(!displayPrompt || displayPrompt.length === 0) && (
+            <div className="absolute top-1/2 left-1/2 pointer-events-none -translate-x-1/2 -translate-y-[70%] text-center text-primary text-opacity-75 font-normal italic fs-12 text-nowrap">
               Введите сообщение для генерации
             </div>
           )}
         </div>
       </div>
-      <EllipseButton onClick={() => {}} className="mt-[1.5vw] !p-[3vw_4.14vw]">
+      <EllipseButton onClick={handleGenerate} className="mt-[1.5vw] !p-[3vw_4.14vw]">
         <p className="fs-12 font-semibold">Generate</p>
       </EllipseButton>
     </div>
