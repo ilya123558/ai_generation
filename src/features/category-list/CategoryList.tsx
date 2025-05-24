@@ -2,7 +2,7 @@
 import { useGetCategoriesQuery, useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
 import { CategoryButton } from "@/shared/buttons/category-button/CategoryButton";
 import { ImageWithSkeleton } from "@/shared/image-with-skeleton/ImageWithSkeleton";
-import { useAppSelector } from "@/views/store";
+import { setActiveCategoryId, useAppDispatch, useAppSelector } from "@/views/store";
 import { useEffect } from "react";
 import { CategoryLoading } from "../category-loading/CategoryLoading";
 import { motion } from "framer-motion";
@@ -12,13 +12,20 @@ import { useRouter } from "next/navigation";
 
 export const CategoryList = () => {
   const router = useRouter()
+  const dispatch = useAppDispatch()
   const { searchValue } = useAppSelector(state => state.main.meta)
+  const { activeCategoryId } = useAppSelector(state => state.main.accountData)
   const [getCategories, { data, isLoading }] = useLazyGetCategoriesQuery()
 
   useEffect(() => {
     getCategories({ limit: 50, q: searchValue || "" })
   }, [searchValue])
 
+  useEffect(() => {
+    if(data && !activeCategoryId) {
+      dispatch(setActiveCategoryId(data.categories[0].id))
+    }
+  }, [data, activeCategoryId])
 
   return (
     <>

@@ -39,13 +39,10 @@ export default function Home() {
           }
   
         } else {
-          alert("initData не доступно");
+          alert("initData not found");
         }
       }
-      catch (e) {
-        alert(JSON.stringify(e))
-      }
-
+      catch (e) {}
     }
 
     login()

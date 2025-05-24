@@ -1,18 +1,18 @@
-import { IMetaResponse } from "@/entities/general/types/general"
+import { IMetaResponse, IPageRequest } from "@/entities/general/types/general"
 
 export type TChatSender = 'user' | 'bot'
 
 export interface IChat {
   id: number
-  sender: TChatSender
-  text: string
-  image: string
-  status: string
-  createdAt: string
+  photo: string
 }
 
-export interface IGetGenerationsChatResponse extends IMetaResponse {
+export interface IGetGenerationsResponse extends IMetaResponse {
   page: number
   totalPages: number
   generations: IChat[]
+}
+
+export interface IGetGenerationsRequest extends IPageRequest {
+  categoryId?: number
 }

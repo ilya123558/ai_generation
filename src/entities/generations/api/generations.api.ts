@@ -1,7 +1,7 @@
+import { IGetGenerationsRequest, IGetGenerationsResponse } from './../types/chat';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ICreateGenerationsRequest, ICreateGenerationsResponse, IGetGenerationsByIdRequest, IGetGenerationsByIdResponse } from '../types/generations'
-import { IPageRequest } from '@/entities/general/types/general'
-import { IGetGenerationsChatResponse } from '../types/chat'
+import { ILikeGenerationsRequest, ILikeGenerationsResponse } from '../types/like';
 
 export const generationsApi = createApi({
   reducerPath: 'generationsApi',
@@ -15,7 +15,7 @@ export const generationsApi = createApi({
       return headers
     },
   }),
-  tagTypes: ['Generations'],
+  tagTypes: ['Generations', 'Generations-like'],
   endpoints: (builder) => ({
     // GET
     getGenerationsById: builder.query<IGetGenerationsByIdResponse, IGetGenerationsByIdRequest>({
@@ -23,10 +23,10 @@ export const generationsApi = createApi({
         url: `/${jobId}`,
       }),
     }),
-    getGenerationsChat: builder.query<IGetGenerationsChatResponse, IPageRequest>({
+    getGenerations: builder.query<IGetGenerationsResponse, IGetGenerationsRequest>({
       query: (params) => ({
-        url: `/chat`,
-        params
+        url: `/`,
+        params 
       }),
       providesTags: ['Generations']
     }),
@@ -40,13 +40,23 @@ export const generationsApi = createApi({
       }),
       invalidatesTags: ['Generations']
     }),
+
+    // PUT
+    likeGenerations: builder.mutation<ILikeGenerationsResponse, ILikeGenerationsRequest>({
+      query: ({generation_id}) => ({
+        url: `/like/${generation_id}`,
+        method: 'PUT'
+      }),
+      invalidatesTags: ['Generations-like']
+    }),
   }),
 })
 
 export const { 
   useGetGenerationsByIdQuery,
   useLazyGetGenerationsByIdQuery,
-  useGetGenerationsChatQuery,
-  useLazyGetGenerationsChatQuery,
-  useCreateGenerationsMutation
+  useGetGenerationsQuery,
+  useLazyGetGenerationsQuery,
+  useCreateGenerationsMutation,
+  useLikeGenerationsMutation
 } = generationsApi

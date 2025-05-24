@@ -24,42 +24,42 @@ export const SelectStyleGeneration = () => {
   const [createGenerations] = useCreateGenerationsMutation()
 
   const handleGenerateImage = (styleId?: number) => {
-    if(isCreatingImage) return
+    // if(isCreatingImage) return
 
-    const styleIdValue = styleId ? styleId : (activeStyleId || 1)
-    const activeStyleValue = style?.styles?.find(item => item.id === styleIdValue)?.title || null
+    // const styleIdValue = styleId ? styleId : (activeStyleId || 1)
+    // const activeStyleValue = style?.styles?.find(item => item.id === styleIdValue)?.title || null
 
-    if(creatorMode && (generationPoints > 2)) {
-      createGenerations({
-        prompt: prompt,
-        resolution,
-        styleId: styleIdValue,
-        subcategoryId: activeSubcategoryId,
-        profileId: activeProfileId,
-      })
+    // if(creatorMode && (generationPoints > 2)) {
+    //   createGenerations({
+    //     prompt: prompt,
+    //     resolution,
+    //     styleId: styleIdValue,
+    //     subcategoryId: activeSubcategoryId,
+    //     profileId: activeProfileId,
+    //   })
 
-      dispatch(createImage({prompt, activeStyle: activeStyleValue}))
+    //   dispatch(createImage({prompt, activeStyle: activeStyleValue}))
       
-      setPrompt('')
-      return
-    }
+    //   setPrompt('')
+    //   return
+    // }
 
-    if(generationPoints > 1) {
-      createGenerations({
-        prompt: '',
-        resolution,
-        styleId: styleIdValue,
-        subcategoryId: activeSubcategoryId,
-        profileId: activeProfileId,
-      })
+    // if(generationPoints > 1) {
+    //   createGenerations({
+    //     prompt: '',
+    //     resolution,
+    //     styleId: styleIdValue,
+    //     subcategoryId: activeSubcategoryId,
+    //     profileId: activeProfileId,
+    //   })
 
-      dispatch(createImage({prompt: '', activeStyle: activeStyleValue}))
+    //   dispatch(createImage({prompt: '', activeStyle: activeStyleValue}))
 
-      setPrompt('')
-      return
-    }
+    //   setPrompt('')
+    //   return
+    // }
 
-    setGenerationBuyModalIsOpen(true)
+    // setGenerationBuyModalIsOpen(true)
   }
 
   const handleStyleSelect = (styleId: number) => {

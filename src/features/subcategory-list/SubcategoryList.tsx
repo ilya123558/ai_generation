@@ -3,7 +3,7 @@ import { useGetSubCategoriesQuery } from "@/entities/categories/api/categories.a
 import { SubcategoryButton } from "@/shared/buttons/subcategory-button/SubcategoryButton";
 import { EmptyMessage } from "@/shared/empty-message/EmptyMessage";
 import { ImageWithSkeleton } from "@/shared/image-with-skeleton/ImageWithSkeleton";
-import { setActiveSubcategoryId, useAppDispatch } from "@/views/store";
+import { setActiveCategoryId, setActiveSubcategoryId, useAppDispatch } from "@/views/store";
 import { usePathname, useRouter } from "next/navigation";
 import { SubcategoryLoading } from "../subcategory-loading/SubcategoryLoading";
 import { motion } from "framer-motion";
@@ -11,14 +11,15 @@ import { animationImg } from "@/utils/const/animation";
 
 export const SubcategoryList = () => {
   const router = useRouter() 
-  const id = usePathname().split('/').at(-1)
+  const category_id = usePathname().split('/').at(-1)
 
   const dispatch = useAppDispatch()
-  const { data, isLoading } = useGetSubCategoriesQuery(Number(id))
+  const { data, isLoading } = useGetSubCategoriesQuery(Number(category_id))
 
-  const handleClick = (id: number) => {
-    dispatch(setActiveSubcategoryId(id))
-    router.push('/generation')
+  const handleClick = (subcategory_id: number) => {
+    dispatch(setActiveCategoryId(Number(category_id)))
+    dispatch(setActiveSubcategoryId(subcategory_id))
+    router.push(`/chat`)
   }
 
   return (

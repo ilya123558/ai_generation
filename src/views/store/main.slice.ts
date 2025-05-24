@@ -20,8 +20,10 @@ interface IInitialState {
     creatorMode: boolean
     creatorModeIsBuy: boolean
     resolution: TResolution
-    activeProfileId: number
-    activeSubcategoryId: number
+    activeProfileId: number | null
+    activeCategoryId: number | null
+    activeSubcategoryId: number | null
+    activeStyleId: number | null
   }
   user: null | IUser
 }
@@ -44,8 +46,10 @@ const initialState: IInitialState = {
     creatorMode: false,
     creatorModeIsBuy: true,
     resolution: '2:3',
-    activeProfileId: 1,
-    activeSubcategoryId: 1,
+    activeProfileId: null,
+    activeCategoryId: null,
+    activeSubcategoryId: null,
+    activeStyleId: null
   },
   user: null,
 }
@@ -69,8 +73,18 @@ const mainSlice = createSlice({
     setActiveProfileId: (state, action: PayloadAction<IInitialState['accountData']['activeProfileId']>) => {
       state.accountData.activeProfileId = action.payload
     },
+    setActiveCategoryId: (state, action: PayloadAction<IInitialState['accountData']['activeCategoryId']>) => {
+      state.accountData.activeCategoryId = action.payload
+    },
     setActiveSubcategoryId: (state, action: PayloadAction<IInitialState['accountData']['activeSubcategoryId']>) => {
       state.accountData.activeSubcategoryId = action.payload
+    },
+    setActiveStyleId: (state, action: PayloadAction<IInitialState['accountData']['activeStyleId']>) => {
+      state.accountData.activeStyleId = action.payload
+    },
+    setResetGenerationInfo: (state) => {
+      state.accountData.activeStyleId = null
+      state.meta.displayPrompt = null
     },
     setDisplayPrompt: (state, action: PayloadAction<IInitialState['meta']['displayPrompt']>) => {
       state.meta.displayPrompt = action.payload
@@ -87,11 +101,9 @@ const mainSlice = createSlice({
     setCreateProfileTitle: (state, action: PayloadAction<IInitialState['meta']['createProfile']['title']>) => {
       state.meta.createProfile.title = action.payload
     },
-    createImage: (state, action: PayloadAction<{prompt: string, activeStyle: string | null}>) => {
-      state.meta.displayPrompt = action.payload.prompt
+    createImage: (state) => {
       state.meta.isCreatingImage = true
       state.accountData.generationPoints = state.accountData.generationPoints - 2
-      state.meta.activeStyle = action.payload.activeStyle
     },
     imageCreating: (state) => {
       state.meta.displayPrompt = null
@@ -107,7 +119,10 @@ export const {
   setCreatorMode,
   setResolution,
   setActiveProfileId,
+  setActiveCategoryId,
   setActiveSubcategoryId,
+  setActiveStyleId,
+  setResetGenerationInfo,
   setDisplayPrompt,
   setSearchValue,
   setCreateProfileImages,
