@@ -5,6 +5,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 interface IInitialState {
   meta: {
     isCreatingImage: boolean
+    isCreatingImageSubcategoryId: null | number
     displayPrompt: string | null
     activeStyle: string | null
     searchValue: string
@@ -31,6 +32,7 @@ interface IInitialState {
 const initialState: IInitialState = {
   meta: {
     isCreatingImage: false,
+    isCreatingImageSubcategoryId: null,
     displayPrompt: null,
     searchValue: '',
     activeStyle: null,
@@ -103,12 +105,14 @@ const mainSlice = createSlice({
     },
     createImage: (state) => {
       state.meta.isCreatingImage = true
+      state.meta.isCreatingImageSubcategoryId = Number(state.accountData.activeSubcategoryId)
       state.accountData.generationPoints = state.accountData.generationPoints - 2
     },
     imageCreating: (state) => {
       state.meta.displayPrompt = null
       state.meta.isCreatingImage = false
       state.meta.activeStyle = null
+      state.meta.isCreatingImageSubcategoryId = null
     },
   },
 })

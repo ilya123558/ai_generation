@@ -13,7 +13,7 @@ import { useEffect, useState } from "react"
 export default function Page() {
   const dispatch = useAppDispatch()
   const { resolution, activeProfileId, activeSubcategoryId, activeStyleId, creatorMode, generationPoints } = useAppSelector(state => state.main.accountData)
-  const displayPrompt = useAppSelector(state => state.main.meta.displayPrompt)
+  const {displayPrompt, isCreatingImage} = useAppSelector(state => state.main.meta)
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
   const { getTelegramTopPaddingValue } = useGetDevice()
 
@@ -73,7 +73,15 @@ export default function Page() {
       <div className="w-full h-full">
         <SubcategorySlider />
         <StyleSlider />
-        <ChatPrompt handleGenerate={handleGenerate} />
+        <ChatPrompt 
+          handleGenerate={handleGenerate} 
+          generateDisabled={
+            !isCreatingImage && (creatorMode
+              ? !(activeProfileId !== null && activeSubcategoryId !== null && activeStyleId !== null && Boolean(displayPrompt))
+              : !(activeProfileId !== null && activeSubcategoryId !== null && activeStyleId !== null)
+            )
+          } 
+        />
       </div>
     </section>
   )

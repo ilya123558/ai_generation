@@ -13,7 +13,7 @@ import 'swiper/css';
 export const ChatSlider = () => {
   const dispatch = useAppDispatch()
   const { activeSubcategoryId, activeCategoryId } = useAppSelector(state => state.main.accountData)
-  const { isCreatingImage } = useAppSelector(state => state.main.meta)
+  const { isCreatingImage, isCreatingImageSubcategoryId } = useAppSelector(state => state.main.meta)
   const [isLoad, setIsLoad] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
@@ -21,6 +21,9 @@ export const ChatSlider = () => {
   const [getGenerations, { data: generationsData }] = useLazyGetGenerationsQuery()
 
   const ref = useRef<number | null>(null)
+  const showEmptyMessage = generationsData 
+    && generationsData.generations.length === 0 
+    && (!isCreatingImage || (isCreatingImageSubcategoryId !== activeSubcategoryId))
 
   const goToSlide = (index: number) => {
     if (swiperRef.current) {
@@ -61,7 +64,7 @@ export const ChatSlider = () => {
 
   return (
     <div className="w-full mt-[-7.5vw]">
-      {(generationsData && generationsData.generations.length === 0)
+      {showEmptyMessage
         ? (
           <div className='flex items-center justify-center h-236px w-full text-nowrap text-white font-normal fs-12 italic text-center'>
             <p>Вы еще не создали изображения в этой<br/> категории</p>
@@ -78,7 +81,7 @@ export const ChatSlider = () => {
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             coverflowEffect={{
               rotate: -25,
-              stretch: 105,
+              stretch: 60,
               depth: 300,
               slideShadows: false,
             }}
@@ -89,22 +92,22 @@ export const ChatSlider = () => {
               ? (
                 <>
                   {isCreatingImage && (
-                    <SwiperSlide className='!w-[56vw]'>
-                      <div className="w-211px h-296px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                    <SwiperSlide className='!w-[45vw]'>
+                      <div className="w-169px h-237px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
                     </SwiperSlide>
                   )}
                   {
-                    generationsData?.generations.map(({photo}, idx) => (
-                      <SwiperSlide key={idx} className="!w-[56vw]">
-                        <ChatSliderItem src={photo} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
+                    generationsData?.generations.map((item, idx) => (
+                      <SwiperSlide key={idx} className="!w-[45vw]">
+                        <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
                       </SwiperSlide>
                     ))
                   }
                 </>
               )
               : Array(5).fill(null).map((_, index) => (
-                <SwiperSlide key={index} className='!w-[56vw]'>
-                  <div className="w-211px h-296px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                <SwiperSlide key={index} className='!w-[45vw]'>
+                  <div className="w-169px h-237px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
                 </SwiperSlide>
               ))
             }
