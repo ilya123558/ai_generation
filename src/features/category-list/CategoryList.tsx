@@ -14,18 +14,11 @@ export const CategoryList = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { searchValue } = useAppSelector(state => state.main.meta)
-  const { activeCategoryId } = useAppSelector(state => state.main.accountData)
   const [getCategories, { data, isLoading }] = useLazyGetCategoriesQuery()
 
   useEffect(() => {
     getCategories({ limit: 50, q: searchValue || "" })
   }, [searchValue])
-
-  useEffect(() => {
-    if(data && !activeCategoryId) {
-      dispatch(setActiveCategoryId(data.categories[0].id))
-    }
-  }, [data, activeCategoryId])
 
   return (
     <>

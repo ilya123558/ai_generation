@@ -1,43 +1,38 @@
 'use client'
-import { useLazyGetCategoriesQuery, useLazyGetSubCategoriesQuery } from "@/entities/categories/api/categories.api";
+import { useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
 import { useGetProfilesQuery } from "@/entities/users/api/users.api";
 import { CategoryList } from "@/features/category-list/CategoryList";
 import { Search } from "@/features/search/Search";
 import { Container } from "@/shared/container/Container";
 import { ListWrapper } from "@/shared/wrappers/list-wrapper/ListWrapper";
-import { setActiveProfileId, setActiveSubcategoryId, useAppDispatch, useAppSelector } from "@/views/store";
+import { setActiveCategoryId, setActiveProfileId, useAppDispatch, useAppSelector } from "@/views/store";
 import { useEffect } from "react";
 
 export default function Page() {
-  const { user } = useAppSelector(state => state.main)
-  const [useGetCategories, { data: categories }] = useLazyGetCategoriesQuery();
-  const [useGetSubCategories, { data: subCategories }] = useLazyGetSubCategoriesQuery();
-  const {data: profile} = useGetProfilesQuery()
-
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector(state => state.main)
+  const { activeCategoryId, activeProfileId } = useAppSelector(state => state.main.accountData)
   
-  useEffect(() => {
-    if (categories?.categories?.[0]?.id) {
-      useGetSubCategories(categories.categories[0].id);
-    }
-  }, [categories]);
-  
-  useEffect(() => {
-    if (subCategories?.subcategories?.[0]?.id) {
-      dispatch(setActiveSubcategoryId(subCategories.subcategories[0].id));
-    }
-  }, [subCategories]);
+  const [useGetCategories, { data: categories }] = useLazyGetCategoriesQuery();
+  const {data: profile} = useGetProfilesQuery()
   
   useEffect(() => {
     if (!categories) useGetCategories({ limit: 50 });
   }, [categories]);
 
   useEffect(() => {
-    if(profile?.profiles?.[0]) {
-      dispatch(setActiveProfileId(profile.profiles[0].id || 1))
+    if (categories?.categories?.[0]?.id && !activeCategoryId) {
+      const firstCategoryId = categories.categories.reverse()[0].id
+      dispatch(setActiveCategoryId(firstCategoryId))
     }
-  }, [dispatch, profile])
+  }, [categories, activeCategoryId]);
 
+  useEffect(() => {
+    if(profile?.profiles?.[0] && !activeProfileId) {
+      const firstProfileId = profile.profiles[0].id || 1
+      dispatch(setActiveProfileId(firstProfileId))
+    }
+  }, [dispatch, profile, activeProfileId])
 
   return (
     <section>

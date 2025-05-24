@@ -26,7 +26,9 @@ export const SubcategorySlider = () => {
   }
 
   useEffect(() => {
-    getSubCategories(activeCategoryId || 0)
+    if(activeCategoryId) {
+      getSubCategories(activeCategoryId)
+    }
   }, [activeCategoryId])
 
   return (
