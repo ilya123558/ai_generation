@@ -22,7 +22,7 @@ export default function Page() {
 
   useEffect(() => {
     if (categories?.categories?.[0]?.id && !activeCategoryId) {
-      const firstCategoryId = categories.categories.reverse()[0].id
+      const firstCategoryId = [...categories.categories].reverse()[0].id;
       dispatch(setActiveCategoryId(firstCategoryId))
     }
   }, [categories, activeCategoryId]);
