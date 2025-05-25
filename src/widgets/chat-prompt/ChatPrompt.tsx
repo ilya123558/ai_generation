@@ -95,7 +95,7 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
                   value={displayPrompt || ''} 
                   onChange={handleSetPrompt}
                   placeholder="Введите сообщение для генерации" 
-                  className={`${isFocus ? 'p-[1vw_2.6vw] rounded-[4px] shadow-black': ''} w-full min-h-[7vh] resize-none font-medium italic text-primary text-[1.6vh] outline-none`}
+                  className={`${isFocus ? 'p-[1vw_2.6vw] rounded-[4px] shadow-black': ''} w-full min-h-[55px] resize-none font-medium italic text-primary text-[1.6vh] outline-none`}
                   onFocus={() => setIsFocus(true)}
                 />
                 {isFocus && (
