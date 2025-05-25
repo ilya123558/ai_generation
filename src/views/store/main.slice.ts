@@ -87,6 +87,8 @@ const mainSlice = createSlice({
     setResetGenerationInfo: (state) => {
       state.accountData.activeStyleId = null
       state.meta.displayPrompt = null
+      state.meta.displayPrompt = null
+      state.accountData.creatorMode = false
     },
     setDisplayPrompt: (state, action: PayloadAction<IInitialState['meta']['displayPrompt']>) => {
       state.meta.displayPrompt = action.payload

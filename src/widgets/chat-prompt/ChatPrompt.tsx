@@ -80,8 +80,8 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
         </div>
         {creatorMode
           ? (
-            <div className={`${isFocus ? 'fixed w-full h-full left-0 top-0 z-[20] flex items-end backdrop-blur-[20px] bg-black/30': ''} transition-all`}>
-              <div className={`${isFocus ? 'mb-[50vh] w-full p-[0px_4vw]': ''} transition-all relative`}>
+            <div className={`${isFocus ? 'fixed w-full h-full left-0 top-0 z-[20] flex items-start backdrop-blur-[20px] bg-black/30': ''} transition-all`}>
+              <div className={`${isFocus ? 'mt-[200px] w-full p-[0px_4vw]': ''} transition-all relative`}>
                 <textarea 
                   value={displayPrompt || ''} 
                   onChange={handleSetPrompt}
