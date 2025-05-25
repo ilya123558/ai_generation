@@ -1,5 +1,6 @@
 'use client'
 import { useLikeGenerationsMutation } from "@/entities/generations/api/generations.api";
+import { useDeleteGenerationMutation } from "@/entities/users/api/users.api";
 import { ImageWithSkeleton } from "@/shared/image-with-skeleton/ImageWithSkeleton";
 import { PhotoModal } from "@/shared/photo-modal/PhotoModal";
 import Image from "next/image";
@@ -8,13 +9,19 @@ import { useState } from "react";
 interface IProps {
   photo: string
   id: number
+  like: boolean
   isActiveSlide: boolean
 }
 
-export const ChatSliderItem = ({ photo, id, isActiveSlide}: IProps) => {
-  const [isLike, setIsLike] = useState(false)
+export const ChatSliderItem = ({ photo, id, like, isActiveSlide}: IProps) => {
+  const [isLike, setIsLike] = useState(like)
   const [openModal, setOpenModal] = useState(false)
   const [likeGenerations] = useLikeGenerationsMutation() 
+  const [deleteGeneration] = useDeleteGenerationMutation()
+
+  const handleDelete = () => {
+    deleteGeneration(id)
+  }
 
   const handleLike = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation()
@@ -28,13 +35,14 @@ export const ChatSliderItem = ({ photo, id, isActiveSlide}: IProps) => {
         setIsOpen={setOpenModal} 
         isOpen={openModal}
         photo={photo}
+        handleDelete={handleDelete}
       />
       <div style={{boxShadow: '0px 0px 28px 0px #000000'}} onClick={() => setOpenModal(true)} className="rounded-[16px] overflow-hidden w-full relative">
         <ImageWithSkeleton 
           src={photo}
           alt="chat-image"
-          width={169}
-          height={237}
+          width={200}
+          height={280}
           className="w-full object-cover object-center"
         />
         <button onClick={handleLike} className={`${isActiveSlide ? 'opacity-100': 'opacity-0 pointer-events-none'} transition-all border-[#ffffff80] ${isLike ? 'border-light-red': 'border-[#ffffff80]'} transition-all backdrop-blur-[10px] absolute will-change-transform top-[11px] right-[12px] rounded-full w-[26px] h-[26px] border-[1px] flex items-center justify-center active:scale-95`}>

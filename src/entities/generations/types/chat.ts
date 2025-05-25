@@ -4,6 +4,7 @@ export type TChatSender = 'user' | 'bot'
 
 export interface IChat {
   id: number
+  like: boolean
   photo: string
 }
 

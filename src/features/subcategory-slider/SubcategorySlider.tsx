@@ -48,7 +48,7 @@ export const SubcategorySlider = () => {
         <SwiperSlide className='max-w-fit'>
           <div 
             onClick={() => handleSetActiveSubcategory(null)} 
-            className={`h-40px w-fit transition-all active:scale-95 flex items-center justify-center p-[0px_6vw] fs-13 rounded-[16px] font-medium ${activeSubcategoryId === null ? 'text-[#23262F] bg-[#F7F7F8]': 'text-[#AAAAAB] bg-[#F7F7F81A]'}`}
+            className={`h-37px w-fit transition-all active:scale-95 flex items-center justify-center p-[0px_6vw] fs-13 rounded-[16px] font-medium ${activeSubcategoryId === null ? 'text-[#23262F] bg-[#F7F7F8]': 'text-[#AAAAAB] bg-[#F7F7F81A]'}`}
           >
             Все
           </div>
@@ -57,7 +57,7 @@ export const SubcategorySlider = () => {
           <SwiperSlide key={index} className='max-w-fit'>
             <div 
               onClick={() => handleSetActiveSubcategory(id)} 
-              className={`h-40px w-fit transition-all active:scale-95 flex items-center justify-center p-[0px_6vw] fs-13 rounded-[16px] font-medium ${activeSubcategoryId === id ? 'text-[#23262F] bg-[#F7F7F8]': 'text-[#AAAAAB] bg-[#F7F7F81A]'}`}
+              className={`h-37px w-fit transition-all active:scale-95 flex items-center justify-center p-[0px_6vw] fs-13 rounded-[16px] font-medium ${activeSubcategoryId === id ? 'text-[#23262F] bg-[#F7F7F8]': 'text-[#AAAAAB] bg-[#F7F7F81A]'}`}
             >
               {title}
             </div>

@@ -19,18 +19,18 @@ export const StyleSlider = () => {
   }
 
   return (
-    <div className="w-full flex items-center mt-[2.67vw]">
+    <div className="w-full flex items-center mt-[2.6vw]">
       <Swiper
         slidesPerView={'auto'}
         spaceBetween={7}
         onInit={handleInitSwiper}
-        className="!p-[0px_4vw]"
+        className="!p-[0px_4vw_1vw]"
       >
         {stylesData?.styles.map((item, index) => (
           <SwiperSlide key={index} className='max-w-fit'>
             <div 
               onClick={() => dispatch(setActiveStyleId(item.id))} 
-              className={`h-38px w-fit transition-all active:scale-95 flex items-center justify-center p-[0px_6vw] fs-13 rounded-[16px] font-semibold border-[1px] border-transparent ${activeStyleId === item.id ? 'text-white border-white': 'text-[#AAAAAB]'}`}
+              className={`w-fit transition-all active:scale-[0.95] flex items-center justify-center p-[2.3vw_4vw] fs-13 rounded-[16px] font-semibold border-[1px] border-transparent ${activeStyleId === item.id ? 'text-white border-white': 'text-[#AAAAAB]'}`}
             >
               {item.title}
             </div>

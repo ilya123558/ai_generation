@@ -81,7 +81,7 @@ export const ChatSlider = () => {
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             coverflowEffect={{
               rotate: -25,
-              stretch: 60,
+              stretch: 90,
               depth: 300,
               slideShadows: false,
             }}
@@ -92,13 +92,13 @@ export const ChatSlider = () => {
               ? (
                 <>
                   {isCreatingImage && (
-                    <SwiperSlide className='!w-[45vw]'>
-                      <div className="w-169px h-237px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                    <SwiperSlide className='!w-[53vw]'>
+                      <div className="w-200px h-280px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
                     </SwiperSlide>
                   )}
                   {
                     generationsData?.generations.map((item, idx) => (
-                      <SwiperSlide key={idx} className="!w-[45vw]">
+                      <SwiperSlide key={idx} className="!w-[53vw]">
                         <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
                       </SwiperSlide>
                     ))
@@ -106,8 +106,8 @@ export const ChatSlider = () => {
                 </>
               )
               : Array(5).fill(null).map((_, index) => (
-                <SwiperSlide key={index} className='!w-[45vw]'>
-                  <div className="w-169px h-237px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                <SwiperSlide key={index} className='!w-[53vw]'>
+                  <div className="w-200px h-280px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
                 </SwiperSlide>
               ))
             }

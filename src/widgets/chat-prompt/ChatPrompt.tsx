@@ -49,12 +49,12 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
   }
 
   return (
-    <div className={`w-full h-full bg-white mt-[3vw] rounded-[30px_30px_0px_0px] p-[3.8vw_4.5vw] flex flex-col justify-between`}>
+    <div className={`w-full h-full bg-white mt-[1.5vw] rounded-[30px_30px_0px_0px] p-[3.8vw_4.5vw] flex flex-col justify-between`}>
       <CreatorModeInfoModal isOpen={isOpenCreatorModeInfo} setIsOpen={setIsOpenCreatorModeInfo} />
       <CreatorModeBuyModal isOpen={isOpenCreatorModeBuy} setIsOpen={setIsOpenCreatorModeBuy} />
       <QuestionModalContent isOpen={isOpenQuestionModalContent} setIsOpen={setIsOpenQuestionModalContent} />
       <div className="w-full">
-        <div className="mb-[3.5vw] flex justify-between">
+        <div className="mb-[2vw] flex justify-between">
           <div className="flex items-center gap-[10px]">
             <button onClick={handleCreatorModeClick} className={`relative`}>
               <div className={`w-45px h-27px transition-all rounded-[15px] overflow-hidden border-[2px] ${creatorMode ? 'bg-[#23262F] border-transparent': 'bg-["#BEBEBE"] border-[#BEBEBE]'}`}></div>
