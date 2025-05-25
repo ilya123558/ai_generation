@@ -12,7 +12,7 @@ export const ChatHeader = () => {
   return (
     <div className="w-full">
       <SttingsModalContent isOpen={isOpenSettings} setIsOpen={setIsOpenSettings} />
-      <QuestionModalContent isOpen={isOpenQuestionModalContent}  setIsOpen={setIsOpenQuestionModalContent} />
+      <QuestionModalContent isOpen={isOpenQuestionModalContent} setIsOpen={setIsOpenQuestionModalContent} />
       <div className="relative z-[10] flex items-center justify-between w-full">
         <button onClick={() => setIsOpenQuestionModalContent(true)} className="active:scale-[0.95] transition-all">
           <svg className="w-26px h-26px" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">

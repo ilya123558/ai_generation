@@ -39,7 +39,7 @@ export const SttingsModalContent = ({isOpen, setIsOpen}: IProps) => {
 
   const handleAccess = async() => {
     setIsOpen(false)
-    await updateResolution({ resolution }).then(async() => {
+    await updateResolution({ resolution: activeResolution }).then(async() => {
       dispatch(setResolution(activeResolution))
       await useGetGenerationsQuery(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {})
     })
