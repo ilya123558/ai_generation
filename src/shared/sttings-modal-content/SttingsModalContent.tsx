@@ -3,6 +3,8 @@ import { useState } from "react";
 import { ModalContentWrapper } from "../wrappers/modal-content-wrapper/ModalContentWrapper";
 import { TResolution } from "@/utils/types/resolution";
 import { setResolution, useAppDispatch, useAppSelector } from "@/views/store";
+import { useUpdateResolutionMutation } from "@/entities/users/api/users.api";
+import { useLazyGetGenerationsQuery } from "@/entities/generations/api/generations.api";
 
 interface IRowData {
   width: string;
@@ -29,13 +31,19 @@ interface IProps {
 
 export const SttingsModalContent = ({isOpen, setIsOpen}: IProps) => {
   const dispatch = useAppDispatch()
-  const { resolution } = useAppSelector(state => state.main.accountData)
+  const { resolution, activeSubcategoryId } = useAppSelector(state => state.main.accountData)
   const [activeResolution, setActiveResolution] = useState<TResolution>(resolution)
 
-  const handleAccess = () => {
+  const [updateResolution] = useUpdateResolutionMutation()
+  const [useGetGenerationsQuery] = useLazyGetGenerationsQuery()
+
+  const handleAccess = async() => {
     setIsOpen(false)
-    dispatch(setResolution(activeResolution))
-  } 
+    await updateResolution({ resolution }).then(async() => {
+      dispatch(setResolution(activeResolution))
+      await useGetGenerationsQuery(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {})
+    })
+  }
 
   return (
     <ModalContentWrapper 

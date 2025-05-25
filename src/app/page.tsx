@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image"
 import { LoginApiClient } from "@/entities/users/api/login.api"
-import { setGenerationPoints, setUser, useAppDispatch } from "@/views/store"
+import { setGenerationPoints, setResolution, setUser, useAppDispatch } from "@/views/store"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useTelegram } from "@/utils/hooks/useTelegram"
@@ -26,6 +26,7 @@ export default function Home() {
         if (init_data) {
           const data = await new LoginApiClient().loginByInitData(init_data);
           dispatch(setUser(data.user));
+          dispatch(setResolution(data.user.resolution));
           dispatch(setGenerationPoints(data.user.tokensCount));
           
           if(data.user.role === 'new') {

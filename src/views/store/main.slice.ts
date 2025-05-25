@@ -71,6 +71,7 @@ const mainSlice = createSlice({
     },
     setResolution: (state, action: PayloadAction<IInitialState['accountData']['resolution']>) => {
       state.accountData.resolution = action.payload
+      state.meta.isCreatingImage = false
     },
     setActiveProfileId: (state, action: PayloadAction<IInitialState['accountData']['activeProfileId']>) => {
       state.accountData.activeProfileId = action.payload

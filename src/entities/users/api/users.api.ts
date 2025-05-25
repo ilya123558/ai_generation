@@ -5,6 +5,8 @@ import { IGenerationsResponse } from '../types/generations'
 import { IMetaResponse, IPageRequest } from '@/entities/general/types/general'
 import { IProfilesMetaResponse } from '../types/profilesMeta'
 import { IProfilesResponse } from '../types/profiles'
+import { TResolution } from '@/utils/types/resolution'
+import { IUploadResolutionRequest, IUploadResolutionResponse } from '../types/updateResolution'
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -18,7 +20,7 @@ export const usersApi = createApi({
       return headers
     },
   }),
-  tagTypes: ['Users'],
+  tagTypes: ['Users', 'Generations'],
   endpoints: (builder) => ({
     // GET
     getGenerations: builder.query<IGenerationsResponse, IPageRequest>({
@@ -45,6 +47,14 @@ export const usersApi = createApi({
     updateGender: builder.mutation<IUpdateGenderResponse, IUpdateGenderRequest>({
       query: (body) => ({
         url: '/updateGender',
+        method: 'PUT',
+        body
+      }),
+    }),
+
+    updateResolution: builder.mutation<IUploadResolutionResponse, IUploadResolutionRequest>({
+      query: (body) => ({
+        url: '/updateResolution',
         method: 'PUT',
         body
       }),
@@ -80,4 +90,5 @@ export const {
   useUpdateGenderMutation,
   useUploadProfileMutation,
   useDeleteGenerationMutation,
+  useUpdateResolutionMutation,
 } = usersApi
