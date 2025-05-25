@@ -37,13 +37,13 @@ export const ChatSliderItem = ({ photo, id, like, isActiveSlide}: IProps) => {
         photo={photo}
         handleDelete={handleDelete}
       />
-      <div style={{boxShadow: '0px 0px 28px 0px #000000'}} onClick={() => setOpenModal(true)} className="rounded-[16px] overflow-hidden w-full relative">
+      <div style={{boxShadow: '0px 0px 28px 0px #000000'}} onClick={() => setOpenModal(true)} className="rounded-[16px] overflow-hidden w-full h-full relative">
         <ImageWithSkeleton 
           src={photo}
           alt="chat-image"
           width={200}
           height={280}
-          className="w-full object-cover object-center"
+          className="w-full h-full object-cover object-center"
         />
         <button onClick={handleLike} className={`${isActiveSlide ? 'opacity-100': 'opacity-0 pointer-events-none'} transition-all border-[#ffffff80] ${isLike ? 'border-light-red': 'border-[#ffffff80]'} transition-all backdrop-blur-[10px] absolute will-change-transform top-[11px] right-[12px] rounded-full w-[26px] h-[26px] border-[1px] flex items-center justify-center active:scale-95`}>
           {isLike

@@ -6,7 +6,7 @@ import { CreatorModeInfoModal } from "@/shared/creator-mode-info-modal/CreatorMo
 import { QuestionModalContent } from "@/shared/question-modal-content/QuestionModalContent";
 import { useGetDevice } from "@/utils/hooks/useGetDevice";
 import { setCreatorMode, setDisplayPrompt, useAppDispatch, useAppSelector } from "@/views/store";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface IProps {
   handleGenerate: () => void
@@ -48,13 +48,19 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
     }
   }
 
+  useEffect(() => {
+    if(creatorMode && !isOpenCreatorModeInfo) {
+      setIsFocus(true)
+    }
+  }, [creatorMode, isOpenCreatorModeInfo])
+
   return (
-    <div className={`w-full h-full bg-white mt-[1.5vw] rounded-[30px_30px_0px_0px] p-[3.8vw_4.5vw] flex flex-col justify-between`}>
+    <div className={`w-full h-full bg-white mt-[0.8vh] rounded-[30px_30px_0px_0px] p-[3.8vw_4.5vw] flex flex-col justify-between`}>
       <CreatorModeInfoModal isOpen={isOpenCreatorModeInfo} setIsOpen={setIsOpenCreatorModeInfo} />
       <CreatorModeBuyModal isOpen={isOpenCreatorModeBuy} setIsOpen={setIsOpenCreatorModeBuy} />
       <QuestionModalContent isOpen={isOpenQuestionModalContent} setIsOpen={setIsOpenQuestionModalContent} />
       <div className="w-full">
-        <div className="mb-[2vw] flex justify-between">
+        <div className="mb-[0.8vh] flex justify-between">
           <div className="flex items-center gap-[10px]">
             <button onClick={handleCreatorModeClick} className={`relative`}>
               <div className={`w-45px h-27px transition-all rounded-[15px] overflow-hidden border-[2px] ${creatorMode ? 'bg-[#23262F] border-transparent': 'bg-["#BEBEBE"] border-[#BEBEBE]'}`}></div>
@@ -89,13 +95,13 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
                   value={displayPrompt || ''} 
                   onChange={handleSetPrompt}
                   placeholder="Введите сообщение для генерации" 
-                  className={`${isFocus ? 'p-[1vw_2.6vw] rounded-[4px] shadow-black': ''} w-full min-h-[14.4vw] resize-none font-normal italic text-primary fs-12 outline-none`}
+                  className={`${isFocus ? 'p-[1vw_2.6vw] rounded-[4px] shadow-black': ''} w-full min-h-[7vh] resize-none font-medium italic text-primary text-[1.6vh] outline-none`}
                   onFocus={() => setIsFocus(true)}
                 />
                 {isFocus && (
                   <div className="w-full flex flex-row-reverse">
-                    <Button onClick={removeFocus} className={`!p-[2vw_5vw] !w-fit`}>
-                      <p className="fs-12 font-normal">Готово</p>
+                    <Button onClick={removeFocus} className={`!p-[2vw_5vw] !w-fit border-[1px] border-[#ffffff0d]`}>
+                      <p className="fs-14 font-medium">Готово</p>
                     </Button>
                   </div>
                 )}
@@ -103,7 +109,7 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
             </div>
           )
           : (
-            <div className="w-full font-normal italic text-primary fs-12">
+            <div className="w-full font-normal italic text-primary text-[1.5vh]">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore itaque voluptate modi maxime delectus illum ipsam, possimus asperiores
             </div>
           )
@@ -111,8 +117,8 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
       </div>
       {!isDesktop && (
         <div className={`fixed left-0 bottom-[23vw] p-[0px_4.14vw] w-full ${generateDisabled ? 'opacity-70 pointer-events-none': ''}`}>
-          <EllipseButton onClick={handleGenerate} className={`!p-[3vw_0px]`}>
-            <p className="fs-12 font-semibold">Generate</p>
+          <EllipseButton onClick={handleGenerate} className={`!p-[1.4vh_0px]`}>
+            <p className="text-[1.5vh] font-semibold">Generate</p>
           </EllipseButton>
         </div>
       )}

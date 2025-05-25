@@ -63,58 +63,60 @@ export const ChatSlider = () => {
   }, [activeSubcategoryId])
 
   return (
-    <div className="w-full mt-[-7.5vw]">
+    <div className="w-full mt-[-7.5vw] flex flex-col justify-between">
       {showEmptyMessage
         ? (
-          <div className='flex items-center justify-center h-236px w-full text-nowrap text-white font-normal fs-12 italic text-center'>
+          <div className='flex items-center justify-center h-[43.6vh] w-full text-nowrap text-white font-normal fs-12 italic text-center'>
             <p>Вы еще не создали изображения в этой<br/> категории</p>
           </div>
         ) 
         : (
-          <Swiper
-            effect={'coverflow'}
-            speed={500}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={'auto'}
-            onInit={handleInitSwiper}
-            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-            coverflowEffect={{
-              rotate: -25,
-              stretch: 90,
-              depth: 300,
-              slideShadows: false,
-            }}
-            modules={[EffectCoverflow]}
-            className="!p-[6vw_0px]"
-          >
-            {isLoad
-              ? (
-                <>
-                  {isCreatingImage && (
-                    <SwiperSlide className='!w-[53vw]'>
-                      <div className="w-200px h-280px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
-                    </SwiperSlide>
-                  )}
-                  {
-                    generationsData?.generations.map((item, idx) => (
-                      <SwiperSlide key={idx} className="!w-[53vw]">
-                        <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
+          <div className="w-full">
+            <Swiper
+              effect={'coverflow'}
+              speed={300}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              onInit={handleInitSwiper}
+              onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+              coverflowEffect={{
+                rotate: -25,
+                stretch: 120,
+                depth: 300,
+                slideShadows: false,
+              }}
+              modules={[EffectCoverflow]}
+              className="!p-[6vw_0px]"
+            >
+              {isLoad
+                ? (
+                  <>
+                    {isCreatingImage && (
+                      <SwiperSlide className='!w-[27.5vh] !h-[38vh]'>
+                        <div className="w-full h-full bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
                       </SwiperSlide>
-                    ))
-                  }
-                </>
-              )
-              : Array(5).fill(null).map((_, index) => (
-                <SwiperSlide key={index} className='!w-[53vw]'>
-                  <div className="w-200px h-280px bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
-                </SwiperSlide>
-              ))
-            }
-          </Swiper>
+                    )}
+                    {
+                      generationsData?.generations.map((item, idx) => (
+                        <SwiperSlide key={idx} className="!w-[27.5vh] !h-[38vh]">
+                          <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
+                        </SwiperSlide>
+                      ))
+                    }
+                  </>
+                )
+                : Array(5).fill(null).map((_, index) => (
+                  <SwiperSlide key={index} className='!w-[27.5vh] !h-[38vh]'>
+                    <div className="w-full h-full bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                  </SwiperSlide>
+                ))
+              }
+            </Swiper>
+          </div>
         )
       }
-      <div className="mt-[-4vw] w-full flex items-center justify-center text-center fs-16 font-medium">
+      <div className="w-full flex items-center justify-center text-center text-[2vh] font-medium translate-y-[-2vh]">
         {subcategoriesData?.subcategories?.find((item) => item.id === activeSubcategoryId)?.title || 'Все'}
       </div>
     </div>
