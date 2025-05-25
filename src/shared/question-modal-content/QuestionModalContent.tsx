@@ -25,9 +25,10 @@ const QuestionsItem = ({title, description}: {title: string, description: string
 
 export const QuestionModalContent = ({ isOpen, setIsOpen }: IProps) => {
   const list = [
-    {title: 'Как работать с категориями?', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud'},
-    {title: 'Что такое стили?', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud'},
-    {title: 'Режим «Творца»?', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud'},
+    {title: 'Как работать с категориями?', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed nostrud'},
+    {title: 'Что такое стили?', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid'},
+    {title: 'Режим «Творца»?', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi'},
+    {title: 'Размеры изображения', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiut dolore magna aliqua.'},
   ]
 
   return (
