@@ -1,31 +1,18 @@
 'use client'
 import { setCreateProfileTitle, useAppDispatch, useAppSelector } from "@/views/store";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
+import { Button } from "../buttons/button/Button";
 
-interface IProps {
-  setIsFocus: (isFocus: boolean) => void
-}
-
-export const ProfileCreateInput = ({setIsFocus}: IProps) => {
+export const ProfileCreateInput = () => {
   const dispatch = useAppDispatch();
   const inputValue = useAppSelector((state) => state.main.meta.createProfile.title);
-  
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const isKeyboardVisible = window.innerHeight < 500;
-      setIsKeyboardVisible(isKeyboardVisible);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const removeFocus = () => {
+    inputRef.current?.blur();
+    setIsFocus(false);
+  };
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,18 +23,23 @@ export const ProfileCreateInput = ({setIsFocus}: IProps) => {
   );
 
   return (
-    <input
-      value={inputValue}
-      onChange={handleChange}
-      onFocus={() => setIsFocus(true)}
-      onBlur={() => setIsFocus(false)}
-      placeholder="Введите название профиля"
-      className="montserrat h-[44px] w-full bg-[#F2F2F2] rounded-[9px] mt-[4vw] placeholder:text-opacity-50 placeholder:text-primary text-[16px] font-normal p-[0px_0px_0px_6.1vw]"
-      style={{
-        position: isKeyboardVisible ? "fixed" : "relative",
-        bottom: isKeyboardVisible ? "4vw" : "auto",
-        zIndex: 10,
-      }}
-    />
+    <div className={isFocus ? "fixed z-[10] w-full h-full left-0 top-0 flex flex-col transition-all bg-[#0000001a] p-[200px_4.27vw_0px] backdrop-blur-[10px]" : ""}>
+      <input
+        ref={inputRef}
+        value={inputValue}
+        onChange={handleChange}
+        onFocus={() => setIsFocus(true)}
+        placeholder="Введите название профиля"
+        className="montserrat h-[44px] w-full bg-[#F2F2F2] rounded-[9px] mt-[4vw] placeholder:text-opacity-50 placeholder:text-primary text-[16px] font-normal p-[0px_0px_0px_6.1vw]"
+        style={{ zIndex: 10 }}
+      />
+      {isFocus && (
+        <div className="w-full flex flex-row-reverse mt-[2vw]">
+          <Button onClick={removeFocus} className={`!p-[2vw_5vw] !w-fit border-[1px] border-[#ffffff0d]`}>
+            <p className="fs-14 font-medium">Готово</p>
+          </Button>
+        </div>
+      )}
+    </div>
   );
 };

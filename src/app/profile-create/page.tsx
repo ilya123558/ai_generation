@@ -3,23 +3,19 @@ import { useUploadProfileMutation } from '@/entities/users/api/users.api'
 import { EllipseButton } from '@/shared/buttons/ellipse-button/EllipseButton'
 import { ReturnButton } from '@/shared/buttons/return-button/ReturnButton'
 import { Container } from '@/shared/container/Container'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { base64StringToFile } from '@/utils/libs/base64StringToFile'
 import { setGenerationPoints, useAppDispatch, useAppSelector } from '@/views/store'
 import { GenerationBuyModal } from '@/shared/generation-buy-modal/GenerationBuyModal'
 import { ProfileCreateInput } from '@/shared/profile-create-input/ProfileCreateInput'
 import { ImageUploadComponentForm } from '@/features/image-upload-component-form/ImageUploadComponentForm'
 import { ProgressProfileLoader } from '@/widgets/progress-profile-loader/ProgressProfileLoader'
-import { useGetDevice } from '@/utils/hooks/useGetDevice'
 
 export default function Page() {
   const dispatch = useAppDispatch()
-  const { isDesktop } = useGetDevice()
   const [loadingProfile, setLoadingProfile] = useState(false)
   const { user, accountData: {generationPoints} } = useAppSelector(state => state.main)
   const { createProfile: {error, images, title} } = useAppSelector(state => state.main.meta)
-
-  const [isFocus, setIsFocus] = useState(false) 
 
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
 
@@ -75,16 +71,8 @@ export default function Page() {
           </p>
         </div>
         <ImageUploadComponentForm />
-        <div style={!isDesktop && isFocus ? {
-            position: 'fixed',
-            left: 0,
-            bottom: 15,
-            width: '100%',
-            padding: '0px 4.27vw'
-          }: {}}
-          className='mt-[3vw] bg-background'
-        >
-          <ProfileCreateInput setIsFocus={setIsFocus} />
+        <div className='mt-[3vw] bg-background' >
+          <ProfileCreateInput />
           <div className="mt-[4vw]">
             <p className="fs-15 font-medium text-[#ACADB9] text-center mb-[4vw]">
               {error ? error : 'Загрузите минимум 10 фотографий'}
