@@ -17,7 +17,6 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
   const dispatch = useAppDispatch()
   const { creatorMode, creatorModeIsBuy } = useAppSelector(state => state.main.accountData)
   const { displayPrompt } = useAppSelector(state => state.main.meta)
-  const { isDesktop } = useGetDevice()
 
   const [isOpenCreatorModeInfo, setIsOpenCreatorModeInfo] = useState(false)
   const [isOpenCreatorModeBuy, setIsOpenCreatorModeBuy] = useState(false)
@@ -78,14 +77,6 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
               </button>
             </div>
           </div>
-
-          {isDesktop && (
-            <div className={`${generateDisabled ? 'opacity-70 pointer-events-none': ''}`}>
-              <EllipseButton onClick={handleGenerate} className={`!w-fit !p-[3vw_4.14vw]`}>
-                <p className="fs-12 font-semibold">Generate</p>
-              </EllipseButton>
-            </div>
-          )}
         </div>
         {creatorMode
           ? (
@@ -115,13 +106,11 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
           )
         }
       </div>
-      {!isDesktop && (
-        <div className={`fixed left-0 bottom-[23vw] p-[0px_4.14vw] w-full ${generateDisabled ? 'opacity-70 pointer-events-none': ''}`}>
-          <EllipseButton onClick={handleGenerate} className={`!p-[1.4vh_0px]`}>
-            <p className="text-[1.5vh] font-semibold">Generate</p>
-          </EllipseButton>
-        </div>
-      )}
+      <div className={`fixed left-0 bottom-[23vw] p-[0px_4.14vw] w-full ${generateDisabled ? 'opacity-70 pointer-events-none': ''}`}>
+        <EllipseButton onClick={handleGenerate} className={`!p-[1.4vh_0px]`}>
+          <p className="text-[1.5vh] font-semibold">Generate</p>
+        </EllipseButton>
+      </div>
     </div>
   );
 };
