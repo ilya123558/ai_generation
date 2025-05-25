@@ -48,7 +48,7 @@ export const Resolution1x1 = ({generations}: IProps) => {
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         coverflowEffect={{
           rotate: -25,
-          stretch: 145,
+          stretch: 125,
           depth: 300,
           slideShadows: false,
         }}

@@ -40,9 +40,9 @@ export const SttingsModalContent = ({isOpen, setIsOpen}: IProps) => {
   return (
     <ModalContentWrapper 
       title="Настройки изображения"
-      description="Укажите соотношения сторон изображения"
+      description={<div className="mt-[-2vw]">Укажите соотношения сторон изображения для генерации</div>}
       onClick={handleAccess} 
-      textButton="Подтвердить"
+      textButton="Сохранить"
       isOpen={isOpen}
       setIsOpen={setIsOpen}
     >
