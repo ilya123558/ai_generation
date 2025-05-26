@@ -21,6 +21,7 @@ export const SubcategoryList = () => {
     dispatch(setActiveSubcategoryId(subcategory_id))
     router.push(`/chat`)
   }
+  
 
   return (
     <>

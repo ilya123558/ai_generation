@@ -17,7 +17,6 @@ export default function Page() {
     ? (data.categories.find(item => item.id === Number(categoryId))?.title || " ")
     : " "
 
-
   return (
     <section>
       <Container>
