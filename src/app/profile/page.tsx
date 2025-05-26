@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <section>
       <Container>
-        <HeaderTitle link="/home">Профиль</HeaderTitle>
+        <HeaderTitle className="pb-[3vw]" link="/home">Профиль</HeaderTitle>
         <div className="h-screen overflow-auto pb-[40vh]">
           <ProfileInfo />
           <ProfileContent />

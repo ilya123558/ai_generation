@@ -7,15 +7,16 @@ import { PropsWithChildren } from "react";
 interface IProps extends PropsWithChildren {
   link?: string
   withGenerationPoints?: boolean
+  className?: string
 }
 
-export const HeaderTitle = ({ link, children, withGenerationPoints }: IProps) => {
+export const HeaderTitle = ({ link, children, withGenerationPoints, className }: IProps) => {
   const router = useRouter()
   const { generationPoints } = useAppSelector(state => state.main.accountData)
 
   if(withGenerationPoints) {
     return (
-      <div>
+      <div className={className ? className : ''}>
         <div className="w-full grid grid-cols-3 mt-[4.54vw] items-center">
           <div className="flex items-center gap-[2.41vw]">
             <button 
@@ -42,7 +43,7 @@ export const HeaderTitle = ({ link, children, withGenerationPoints }: IProps) =>
   }
 
   return (
-    <div>
+    <div className={className ? className : ''}>
       <div className="w-full grid grid-cols-5 mt-[20px] items-center">
         <div className="flex items-center gap-[2.41vw]">
           <button 

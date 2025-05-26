@@ -7,7 +7,7 @@ export const ProfileInfo = () => {
   const { user } = useAppSelector(state => state.main)
 
   return (
-    <div className="mt-[9.91vw] mb-[11.77vw] flex items-center flex-col text-center">
+    <div className="mt-[7vw] mb-[11.77vw] flex items-center flex-col text-center">
       <ShadowWrapper borderRadius={"full"} className="overflow-hidden border-[3px] border-white h-110px w-110px">
         <ImageWithSkeleton 
           src={user ? user.photo : "/images/profile/user.png"}
