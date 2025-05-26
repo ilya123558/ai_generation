@@ -62,7 +62,7 @@ export const ImageUploadComponent = ({ images, size, maxImages, handleDelete, ha
                 width: size ? `${size.maxWidth * 0.267}vw` : `${100 * 0.267}vw`,
                 height: size ? `${size.maxHeight * 0.267}vw` : `${100 * 0.267}vw`,
               }}
-              className="bg-[#ECECEC] rounded-[20px] overflow-hidden relative"
+              className={`bg-[#ECECEC] rounded-[20px] overflow-hidden relative`}
             >
               <input
                 type="file"
@@ -71,6 +71,14 @@ export const ImageUploadComponent = ({ images, size, maxImages, handleDelete, ha
                 multiple={acceptMultiple}
                 className="opacity-0 w-full h-full absolute z-10"
               />
+              {index === 0 && (
+                <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+                  <svg className='w-32px h-32px' width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.0957 1.88062V31.1193" stroke="#939393" strokeWidth="3" strokeLinecap="round"/>
+                    <path d="M31.7178 16.4974L2.47913 16.4974" stroke="#939393" strokeWidth="3" strokeLinecap="round"/>
+                  </svg>
+                </div>
+              )}
             </div>
           ))
         }

@@ -20,26 +20,28 @@ export const ProfileList = () => {
   }, [])
 
   return (
-    <ListWrapper>
-      {isLoading
-        ? <ProfileListLoading />
-        : data?.profiles.length !== 0
-          ? (
-            <ul className="flex flex-col gap-[3.47vw]">
-              {data?.profiles.map(({id, photos, title}) => (
-                <ProfileItem 
-                  key={id} 
-                  isActive={activeProfileId === id} 
-                  handleSetActive={() => dispatch(setActiveProfileId(id))} 
-                  photos={photos}
-                  title={title}
-                />
-              ))}
-              <ProfileCreate />
-            </ul>
-          )
-          : <ProfileCreate />
-      }
-    </ListWrapper>
+    <>
+      {/* <ListWrapper> */}
+        {isLoading
+          ? <ProfileListLoading />
+          : data?.profiles.length !== 0
+            ? (
+              <ul className="flex flex-col gap-[3.47vw]">
+                {data?.profiles.map(({id, photos, title}) => (
+                  <ProfileItem 
+                    key={id} 
+                    isActive={activeProfileId === id} 
+                    handleSetActive={() => dispatch(setActiveProfileId(id))} 
+                    photos={photos}
+                    title={title}
+                  />
+                ))}
+                <ProfileCreate />
+              </ul>
+            )
+            : <ProfileCreate />
+        }
+      {/* </ListWrapper> */}
+    </>
   );
 };

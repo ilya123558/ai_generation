@@ -30,7 +30,7 @@ export const StyleSlider = () => {
           <SwiperSlide key={index} className='max-w-fit'>
             <div 
               onClick={() => dispatch(setActiveStyleId(item.id))} 
-              className={`w-fit transition-all active:scale-[0.95] flex items-center justify-center p-[1vh_1.5vh] text-[1.6vh] rounded-[16px] font-semibold border-[1px] border-transparent ${activeStyleId === item.id ? 'text-white border-white': 'text-[#AAAAAB]'}`}
+              className={`w-fit transition-all active:scale-[0.95] flex items-center justify-center p-[1vh_1.5vh] text-[1.6vh] rounded-[16px] border-[1px] border-transparent ${activeStyleId === item.id ? 'text-white border-white font-semibold': 'text-[#AAAAAB] font-medium'}`}
             >
               {item.title}
             </div>

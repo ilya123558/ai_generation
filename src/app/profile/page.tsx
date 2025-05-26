@@ -8,8 +8,10 @@ export default function Page() {
     <section>
       <Container>
         <HeaderTitle link="/home">Профиль</HeaderTitle>
-        <ProfileInfo />
-        <ProfileContent />
+        <div className="h-screen overflow-auto pb-[40vh]">
+          <ProfileInfo />
+          <ProfileContent />
+        </div>
       </Container>
     </section>
   ) 

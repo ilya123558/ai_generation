@@ -5,18 +5,23 @@ import { Container } from "@/shared/container/Container";
 import { PaymentErrorModal } from "@/shared/payment-error-modal/PaymentErrorModal";
 import { PaymentInput } from "@/shared/payment-input/PaymentInput";
 import { PaymentSuccessModal } from "@/shared/payment-success-modal/PaymentSuccessModal";
+import { InputFocusWrapper } from "@/shared/wrappers/input-focus-wrapper/InputFocusWrapper";
 import { ShadowWrapper } from "@/shared/wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 
 export default function Page() {
   const [emailValue, setEmailValue] = useState('') 
   const [cardValue, setCardValue] = useState('') 
+
+  const [emailFocus, setEmailFocus] = useState(false) 
+  const [cardFocus, setCardFocus] = useState(false) 
+
   const [emailError, setEmailError] = useState(true) 
   const [cardError, setCardError] = useState(true) 
 
   const [isOpenPaymentErrorModal, setIsOpenPaymentErrorModal] = useState(false)
   const [isOpenPaymentSuccessModal, setIsOpenPaymentSuccessModal] = useState(false)
-  
+
   const handleSubmit = () => {
     // post /payment
 
@@ -35,20 +40,40 @@ export default function Page() {
       <Container>
         <HeaderTitle>Оплата</HeaderTitle>
         <div className="p-[0px_1.87vw] mt-[6.42vw] flex flex-col gap-[4.27vw]">
-        <ShadowWrapper borderRadius={22} className="w-full p-[4.27vw_5.88vw]">
-            <div className="mb-[3.47vw]">
-              <p className="text-gray fs-12 font-normal">{'100 попыток генерации'}</p>
-              <p className="fs-20 font-semibold">{200}₽</p>
-            </div>
-            <PaymentInput type="email" value={emailValue} setValue={setEmailValue} placeholder="Email" handleError={setEmailError} />
-          </ShadowWrapper>
-          <ShadowWrapper borderRadius={22} className="w-full p-[4.27vw_5.88vw]">
-            <div className="mb-[3.47vw]">
-              <p className="fs-20 font-semibold">Способ оплаты</p>
-              <p className="text-gray text-[16px] font-normal">Банковская карта</p>
-            </div>
-            <PaymentInput type="card" value={cardValue} setValue={setCardValue} placeholder="Номер карты" handleError={setCardError} />
-          </ShadowWrapper>
+          <InputFocusWrapper isFocus={emailFocus} setFocus={setEmailFocus} >
+            <ShadowWrapper borderRadius={22} className="w-full p-[4.27vw_5.88vw]">
+              <div className="mb-[3.47vw]">
+                <p className="text-gray fs-12 font-normal">{'100 попыток генерации'}</p>
+                <p className="fs-20 font-semibold">{200}₽</p>
+              </div>
+              <PaymentInput 
+                isFocus={emailFocus}
+                onFocus={() => setEmailFocus(true)} 
+                type="email" 
+                value={emailValue} 
+                setValue={setEmailValue} 
+                placeholder="Email" 
+                handleError={setEmailError} 
+              />
+            </ShadowWrapper>
+          </InputFocusWrapper>
+          <InputFocusWrapper isFocus={cardFocus} setFocus={setCardFocus} >
+            <ShadowWrapper borderRadius={22} className="w-full p-[4.27vw_5.88vw]">
+              <div className="mb-[3.47vw]">
+                <p className="fs-20 font-semibold">Способ оплаты</p>
+                <p className="text-gray text-[16px] font-normal">Банковская карта</p>
+              </div>
+              <PaymentInput 
+                isFocus={cardFocus}
+                onFocus={() => setCardFocus(true)}  
+                type="card" 
+                value={cardValue} 
+                setValue={setCardValue} 
+                placeholder="Номер карты" 
+                handleError={setCardError} 
+              />
+            </ShadowWrapper>
+          </InputFocusWrapper>
         </div>
       </Container>
       <div className="fixed bottom-0">

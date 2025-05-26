@@ -1,14 +1,20 @@
 'use client'
 
+import { useEffect, useRef } from "react"
+
 interface IProps {
   value: string
   setValue: (value: string) => void
   placeholder: string
   type: 'card' | 'email'
   handleError: (isError: boolean) => void
+  onFocus?: () => void
+  isFocus?: boolean
 }
 
-export const PaymentInput = ({ value, setValue, placeholder, type, handleError }: IProps) => {
+export const PaymentInput = ({ value, setValue, placeholder, type, handleError, onFocus, isFocus }: IProps) => {
+  const ref = useRef<HTMLInputElement | null>(null)
+
   const formatCardNumber = (cardNumber: string) => {
     const v = cardNumber
       .replace(/\s+/g, "")
@@ -49,11 +55,19 @@ export const PaymentInput = ({ value, setValue, placeholder, type, handleError }
     setValue(newValue)
   };
 
+  useEffect(() => {
+    if(isFocus && ref.current) {
+      ref.current.focus()
+    }
+  }, [isFocus])
+
   return (
     <input
+      ref={ref}
       type={type === 'email' ? 'email': ''}
       value={value}
       onChange={handleChange}
+      onFocus={onFocus}
       className="p-[3.88vw_6.42vw] rounded-[9px] w-full bg-[#F2F2F2] fs-12 font-medium montserrat"
       placeholder={placeholder}
     />
