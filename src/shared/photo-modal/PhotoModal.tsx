@@ -18,20 +18,10 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const { webApp } = useTelegram()
 
   const handleDownload = async() => {
-    try {
-      const response = await fetch(photo);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-    }
-    catch (error) {
-      alert(`Download failed: ${JSON.stringify(error)}`);
-    }
-
     try{
       webApp?.downloadFile({
         url: photo,
-        file_name: 'image.jpg'
+        file_name: 'image.png'
       })
     }
     catch (e) { }
