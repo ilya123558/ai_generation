@@ -4,6 +4,7 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
+import { useTelegram } from "@/utils/hooks/useTelegram";
 
 interface IProps {
   isOpen: boolean
@@ -14,34 +15,41 @@ interface IProps {
 
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
+  const { webApp } = useTelegram()
 
   const handleDownload = async() => {
-    try{
-      window.Telegram.WebApp.downloadFile({
-        url: photo,
-        file_name: 'image.jpg'
-      })
+    // try{
+    //   webApp?.downloadFile({
+    //     url: photo,
+    //     file_name: 'image.jpg'
+    //   })
+    // }
+    // catch (e) { }
+      try {
+    const response = await fetch(photo);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
     }
-    catch (e) {
-      // @ts-ignore
-      alert(JSON.stringify(e?.message))
-    }
-    // const link = document.createElement('a');
-    // link.href = photo;
-    // link.download = 'image.jpg';
-    // link.click();
+    const blob = await response.blob();
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = 'image.jpg'; // Указываем имя файла для скачивания
+    link.click();
+  } catch (error) {
+    console.error('Download failed:', error);
+  }
   }
 
   const handleRepost = async() => {
-    if (navigator.share) {
-      await navigator.share({
-        title: 'Check this out!',
-        text: 'Check out this image!',
-        url: photo,
-      });
-    } else {
-      alert('Sharing is not supported on this device.');
-    }
+    // if (navigator.share) {
+    //   await navigator.share({
+    //     title: 'Check this out!',
+    //     text: 'Check out this image!',
+    //     url: photo,
+    //   });
+    // } else {
+    //   alert('Sharing is not supported on this device.');
+    // }
   }
 
   return (
