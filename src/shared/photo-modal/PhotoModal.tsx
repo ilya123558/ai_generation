@@ -21,23 +21,23 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     try{
       webApp?.downloadFile({
         url: photo,
-        file_name: 'image.png'
+        file_name: 'image.jpg'
       })
     }
     catch (e) { }
   }
 
-  const handleRepost = async() => {
-    // if (navigator.share) {
-    //   await navigator.share({
-    //     title: 'Check this out!',
-    //     text: 'Check out this image!',
-    //     url: photo,
-    //   });
-    // } else {
-    //   alert('Sharing is not supported on this device.');
-    // }
+const handleRepost = async () => {
+  if (webApp) {
+    try {
+      await webApp.openLink(photo);
+    } catch (error) {
+      console.error("Reposting failed:", error);
+    }
+  } else {
+    alert('Telegram Web App is not available.');
   }
+};
 
   return (
     <Modal open={isOpen} setOpen={setIsOpen}>
