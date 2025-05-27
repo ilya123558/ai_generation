@@ -60,12 +60,14 @@ export const Resolution2x3 = ({generations}: IProps) => {
             <>
               {isCreatingImage && (
                 <SwiperSlide className='!w-[23vh] !h-[38vh]'>
-                  <div className="w-full h-[35vh] bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                  <div className="w-full h-full flex items-center">
+                    <div className="w-full h-[35vh] bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                  </div>
                 </SwiperSlide>
               )}
               {
                 generations?.map((item, idx) => (
-                  <SwiperSlide key={idx} className="!w-[23vh] !h-[38vh]">
+                  <SwiperSlide key={item.id} className="!w-[23vh] !h-[38vh]">
                     <div className="w-full h-[35vh]">
                       <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
                     </div>

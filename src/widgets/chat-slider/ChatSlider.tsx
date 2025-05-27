@@ -3,16 +3,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLazyGetGenerationsQuery } from '@/entities/generations/api/generations.api';
 import { imageCreating, useAppDispatch, useAppSelector } from '@/views/store';
-import { useGetSubCategoriesQuery } from '@/entities/categories/api/categories.api';
 import { ChatSliderResolution } from '@/features/chat-slider-resolution/ChatSliderResolution';
 
 
 export const ChatSlider = () => {
   const dispatch = useAppDispatch()
-  const { activeSubcategoryId, activeCategoryId } = useAppSelector(state => state.main.accountData)
+  const { activeSubcategoryId } = useAppSelector(state => state.main.accountData)
   const { isCreatingImage, isCreatingImageSubcategoryId } = useAppSelector(state => state.main.meta)
 
-  const { data: subcategoriesData } = useGetSubCategoriesQuery(activeCategoryId || 0)
   const [getGenerations, { data: generationsData }] = useLazyGetGenerationsQuery()
 
   const ref = useRef<number | null>(null)
@@ -41,7 +39,7 @@ export const ChatSlider = () => {
   }, [activeSubcategoryId])
 
   return (
-    <div className="w-full mt-[-7.5vw] flex flex-col justify-between">
+    <div className="w-full mt-[0vw] flex flex-col justify-between">
       {showEmptyMessage
         ? (
           <div className='flex items-center justify-center h-[43.6vh] w-full text-nowrap text-white font-normal fs-12 italic text-center'>
@@ -50,9 +48,6 @@ export const ChatSlider = () => {
         ) 
         : <ChatSliderResolution generations={generationsData?.generations} />
       }
-      <div className="w-full flex items-center justify-center text-center text-[2vh] font-medium translate-y-[-2vh]">
-        {subcategoriesData?.subcategories?.find((item) => item.id === activeSubcategoryId)?.title || 'Все'}
-      </div>
     </div>
   );
 };

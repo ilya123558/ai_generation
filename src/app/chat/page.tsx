@@ -23,33 +23,27 @@ export default function Page() {
     const prompt = displayPrompt || ''
 
     if(creatorMode && (generationPoints > 2)) {
-      if(activeProfileId !== null && activeSubcategoryId !== null && activeStyleId !== null) {
+      if(activeProfileId !== null) {
         createGenerations({
           prompt,
           resolution,
           profileId: activeProfileId,
-          styleId: activeStyleId,
-          subcategoryId: activeSubcategoryId
         })
-  
         dispatch(createImage())
-  
         return
       }
     }
 
     if(generationPoints > 1) {
-      if(activeProfileId !== null && activeSubcategoryId !== null && activeStyleId !== null) {
+      if(activeProfileId !== null && activeSubcategoryId !== null) {
         createGenerations({
           prompt,
           resolution,
           profileId: activeProfileId,
-          styleId: activeStyleId,
-          subcategoryId: activeSubcategoryId
+          subcategoryId: activeSubcategoryId,
+          ...(activeStyleId ? { styleId: activeStyleId } : {})
         })
-  
         dispatch(createImage())
-  
         return
       }
     }
@@ -76,9 +70,9 @@ export default function Page() {
         <ChatPrompt 
           handleGenerate={handleGenerate} 
           generateDisabled={
-            !isCreatingImage && (creatorMode
-              ? !(activeProfileId !== null && activeSubcategoryId !== null && activeStyleId !== null && Boolean(displayPrompt))
-              : !(activeProfileId !== null && activeSubcategoryId !== null && activeStyleId !== null)
+            isCreatingImage || (creatorMode
+              ? !(activeProfileId !== null && Boolean(displayPrompt))
+              : !(activeProfileId !== null && activeSubcategoryId !== null)
             )
           } 
         />

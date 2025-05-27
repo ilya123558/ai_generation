@@ -4,7 +4,6 @@ import { EllipseButton } from "@/shared/buttons/ellipse-button/EllipseButton";
 import { CreatorModeBuyModal } from "@/shared/creator-mode-buy-modal/CreatorModeBuyModal";
 import { CreatorModeInfoModal } from "@/shared/creator-mode-info-modal/CreatorModeInfoModal";
 import { QuestionModalContent } from "@/shared/question-modal-content/QuestionModalContent";
-import { useGetDevice } from "@/utils/hooks/useGetDevice";
 import { setCreatorMode, setDisplayPrompt, useAppDispatch, useAppSelector } from "@/views/store";
 import { useEffect, useRef, useState } from "react";
 

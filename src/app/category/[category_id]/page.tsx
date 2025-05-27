@@ -1,5 +1,5 @@
 'use client'
-import { useGetCategoriesQuery, useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
+import { useGetCategoriesQuery } from "@/entities/categories/api/categories.api";
 import { CategoryList } from "@/features/category-list/CategoryList";
 import { HeaderWithNavigation } from "@/features/header-with-navigation/HeaderWithNavigation";
 import { SubcategoryList } from "@/features/subcategory-list/SubcategoryList";

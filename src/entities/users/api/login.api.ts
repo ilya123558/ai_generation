@@ -79,7 +79,7 @@ export class LoginApiClient {
 
   async refreshToken() {
     const req = this.axiosInstance.post<ITokens>(
-      "/auth/refresh",
+      "/users/refresh",
       { refreshToken: localStorage.getItem("refreshToken") }
     );
 

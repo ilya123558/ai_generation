@@ -18,7 +18,7 @@ export const ChatSliderResolution = ({generations}: IProps) => {
   if(resolution === '1:1') return <Resolution1x1 generations={generations} />
   if(resolution === '16:9') return <Resolution16x9 generations={generations} />
   if(resolution === '2:3') return <Resolution2x3 generations={generations} />
-  if(resolution === '2:35:1') return <Resolution2x135x1 generations={generations} />
+  if(resolution === '2.35:1') return <Resolution2x135x1 generations={generations} />
   if(resolution === '4:3') return <Resolution4x3 generations={generations} />
   if(resolution === '9:16') return <Resolution9x16 generations={generations} />
 

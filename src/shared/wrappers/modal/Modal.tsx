@@ -15,13 +15,13 @@ export const Modal = ({children, open, setOpen}: PropsWithChildren<IProps>) => {
     <MuiModal 
       sx={{
         '& .MuiBackdrop-root': {
-          backgroundColor: 'rgba(0, 0, 0, 0.3)', // Прозрачность фона
+          backgroundColor: 'rgba(0, 0, 0, 0.6)', // Прозрачность фона
         },
       }} 
       open={open} 
       onClose={handleClose} 
     >
-      <div className="absolute w-full h-full flex items-center justify-center pointer-events-none">
+      <div className="absolute w-full h-full flex items-center justify-center pointer-events-none backdrop-blur-[4px]">
         <div className='pointer-events-auto'>
           {children}
         </div>

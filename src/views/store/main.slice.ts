@@ -68,6 +68,8 @@ const mainSlice = createSlice({
     },
     setCreatorMode: (state, action: PayloadAction<IInitialState['accountData']['creatorMode']>) => {
       state.accountData.creatorMode = action.payload
+      state.accountData.activeSubcategoryId = null
+      state.accountData.activeStyleId = null
     },
     setResolution: (state, action: PayloadAction<IInitialState['accountData']['resolution']>) => {
       state.accountData.resolution = action.payload

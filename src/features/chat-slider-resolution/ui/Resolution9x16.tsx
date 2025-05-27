@@ -37,7 +37,7 @@ export const Resolution9x16 = ({generations}: IProps) => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-[-2vw]">
       <Swiper
         effect={'coverflow'}
         speed={300}
@@ -59,13 +59,13 @@ export const Resolution9x16 = ({generations}: IProps) => {
           ? (
             <>
               {isCreatingImage && (
-                <SwiperSlide className='!w-[27.5vh] !h-[38vh]'>
+                <SwiperSlide className='!w-[27.5vh] !h-[38vh] flex items-center'>
                   <div className="w-full h-full bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
                 </SwiperSlide>
               )}
               {
                 generations?.map((item, idx) => (
-                  <SwiperSlide key={idx} className="!w-[27.5vh] !h-[38vh]">
+                  <SwiperSlide key={item.id} className="!w-[27.5vh] !h-[38vh]">
                     <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
                   </SwiperSlide>
                 ))

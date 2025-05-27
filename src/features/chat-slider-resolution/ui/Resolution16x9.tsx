@@ -54,19 +54,21 @@ export const Resolution16x9 = ({generations}: IProps) => {
           slideShadows: false,
         }}
         modules={[EffectCoverflow]}
-        className="!p-[0px_4vw] !max-h-[34vh] mt-[6vh] mb-[3.6vh] !mx-[-3vw]"
+        className="!p-[0px_4vw] !h-[34vh] mt-[6vh] mb-[3.6vh] !mx-[-3vw]"
       >
         {isLoad
           ? (
             <>
               {isCreatingImage && (
                 <SwiperSlide className='!w-full !h-[45vw]'>
-                  <div className="!w-full !h-[45vw] bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                  <div className="w-full h-full flex items-center">
+                    <div className="!w-full !h-[45vw] bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+                  </div>
                 </SwiperSlide>
               )}
               {
                 generations?.map((item, idx) => (
-                  <SwiperSlide key={idx} className="!w-full !h-[45vw]">
+                  <SwiperSlide key={item.id} className="!w-full !h-[45vw]">
                     <div className="w-full h-full flex items-center">
                       <div className="w-full h-[45vw]">
                         <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />

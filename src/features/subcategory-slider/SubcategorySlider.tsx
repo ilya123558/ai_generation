@@ -12,7 +12,7 @@ import 'swiper/css';
 export const SubcategorySlider = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const { activeCategoryId, activeSubcategoryId } = useAppSelector(state => state.main.accountData)
+  const { activeCategoryId, activeSubcategoryId, creatorMode } = useAppSelector(state => state.main.accountData)
   const [getSubCategories, { data: subcategoriesData }] = useLazyGetSubCategoriesQuery()
 
   const swiperRef = useRef<SwiperType | null>(null);
@@ -43,7 +43,7 @@ export const SubcategorySlider = () => {
         slidesPerView={'auto'}
         spaceBetween={7}
         onInit={handleInitSwiper}
-        className="rounded-[16px_0px_0px_16px] !pr-[4vw]"
+        className={`rounded-[16px_0px_0px_16px] !pr-[4vw] ${creatorMode ? 'pointer-events-none opacity-60': ''}`}
       >
         <SwiperSlide className='max-w-fit'>
           <div 

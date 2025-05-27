@@ -3,8 +3,8 @@ import { TResolution } from "@/utils/types/resolution"
 
 export interface ICreateGenerationsRequest {
   profileId: number,
-  subcategoryId: number,
-  styleId: number,
+  subcategoryId?: number,
+  styleId?: number,
   prompt: string,
   resolution: TResolution
 }

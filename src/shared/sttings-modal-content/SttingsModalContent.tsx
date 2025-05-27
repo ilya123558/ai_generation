@@ -15,7 +15,7 @@ interface IRowData {
 const rowTop: IRowData[] = [
   {width: '17.65vw', height: '12.53vw', title: '4:3'},
   {width: '16.56vw', height: '9.07vw', title: '16:9'},
-  {width: '16.56vw', height: '6.93vw', title: '2:35:1'},
+  {width: '16.56vw', height: '6.93vw', title: '2.35:1'},
 ]
 
 const rowBottom: IRowData[] = [
