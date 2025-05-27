@@ -30,7 +30,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 const handleRepost = async () => {
   if (webApp) {
     try {
-      await webApp.openLink(photo);
+      await webApp.openTelegramLink(photo);
     } catch (error) {
       console.error("Reposting failed:", error);
     }
