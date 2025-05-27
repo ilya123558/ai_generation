@@ -30,9 +30,26 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 const handleRepost = async () => {
   if (webApp) {
     try {
-      await webApp.openTelegramLink(photo);
+      // Создаем сообщение с медиа (например, фото)
+      // @ts-ignore
+      const messageId = await webApp.preparedInlineMessage({
+        type: 'photo', // Тип медиа
+        media: {
+          url: photo, // URL изображения
+          caption: 'Check out this image!', // Текст к изображению
+        },
+      });
+
+      // Теперь отправляем это сообщение через shareMessage, передавая ID
+      webApp.shareMessage(messageId, (isSent) => {
+        if (isSent) {
+          console.log('Message shared successfully!');
+        } else {
+          console.error('Failed to share message.');
+        }
+      });
     } catch (error) {
-      console.error("Reposting failed:", error);
+      console.error('Reposting failed:', error);
     }
   } else {
     alert('Telegram Web App is not available.');
