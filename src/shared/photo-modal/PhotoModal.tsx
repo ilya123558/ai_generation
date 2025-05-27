@@ -19,7 +19,6 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 
   const handleDownload = async() => {
     webApp?.onEvent('fileDownloadRequested', async () => {
-      alert('work')
       // try {
       //   const link = document.createElement('a');
       //   link.href = photo;
@@ -28,9 +27,9 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
       // } catch (error) {
       //   console.error('Download failed:', error);
       // }
-    });
+    })
   }
-
+ 
 const handleRepost = async () => {
   // if (webApp) {
   //   try {
