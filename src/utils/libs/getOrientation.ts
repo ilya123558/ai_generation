@@ -12,7 +12,7 @@ export function getOrientation(resolution: TResolution): TReturn {
         break;
     case '16:9':
     case '4:3':
-    case '2:35:1':
+    case '2.35:1':
       orientation = 'horizontal';
       break;
     case '1:1':
