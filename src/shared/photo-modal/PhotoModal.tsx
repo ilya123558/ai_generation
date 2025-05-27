@@ -18,16 +18,33 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const { webApp } = useTelegram()
 
   const handleDownload = async() => {
-    try{
-      webApp?.onEvent('fileDownloadRequested', (data) => {
-        // alert(JSON.stringify(data))
-        webApp?.downloadFile({
-          url: photo,
-          file_name: 'image.jpg'
-        })
-      })
-    }
-    catch (e) { }
+    webApp?.onEvent('fileDownloadRequested', async (data) => {
+      // Пример вывода данных в консоль
+      console.log(data);
+
+      // Получаем URL файла
+      const fileUrl = photo;
+
+      try {
+        // Используем fetch для получения файла
+        const response = await fetch(fileUrl);
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch file');
+        }
+
+        // Преобразуем ответ в blob
+        const blob = await response.blob();
+
+        // Создаем временную ссылку для скачивания
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'downloaded-file'; // Имя файла по умолчанию, можно изменить
+        link.click(); // Инициируем клик по ссылке для скачивания
+      } catch (error) {
+        console.error('Download failed:', error);
+      }
+    });
   }
 
 const handleRepost = async () => {
