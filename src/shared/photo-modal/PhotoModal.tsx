@@ -18,26 +18,23 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const { webApp } = useTelegram()
 
   const handleDownload = async() => {
-    // try{
-    //   webApp?.downloadFile({
-    //     url: photo,
-    //     file_name: 'image.jpg'
-    //   })
-    // }
-    // catch (e) { }
-      try {
-    const response = await fetch(photo);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    try {
+      const response = await fetch(photo);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
     }
-    const blob = await response.blob();
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = 'image.jpg'; // Указываем имя файла для скачивания
-    link.click();
-  } catch (error) {
-    console.error('Download failed:', error);
-  }
+    catch (error) {
+      alert(`Download failed: ${JSON.stringify(error)}`);
+    }
+
+    try{
+      webApp?.downloadFile({
+        url: photo,
+        file_name: 'image.jpg'
+      })
+    }
+    catch (e) { }
   }
 
   const handleRepost = async() => {
