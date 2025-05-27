@@ -20,11 +20,11 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const handleDownload = async() => {
     try{
       webApp?.onEvent('fileDownloadRequested', (data) => {
-        alert(JSON.stringify(data))
-      })
-      webApp?.downloadFile({
-        url: photo,
-        file_name: 'image.jpg'
+        // alert(JSON.stringify(data))
+        webApp?.downloadFile({
+          url: photo,
+          file_name: 'image.jpg'
+        })
       })
     }
     catch (e) { }
