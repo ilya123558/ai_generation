@@ -19,14 +19,15 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 
   const handleDownload = async() => {
     webApp?.onEvent('fileDownloadRequested', async () => {
-      try {
-        const link = document.createElement('a');
-        link.href = photo;
-        link.download = 'downloaded-file';
-        link.click();
-      } catch (error) {
-        console.error('Download failed:', error);
-      }
+      alert('work')
+      // try {
+      //   const link = document.createElement('a');
+      //   link.href = photo;
+      //   link.download = 'downloaded-file';
+      //   link.click();
+      // } catch (error) {
+      //   console.error('Download failed:', error);
+      // }
     });
   }
 
