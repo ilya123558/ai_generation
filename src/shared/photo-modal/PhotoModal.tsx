@@ -39,7 +39,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
       }
     });
 
-    alert(messageId)
+    await webApp.shareMessage(messageId);
   };
 
   return (
