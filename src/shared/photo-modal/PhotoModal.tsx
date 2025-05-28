@@ -5,6 +5,7 @@ import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
+import { downloadFile } from "@telegram-apps/sdk";
 
 interface IProps {
   isOpen: boolean
@@ -42,10 +43,11 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
       alert(fileName)
 
       // Скачиваем файл с использованием webApp.downloadFile
-      await webApp.downloadFile({
-        file_name: fileName, // Имя файла при скачивании
-        url: photo,          // URL изображения
-      });
+      // await webApp.downloadFile({
+      //   file_name: fileName, // Имя файла при скачивании
+      //   url: photo,          // URL изображения
+      // });
+      downloadFile(photo, fileName)
 
       alert('Файл успешно скачан');
     } catch (error) {
