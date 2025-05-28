@@ -17,12 +17,35 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  const handleDownload = async() => {
-    webApp?.downloadFile({
-      file_name: 'image',
-      url: photo
-    })
-  }
+  const handleDownload = async () => {
+    // Проверка на наличие фото
+    if (!photo) {
+      alert('Ошибка: URL фотографии не указан');
+      return;
+    }
+
+    // Попытка получения имени файла из URL (если photo — это строка с URL)
+    const fileName = photo.split('/').pop(); // Извлекаем имя файла из URL
+
+    // Если не удается извлечь имя файла, можно указать дефолтное
+    if (!fileName) {
+      alert('Ошибка: невозможно извлечь имя файла');
+      return;
+    }
+
+    try {
+      // Вызов функции скачивания с правильными параметрами
+      await webApp?.downloadFile({
+        file_name: fileName,  // Динамическое имя файла
+        url: photo            // URL картинки
+      });
+
+      console.log('Файл успешно скачан');
+    } catch (error) {
+      // Обработка ошибок
+      alert('Ошибка при скачивании файла:');
+    }
+  };
  
 const handleRepost = async () => {
   // if (webApp) {
