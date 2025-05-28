@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
 import { getFileExtension } from "@/utils/libs/getFileExtension";
+import imageCompression from "browser-image-compression";
 
 interface IProps {
   isOpen: boolean
@@ -14,30 +15,89 @@ interface IProps {
   photo: string
 }
 
+const compressImageFromUrl = async (url: string) => {
+  try {
+    // Загружаем изображение с URL
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    // Преобразуем Blob в файл
+    const file = new File([blob], "image.jpg", { type: blob.type });
+
+    // Параметры сжатия
+    const options = {
+      maxSizeMB: 0.3, // Максимальный размер файла
+      maxWidthOrHeight: 1024, // Максимальная ширина или высота
+      useWebWorker: true, // Использовать Web Worker
+    };
+
+    // Сжимаем изображение
+    const compressedFile = await imageCompression(file, options);
+
+    // Создаем URL для сжатого изображения
+    return URL.createObjectURL(compressedFile);
+  } catch (error) {
+    console.error("Ошибка при сжатии изображения:", error);
+    return null;
+  }
+};
+
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
+  // const handleDownload = async () => {
+  //   try {
+  //     const ext = await getFileExtension(photo);
+  //     if (!ext) {
+  //       alert('Ошибка: не удалось определить расширение файла');
+  //       return;
+  //     }
+
+  //     const fileName = `ai_image.${ext}`;
+
+  //     webApp?.downloadFile({
+  //       url: photo, 
+  //       file_name: fileName
+  //     })
+
+  //   } catch (error) {
+  //     // @ts-ignore
+  //     alert('Ошибка при скачивании файла: ' + error.message);
+  //   }
+  // };
+
   const handleDownload = async () => {
-    try {
-      const ext = await getFileExtension(photo);
-      if (!ext) {
-        alert('Ошибка: не удалось определить расширение файла');
-        return;
-      }
-
-      const fileName = `ai_image.${ext}`;
-
-      webApp?.downloadFile({
-        url: photo, 
-        file_name: fileName
-      })
-
-    } catch (error) {
-      // @ts-ignore
-      alert('Ошибка при скачивании файла: ' + error.message);
+  try {
+    // Получаем расширение файла
+    const ext = await getFileExtension(photo);
+    if (!ext) {
+      alert('Ошибка: не удалось определить расширение файла');
+      return;
     }
-  };
+
+    // Сжимаем изображение перед скачиванием
+    const compressedImageUrl = await compressImageFromUrl(photo);
+
+    if (!compressedImageUrl) {
+      alert('Ошибка: не удалось сжать изображение');
+      return;
+    }
+
+    // Создаем имя файла
+    const fileName = `ai_image.${ext}`;
+
+    // Вызываем функцию для скачивания сжатого файла
+    webApp?.downloadFile({
+      url: compressedImageUrl,
+      file_name: fileName
+    });
+
+  } catch (error) {
+    // @ts-ignore
+    alert('Ошибка при скачивании файла: ' + error.message);
+  }
+};
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
