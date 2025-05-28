@@ -16,17 +16,14 @@ interface IProps {
 
 export const getFileExtension = async (url: string) => {
   try {
-    // Делаем запрос к URL для получения информации о файле
     const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error('Не удалось получить файл');
     }
 
-    // Извлекаем заголовок Content-Type из ответа
     const contentType = response.headers.get('Content-Type');
 
-    // Проверяем тип контента и возвращаем соответствующее расширение
     if (contentType) {
       if (contentType.includes('image/jpeg')) {
         return 'jpg';
@@ -37,11 +34,11 @@ export const getFileExtension = async (url: string) => {
       } else if (contentType.includes('image/webp')) {
         return 'webp';
       } else {
-        return null; // Если тип неизвестен
+        return null;
       }
     }
 
-    return null; // Если не удалось получить Content-Type
+    return null;
   } catch (error) {
     // @ts-ignore
     alert('Ошибка при получении расширения файла:', error);
@@ -49,40 +46,25 @@ export const getFileExtension = async (url: string) => {
   }
 };
 
-
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
   const handleDownload = async () => {
-    if (!webApp && !photo) {
-      alert('Ошибка: URL фотографии не задан');
-      return;
-    }
-
     try {
-      // Получаем расширение файла из URL
-      const ext = await getFileExtension(photo); // Например, "jpg", "png", и т.д.
+      const ext = await getFileExtension(photo);
       if (!ext) {
         alert('Ошибка: не удалось определить расширение файла');
         return;
       }
 
-      // Генерируем имя файла с расширением
-      const fileName = `ai_image.${ext}`;
-      alert(fileName)
+      const fileName = `nft-token #ai_image.${ext}`;
 
-      // Скачиваем файл с использованием webApp.downloadFile
-      // await webApp.downloadFile({
-      //   file_name: fileName, // Имя файла при скачивании
-      //   url: photo,          // URL изображения
-      // });
       webApp?.downloadFile({
         url: photo, 
         file_name: fileName
       })
 
-      alert('Файл успешно скачан');
     } catch (error) {
       // @ts-ignore
       alert('Ошибка при скачивании файла: ' + error.message);
