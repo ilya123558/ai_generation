@@ -5,7 +5,7 @@ import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
-import { downloadFile } from "@telegram-apps/sdk";
+import { downloadFile } from "@telegram-apps/sdk-react";
 
 interface IProps {
   isOpen: boolean
@@ -19,9 +19,10 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const { webApp } = useTelegram()
 
   const handleDownload = async() => {
-    if(!webApp) return;
+    // if(!webApp) return;
 
-    await downloadFile(photo, 'ai_image.jpg')
+    await downloadFile(photo, 'ai_image.jpg');
+
     // webApp.downloadFile({
     //   file_name: 'ai_image.jpg',
     //   url: photo

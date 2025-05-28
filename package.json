@@ -15,7 +15,7 @@
     "@mui/material": "^7.0.2",
     "@reduxjs/toolkit": "^2.6.1",
     "@telegram-apps/sdk": "^3.7.1",
-    "@telegram-apps/sdk-react": "^3.2.4",
+    "@telegram-apps/sdk-react": "^3.3.0",
     "@twa-dev/sdk": "^8.0.2",
     "@twa-dev/types": "^8.0.2",
     "axios": "^1.8.4",
