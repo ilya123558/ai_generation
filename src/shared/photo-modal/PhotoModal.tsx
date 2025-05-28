@@ -17,74 +17,16 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-const handleDownload = async () => {
-  if (!photo) {
-    console.error('Ошибка: URL фотографии не указан');
-    return;
+  const handleDownload = async() => {
+    if(!webApp) return;
+
+    webApp.downloadFile({
+      file_name: 'ai_image.jpg',
+      url: photo
+    })
   }
-
-  try {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', photo, true);
-    xhr.responseType = 'blob';
-
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        const blob = xhr.response;
-
-        const blobUrl = URL.createObjectURL(blob);
-
-        webApp?.downloadFile({
-          file_name: 'ai_image',
-          url: blobUrl
-        });
-
-        URL.revokeObjectURL(blobUrl);
-      } else {
-        alert('Не удалось загрузить изображение');
-      }
-    };
-
-    xhr.onerror = () => {
-      alert('Ошибка при запросе изображения');
-    };
-
-    // Отправляем запрос
-    xhr.send();
-  } catch (error) {
-    alert('Ошибка при скачивании файла:');
-  }
-};
-
  
-const handleRepost = async () => {
-  // if (webApp) {
-  //   try {
-  //     // Создаем сообщение с медиа (например, фото)
-  //     // @ts-ignore
-  //     const messageId = await webApp.preparedInlineMessage({
-  //       type: 'photo', // Тип медиа
-  //       media: {
-  //         url: photo, // URL изображения
-  //         caption: 'Check out this image!', // Текст к изображению
-  //       },
-  //     });
-
-  //     // Теперь отправляем это сообщение через shareMessage, передавая ID
-  //     webApp.shareMessage(messageId, (isSent) => {
-  //       if (isSent) {
-  //         console.log('Message shared successfully!');
-  //       } else {
-  //         console.error('Failed to share message.');
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.error('Reposting failed:', error);
-  //   }
-  // } else {
-  //   alert('Telegram Web App is not available.');
-  // }
-};
+  const handleRepost = async () => {};
 
   return (
     <Modal open={isOpen} setOpen={setIsOpen}>
@@ -99,7 +41,7 @@ const handleRepost = async () => {
         </div>
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-[2.8vw]">
-            <button onClick={handleDownload}>
+            <button onClick={handleDownload} id="downloadButton">
               <ShadowWrapper borderRadius={"full"} className="bg-[#FAFAFB] w-[12.81vw] h-[12.81vw] flex items-center justify-center">
                 <svg className="w-[6.42vw] h-[6.42vw]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 5V14" stroke="#23262F" strokeWidth="1.5" strokeLinecap="round"/>
