@@ -22,7 +22,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     if(!webApp) return;
     const blob = await fetch(photo).then((res) => res.blob());
     const file = new File([blob], 'ai_image.jpg', {
-      type: "image/jpg",
+      type: "image/jpeg",
     });
     const fileUrl = URL.createObjectURL(file);
 
