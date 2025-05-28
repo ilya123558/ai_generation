@@ -31,7 +31,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
  
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
-    const text = encodeURIComponent('text text text');
+    const text = encodeURIComponent('Фотография была сгенерирована с помощью @new_ai_robot');
 
     const repostLink = `https://t.me/share/url?url=${url}&text=${text}`;
 
