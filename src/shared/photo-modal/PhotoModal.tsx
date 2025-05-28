@@ -17,32 +17,45 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  const handleDownload = async () => {
-    if (!photo) {
-      alert('Ошибка: URL фотографии не указан');
-      return;
-    }
+const handleDownload = async () => {
+  if (!photo) {
+    console.error('Ошибка: URL фотографии не указан');
+    return;
+  }
 
-    try {
-      const response = await fetch(photo);
-      if (!response.ok) {
-        throw new Error('Не удалось загрузить изображение');
+  try {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', photo, true);
+    xhr.responseType = 'blob';
+
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const blob = xhr.response;
+
+        const blobUrl = URL.createObjectURL(blob);
+
+        webApp?.downloadFile({
+          file_name: 'ai_image',
+          url: blobUrl
+        });
+
+        URL.revokeObjectURL(blobUrl);
+      } else {
+        alert('Не удалось загрузить изображение');
       }
+    };
 
-      const blob = await response.blob();
+    xhr.onerror = () => {
+      alert('Ошибка при запросе изображения');
+    };
 
-      const blobUrl = URL.createObjectURL(blob);
+    // Отправляем запрос
+    xhr.send();
+  } catch (error) {
+    alert('Ошибка при скачивании файла:');
+  }
+};
 
-      await webApp?.downloadFile({
-        file_name: 'ai_image',
-        url: blobUrl
-      });
-
-      URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      alert('Ошибка при скачивании файла:');
-    }
-  };
  
 const handleRepost = async () => {
   // if (webApp) {
