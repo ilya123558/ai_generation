@@ -6,6 +6,7 @@ import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
 import { useAppSelector } from "@/views/store";
+import { shareURL } from "@telegram-apps/sdk";
 
 interface IProps {
   isOpen: boolean
@@ -29,11 +30,9 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   }
  
   const handleRepost = async () => {
-    if(!webApp || !user) return;
-
-    await webApp.shareMessage(String(user.id), () => {
-      alert('work')
-    });
+    if(shareURL.isAvailable()){
+      await shareURL(photo, 'test text')
+    }
   };
 
   return (
