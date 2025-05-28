@@ -19,7 +19,6 @@
     "@twa-dev/sdk": "^8.0.2",
     "@twa-dev/types": "^8.0.2",
     "axios": "^1.8.4",
-    "browser-image-compression": "^2.0.2",
     "framer-motion": "^12.10.0",
     "next": "14.2.5",
     "react": "^18",

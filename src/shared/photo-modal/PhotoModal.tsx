@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
 import { getFileExtension } from "@/utils/libs/getFileExtension";
-import imageCompression from "browser-image-compression";
 
 interface IProps {
   isOpen: boolean
@@ -17,30 +16,55 @@ interface IProps {
 
 const compressImageFromUrl = async (url: string) => {
   try {
-    // Загружаем изображение с URL
-    const response = await fetch(url);
-    const blob = await response.blob();
+    // Создаем изображение на основе URL
+    const img = new Image();
+    img.src = url;
 
-    // Преобразуем Blob в файл
-    const file = new File([blob], "image.jpg", { type: blob.type });
+    // Дожидаемся, пока изображение загрузится
+    await new Promise((resolve, reject) => {
+      img.onload = resolve;
+      img.onerror = reject;
+    });
 
-    // Параметры сжатия
-    const options = {
-      maxSizeMB: 0.3, // Максимальный размер файла
-      maxWidthOrHeight: 1024, // Максимальная ширина или высота
-      useWebWorker: true, // Использовать Web Worker
-    };
+    // Создаем canvas для сжатия изображения
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
-    // Сжимаем изображение
-    const compressedFile = await imageCompression(file, options);
+    // Устанавливаем размеры canvas
+    const MAX_WIDTH = 1024;
+    const MAX_HEIGHT = 1024;
+    let width = img.width;
+    let height = img.height;
 
-    // Создаем URL для сжатого изображения
-    return URL.createObjectURL(compressedFile);
+    // Масштабируем изображение, чтобы оно не превышало максимальные размеры
+    if (width > height) {
+      if (width > MAX_WIDTH) {
+        height = Math.round((height * MAX_WIDTH) / width);
+        width = MAX_WIDTH;
+      }
+    } else {
+      if (height > MAX_HEIGHT) {
+        width = Math.round((width * MAX_HEIGHT) / height);
+        height = MAX_HEIGHT;
+      }
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+
+    // Рисуем изображение на canvas
+    ctx?.drawImage(img, 0, 0, width, height);
+
+    // Получаем изображение в формате base64 с параметрами сжатия
+    const compressedImageUrl = canvas.toDataURL('image/jpeg', 0.3); // Качество сжатия 30%
+
+    return compressedImageUrl;
   } catch (error) {
-    console.error("Ошибка при сжатии изображения:", error);
+    console.error('Ошибка при сжатии изображения:', error);
     return null;
   }
 };
+
 
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
