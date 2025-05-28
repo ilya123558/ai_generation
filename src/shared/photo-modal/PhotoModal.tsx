@@ -18,51 +18,14 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  // const handleDownload = async() => {
-  //   if(!webApp) return;
+  const handleDownload = async() => {
+    if(!webApp) return;
 
-  //   await webApp.downloadFile({
-  //     file_name: 'ai_image.jpg',
-  //     url: photo
-  //   })
-  // }
-
-  const handleDownload = async () => {
-    if (!photo || !webApp) { // Проверяем, что photo задано и webApp доступен
-      alert('Ошибка: URL фотографии не задан');
-      return;
-    }
-
-    try {
-      alert('Загружаем изображение с URL: ' + photo);
-
-      // Загружаем изображение как blob
-      const response = await fetch(photo); // URL фотографии
-      if (!response.ok) {
-        throw new Error('Ошибка при получении изображения');
-      }
-
-      const blob = await response.blob(); // Преобразуем ответ в blob
-
-      // Создаем объект URL для blob
-      const blobUrl = URL.createObjectURL(blob);
-      alert('Создан временный URL для файла: ' + blobUrl);
-
-      // Используем webApp для скачивания с blob
-      await webApp.downloadFile({
-        file_name: 'ai_image.jpg', // Имя файла при скачивании
-        url: blobUrl,              // URL для скачивания
-      });
-
-      // Освобождаем ресурсы после скачивания
-      URL.revokeObjectURL(blobUrl);
-      alert('Ресурсы очищены после скачивания');
-    } catch (error) {
-      // @ts-ignore
-      alert('Ошибка при скачивании файла: ' + error.message);
-    }
-  };
-
+    await webApp.downloadFile({
+      file_name: 'ai_image.jpg',
+      url: photo
+    })
+  }
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
