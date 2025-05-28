@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Telegram as TelegramWebApp } from "@twa-dev/types";
-import { init } from "@telegram-apps/sdk";
 
 export const useTelegram = () => {
   const [webApp, setWebApp] = useState<TelegramWebApp['WebApp'] | null>(null)
@@ -8,7 +7,6 @@ export const useTelegram = () => {
   useEffect(() => {
     const checkReady = () => {
       if(typeof window !== 'undefined' && window.Telegram?.WebApp) {
-        // init()
         setWebApp(window.Telegram.WebApp)
       }
       else {

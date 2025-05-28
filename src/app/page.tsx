@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useTelegram } from "@/utils/hooks/useTelegram"
 import { usePreloadImages } from "@/utils/hooks/usePreloadImages"
+import { init } from "@telegram-apps/sdk";
 
 export default function Home() {
   const router = useRouter()
@@ -20,6 +21,7 @@ export default function Home() {
     const login = async() => {
       if(!webApp) return
 
+      init()
       const init_data = webApp.initData
   
       try {
