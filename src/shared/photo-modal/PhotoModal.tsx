@@ -28,36 +28,41 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   // }
 
   const handleDownload = async () => {
-  if (!photo || !webApp) {
-    alert('URL фотографии не указан');
-    return;
-  }
-
-  try {
-    // Загружаем изображение как blob
-    const response = await fetch(photo); // URL фотографии
-    if (!response.ok) {
-      throw new Error('Ошибка при получении изображения');
+    if (!photo || !webApp) { // Проверяем, что photo задано и webApp доступен
+      alert('Ошибка: URL фотографии не задан');
+      return;
     }
 
-    const blob = await response.blob(); // Преобразуем ответ в blob
+    try {
+      alert('Загружаем изображение с URL: ' + photo);
 
-    // Создаем объект URL для blob
-    const blobUrl = URL.createObjectURL(blob);
+      // Загружаем изображение как blob
+      const response = await fetch(photo); // URL фотографии
+      if (!response.ok) {
+        throw new Error('Ошибка при получении изображения');
+      }
 
-    // Используем webApp для скачивания с blob
-    await webApp.downloadFile({
-      file_name: 'ai_image.jpg', // Имя файла при скачивании
-      url: blobUrl,              // URL для скачивания
-    });
+      const blob = await response.blob(); // Преобразуем ответ в blob
 
-    // Освобождаем ресурсы после скачивания
-    URL.revokeObjectURL(blobUrl);
-  } catch (error) {
-    // @ts-ignore
-    alert('Ошибка при скачивании файла: ' + error.message);
-  }
-};
+      // Создаем объект URL для blob
+      const blobUrl = URL.createObjectURL(blob);
+      alert('Создан временный URL для файла: ' + blobUrl);
+
+      // Используем webApp для скачивания с blob
+      await webApp.downloadFile({
+        file_name: 'ai_image.jpg', // Имя файла при скачивании
+        url: blobUrl,              // URL для скачивания
+      });
+
+      // Освобождаем ресурсы после скачивания
+      URL.revokeObjectURL(blobUrl);
+      alert('Ресурсы очищены после скачивания');
+    } catch (error) {
+      // @ts-ignore
+      alert('Ошибка при скачивании файла: ' + error.message);
+    }
+  };
+
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
