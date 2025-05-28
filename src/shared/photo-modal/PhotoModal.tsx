@@ -18,15 +18,9 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const { webApp } = useTelegram()
 
   const handleDownload = async() => {
-    webApp?.onEvent('fileDownloadRequested', async () => {
-      // try {
-      //   const link = document.createElement('a');
-      //   link.href = photo;
-      //   link.download = 'downloaded-file';
-      //   link.click();
-      // } catch (error) {
-      //   console.error('Download failed:', error);
-      // }
+    webApp?.downloadFile({
+      file_name: 'test-image',
+      url: '/next.svg'
     })
   }
  
