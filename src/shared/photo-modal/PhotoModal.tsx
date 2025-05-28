@@ -13,11 +13,43 @@ interface IProps {
   photo: string
 }
 
-export const getFileExtension = (url: string) => {
-  if (!url) return null;
-  const extension = url.split('.').pop()?.toLowerCase();
-  return extension;
+export const getFileExtension = async (url: string) => {
+  try {
+    // Делаем запрос к URL для получения информации о файле
+    const response = await fetch(url, {
+      method: 'HEAD',  // Используем HEAD-запрос, чтобы получить только заголовки
+    });
+
+    if (!response.ok) {
+      throw new Error('Не удалось получить файл');
+    }
+
+    // Извлекаем заголовок Content-Type из ответа
+    const contentType = response.headers.get('Content-Type');
+
+    // Проверяем тип контента и возвращаем соответствующее расширение
+    if (contentType) {
+      if (contentType.includes('image/jpeg')) {
+        return 'jpg';
+      } else if (contentType.includes('image/png')) {
+        return 'png';
+      } else if (contentType.includes('image/gif')) {
+        return 'gif';
+      } else if (contentType.includes('image/webp')) {
+        return 'webp';
+      } else {
+        return null; // Если тип неизвестен
+      }
+    }
+
+    return null; // Если не удалось получить Content-Type
+  } catch (error) {
+    // @ts-ignore
+    alert('Ошибка при получении расширения файла:', error);
+    return null; // В случае ошибки возвращаем null
+  }
 };
+
 
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
