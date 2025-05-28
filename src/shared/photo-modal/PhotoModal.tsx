@@ -39,6 +39,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 
       // Генерируем имя файла с расширением
       const fileName = `ai_image.${ext}`;
+      alert(fileName)
 
       // Скачиваем файл с использованием webApp.downloadFile
       await webApp.downloadFile({
