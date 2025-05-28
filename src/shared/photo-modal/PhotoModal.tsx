@@ -16,10 +16,8 @@ interface IProps {
 export const getFileExtension = async (url: string) => {
   try {
     // Делаем запрос к URL для получения информации о файле
-    const response = await fetch(url, {
-      method: 'HEAD',  // Используем HEAD-запрос, чтобы получить только заголовки
-    });
-
+    const response = await fetch(url);
+    alert(response.json())
     if (!response.ok) {
       throw new Error('Не удалось получить файл');
     }
