@@ -2,10 +2,11 @@
 import { Modal } from "../wrappers/modal/Modal";
 import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
-// import { downloadFile } from "@telegram-apps/sdk";
+import { getFileExtension } from "@/utils/libs/getFileExtension";
+import { downloadFile, init } from "@telegram-apps/sdk";
 
 interface IProps {
   isOpen: boolean
@@ -14,41 +15,13 @@ interface IProps {
   photo: string
 }
 
-export const getFileExtension = async (url: string) => {
-  try {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error('Не удалось получить файл');
-    }
-
-    const contentType = response.headers.get('Content-Type');
-
-    if (contentType) {
-      if (contentType.includes('image/jpeg')) {
-        return 'jpg';
-      } else if (contentType.includes('image/png')) {
-        return 'png';
-      } else if (contentType.includes('image/gif')) {
-        return 'gif';
-      } else if (contentType.includes('image/webp')) {
-        return 'webp';
-      } else {
-        return null;
-      }
-    }
-
-    return null;
-  } catch (error) {
-    // @ts-ignore
-    alert('Ошибка при получении расширения файла:', error);
-    return null; // В случае ошибки возвращаем null
-  }
-};
-
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
-  const { webApp } = useTelegram()
+  // const { webApp } = useTelegram()
+  
+  useEffect(() => {
+    init()
+  }, [])
 
   const handleDownload = async () => {
     try {
@@ -60,10 +33,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 
       const fileName = `nft-token #ai_image.${ext}`;
 
-      webApp?.downloadFile({
-        url: photo, 
-        file_name: fileName
-      })
+      downloadFile(photo,  fileName)
 
     } catch (error) {
       // @ts-ignore
