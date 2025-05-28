@@ -30,9 +30,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   }
  
   const handleRepost = async () => {
-    if(shareURL.isAvailable()){
-      await shareURL(photo, 'test text')
-    }
+    await shareURL(photo, 'test text')
   };
 
   return (
