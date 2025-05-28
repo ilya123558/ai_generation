@@ -18,23 +18,76 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
+  // const handleDownload = async () => {
+  //   try {
+  //     const ext = await getFileExtension(photo);
+  //     if (!ext) {
+  //       alert('Ошибка: не удалось определить расширение файла');
+  //       return;
+  //     }
+
+  //     const fileName = `ai_image.${ext}`;
+
+  //     webApp?.downloadFile({
+  //       url: photo, 
+  //       file_name: fileName
+  //     })
+
+  //   } catch (error) {
+  //     // @ts-ignore
+  //     alert('Ошибка при скачивании файла: ' + error.message);
+  //   }
+  // };
+
   const handleDownload = async () => {
     try {
+      // Получаем расширение файла
       const ext = await getFileExtension(photo);
       if (!ext) {
         alert('Ошибка: не удалось определить расширение файла');
         return;
       }
 
-      const fileName = `ai_image.${ext}`;
+      // Загружаем изображение
+      const img = new Image();
+      img.src = photo;
 
-      webApp?.downloadFile({url: photo, file_name: fileName})
+      img.onload = () => {
+        // Создаем canvas для изменения размера и качества
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Устанавливаем новый размер в 2 раза меньше исходного
+        canvas.width = img.width / 2;
+        canvas.height = img.height / 2;
+
+        // Рисуем изображение на canvas
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // Получаем изображение с пониженным качеством (например, JPEG с качеством 50%)
+        const newPhoto = canvas.toDataURL(`image/${ext}`, 0.5); // Понижаем качество до 50%
+
+        // Имя файла для скачивания
+        const fileName = `ai_image.${ext}`;
+
+        // Скачиваем файл через Telegram SDK
+        webApp?.downloadFile({
+          url: newPhoto,  // Сжимаемое изображение
+          file_name: fileName,
+        });
+      };
+
+      img.onerror = (error) => {
+        // @ts-ignore
+        alert('Ошибка при загрузке изображения: ' + error.message);
+      };
 
     } catch (error) {
       // @ts-ignore
       alert('Ошибка при скачивании файла: ' + error.message);
     }
   };
+
 
 
   const handleRepost = async () => {
