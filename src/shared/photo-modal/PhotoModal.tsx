@@ -17,32 +17,15 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  // const handleDownload = async() => {
-  //   if(!webApp) return;
+  const handleDownload = async() => {
+    if(!webApp) return;
 
-  //   webApp.downloadFile({
-  //     file_name: 'ai_image.jpg',
-  //     url: photo
-  //   })
-  // }
+    webApp.downloadFile({
+      file_name: 'ai_image.jpg',
+      url: photo
+    })
+  }
 
-  const handleDownload = async () => {
-    const url = photo; // Прямой URL фотографии
-
-    // Создаем элемент <a>, который будет использоваться для скачивания
-    const link = document.createElement('a');
-    link.href = url;          // Устанавливаем ссылку на изображение
-    link.download = 'ai_image.jpg'; // Имя файла при скачивании
-
-    // Имитируем клик по ссылке, чтобы скачать файл
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Возвращаем ссылку на изображение для дальнейшего использования
-    return url;
-  };
- 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
     const text = encodeURIComponent('Фотография была сгенерирована с помощью @new_ai444_bot');
