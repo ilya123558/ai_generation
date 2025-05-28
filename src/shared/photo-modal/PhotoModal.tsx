@@ -17,6 +17,15 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
+  // const handleDownload = async() => {
+  //   if(!webApp) return;
+
+  //   webApp.downloadFile({
+  //     file_name: 'ai_image.jpg',
+  //     url: photo
+  //   })
+  // }
+
   const handleDownload = async () => {
     if (!webApp) return;
 
@@ -46,6 +55,16 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     }
   };
 
+  const handleRepost = async () => {
+    const url = encodeURIComponent(photo);
+    const text = encodeURIComponent('Фотография была сгенерирована с помощью @new_ai444_bot');
+
+    const repostLink = `https://t.me/share/url?url=${url}&text=${text}`;
+
+    window.open(repostLink, '_blank');
+
+    return repostLink;
+  };
 
   return (
     <Modal open={isOpen} setOpen={setIsOpen}>
