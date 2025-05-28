@@ -14,114 +14,30 @@ interface IProps {
   photo: string
 }
 
-const compressImageFromUrl = async (url: string) => {
-  try {
-    // Создаем изображение на основе URL
-    const img = new Image();
-    img.src = url;
-
-    // Дожидаемся, пока изображение загрузится
-    await new Promise((resolve, reject) => {
-      img.onload = resolve;
-      img.onerror = reject;
-    });
-
-    // Создаем canvas для сжатия изображения
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    // Устанавливаем размеры canvas
-    const MAX_WIDTH = 1024;
-    const MAX_HEIGHT = 1024;
-    let width = img.width;
-    let height = img.height;
-
-    // Масштабируем изображение, чтобы оно не превышало максимальные размеры
-    if (width > height) {
-      if (width > MAX_WIDTH) {
-        height = Math.round((height * MAX_WIDTH) / width);
-        width = MAX_WIDTH;
-      }
-    } else {
-      if (height > MAX_HEIGHT) {
-        width = Math.round((width * MAX_HEIGHT) / height);
-        height = MAX_HEIGHT;
-      }
-    }
-
-    canvas.width = width;
-    canvas.height = height;
-
-    // Рисуем изображение на canvas
-    ctx?.drawImage(img, 0, 0, width, height);
-
-    // Получаем изображение в формате base64 с параметрами сжатия
-    const compressedImageUrl = canvas.toDataURL('image/jpeg', 0.3); // Качество сжатия 30%
-
-    return compressedImageUrl;
-  } catch (error) {
-    console.error('Ошибка при сжатии изображения:', error);
-    return null;
-  }
-};
-
-
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  // const handleDownload = async () => {
-  //   try {
-  //     const ext = await getFileExtension(photo);
-  //     if (!ext) {
-  //       alert('Ошибка: не удалось определить расширение файла');
-  //       return;
-  //     }
-
-  //     const fileName = `ai_image.${ext}`;
-
-  //     webApp?.downloadFile({
-  //       url: photo, 
-  //       file_name: fileName
-  //     })
-
-  //   } catch (error) {
-  //     // @ts-ignore
-  //     alert('Ошибка при скачивании файла: ' + error.message);
-  //   }
-  // };
-
   const handleDownload = async () => {
-  try {
-    // Получаем расширение файла
-    const ext = await getFileExtension(photo);
-    if (!ext) {
-      alert('Ошибка: не удалось определить расширение файла');
-      return;
+    try {
+      const ext = await getFileExtension(photo);
+      if (!ext) {
+        alert('Ошибка: не удалось определить расширение файла');
+        return;
+      }
+
+      const fileName = `ai_image.${ext}`;
+
+      webApp?.downloadFile({
+        url: photo, 
+        file_name: fileName
+      })
+
+    } catch (error) {
+      // @ts-ignore
+      alert('Ошибка при скачивании файла: ' + error.message);
     }
-
-    // Сжимаем изображение перед скачиванием
-    const compressedImageUrl = await compressImageFromUrl(photo);
-
-    if (!compressedImageUrl) {
-      alert('Ошибка: не удалось сжать изображение');
-      return;
-    }
-
-    // Создаем имя файла
-    const fileName = `ai_image.${ext}`;
-
-    // Вызываем функцию для скачивания сжатого файла
-    webApp?.downloadFile({
-      url: compressedImageUrl,
-      file_name: fileName
-    });
-
-  } catch (error) {
-    // @ts-ignore
-    alert('Ошибка при скачивании файла: ' + error.message);
-  }
-};
+  };
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
