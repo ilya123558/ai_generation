@@ -4,7 +4,8 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
-import { downloadFile } from "@telegram-apps/sdk";
+import { useTelegram } from "@/utils/hooks/useTelegram";
+// import { downloadFile } from "@telegram-apps/sdk";
 
 interface IProps {
   isOpen: boolean
@@ -17,7 +18,7 @@ export const getFileExtension = async (url: string) => {
   try {
     // Делаем запрос к URL для получения информации о файле
     const response = await fetch(url);
-    alert(response.json())
+
     if (!response.ok) {
       throw new Error('Не удалось получить файл');
     }
@@ -51,9 +52,10 @@ export const getFileExtension = async (url: string) => {
 
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
+  const { webApp } = useTelegram()
 
   const handleDownload = async () => {
-    if (!photo) {
+    if (!webApp && !photo) {
       alert('Ошибка: URL фотографии не задан');
       return;
     }
@@ -75,7 +77,10 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
       //   file_name: fileName, // Имя файла при скачивании
       //   url: photo,          // URL изображения
       // });
-      downloadFile(photo, fileName)
+      webApp?.downloadFile({
+        url: photo, 
+        file_name: fileName
+      })
 
       alert('Файл успешно скачан');
     } catch (error) {
