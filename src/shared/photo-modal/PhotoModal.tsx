@@ -71,7 +71,7 @@ const handleDownload = async () => {
     URL.revokeObjectURL(tempLink);
 
   } catch (error) {
-    alert('Ошибка при скачивании файла: ' + error.message);
+    alert('Ошибка при скачивании файла: ' + error);
   }
 };
 
