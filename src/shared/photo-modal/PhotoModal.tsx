@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
 import { getFileExtension } from "@/utils/libs/getFileExtension";
-import { downloadFile, init } from "@telegram-apps/sdk";
 
 interface IProps {
   isOpen: boolean
@@ -17,11 +16,7 @@ interface IProps {
 
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
-  // const { webApp } = useTelegram()
-  
-  useEffect(() => {
-    init()
-  }, [])
+  const { webApp } = useTelegram()
 
   const handleDownload = async () => {
     try {
@@ -31,9 +26,9 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
         return;
       }
 
-      const fileName = `nft-token #ai_image.${ext}`;
+      const fileName = `ai_image.${ext}`;
 
-      downloadFile(photo,  fileName)
+      webApp?.downloadFile({url: photo, file_name: fileName})
 
     } catch (error) {
       // @ts-ignore
