@@ -66,6 +66,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 
         // Получаем изображение с пониженным качеством (например, JPEG с качеством 50%)
         const newPhoto = canvas.toDataURL(`image/${ext}`, 0.5); // Понижаем качество до 50%
+        alert(newPhoto)
 
         // Имя файла для скачивания
         const fileName = `ai_image.${ext}`;
