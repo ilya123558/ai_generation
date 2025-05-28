@@ -31,8 +31,8 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
       webApp?.downloadFile({
         // url: photo,
         // file_name: fileName
-        url: '/images/chat/image.png', 
-        file_name: `ai_image.png`
+        url: '/images/ai_image.jpg', 
+        file_name: `ai_image.jpg`
       })
 
     } catch (error) {
