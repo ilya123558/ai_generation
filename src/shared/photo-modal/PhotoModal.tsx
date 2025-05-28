@@ -24,6 +24,9 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     await webApp.downloadFile({
       file_name: 'ai_image.jpg',
       url: photo
+    }, (isAccepted) => {
+      
+      alert(`isAccepted: ${isAccepted}`)
     })
   }
 
