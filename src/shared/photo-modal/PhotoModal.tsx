@@ -13,9 +13,9 @@ interface IProps {
   photo: string
 }
 
-export const getFileExtension = (url) => {
+export const getFileExtension = (url: string) => {
   if (!url) return null;
-  const extension = url.split('.').pop().toLowerCase();
+  const extension = url.split('.').pop()?.toLowerCase();
   return extension;
 };
 
