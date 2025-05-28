@@ -26,34 +26,45 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   //   })
   // }
 
-  const handleDownload = async () => {
-    if (!webApp) return;
+const handleDownload = async () => {
+  if (!webApp) {
+    alert('webApp не инициализирован');
+    return;
+  }
 
-    try {
-      // Получаем изображение как blob
-      const response = await fetch(photo); // Загружаем изображение по URL
-      if (!response.ok) {
-        throw new Error('Ошибка при получении изображения');
-      }
+  if (!photo) {
+    alert('Ошибка: переменная photo не задана');
+    return;
+  }
 
-      const blob = await response.blob(); // Преобразуем ответ в blob
+  alert('URL фотографии: ' + photo); // Проверка значения переменной photo
 
-      // Создаем объект URL для blob
-      const blobUrl = URL.createObjectURL(blob);
-
-      // Используем webApp для скачивания с blob
-      webApp.downloadFile({
-        file_name: 'ai_image.jpg',
-        url: blobUrl, // Используем временный URL
-      });
-
-      // Очистка после скачивания
-      URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      // @ts-ignore
-      alert('Ошибка при скачивании файла: ' + error.message); // Заменили console.error на alert
+  try {
+    // Получаем изображение как blob
+    const response = await fetch(photo); // Загружаем изображение по URL
+    if (!response.ok) {
+      throw new Error('Ошибка при получении изображения');
     }
-  };
+
+    const blob = await response.blob(); // Преобразуем ответ в blob
+
+    // Создаем объект URL для blob
+    const blobUrl = URL.createObjectURL(blob);
+
+    // Используем webApp для скачивания с blob
+    webApp.downloadFile({
+      file_name: 'ai_image.jpg',
+      url: blobUrl, // Используем временный URL
+    });
+
+    // Очистка после скачивания
+    URL.revokeObjectURL(blobUrl);
+  } catch (error) {
+    // @ts-ignore
+    alert('Ошибка при скачивании файла: ' + error.message); // Заменили console.error на alert
+  }
+};
+
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
