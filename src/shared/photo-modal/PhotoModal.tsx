@@ -13,18 +13,46 @@ interface IProps {
   photo: string
 }
 
+export const getFileExtension = (url) => {
+  if (!url) return null;
+  const extension = url.split('.').pop().toLowerCase();
+  return extension;
+};
+
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  const handleDownload = async() => {
-    if(!webApp) return;
+  const handleDownload = async () => {
+    if (!webApp || !photo) {
+      alert('Ошибка: URL фотографии не задан');
+      return;
+    }
 
-    await webApp.downloadFile({
-      file_name: 'ai_image.jpg',
-      url: photo
-    })
-  }
+    try {
+      // Получаем расширение файла из URL
+      const ext = getFileExtension(photo); // Например, "jpg", "png", и т.д.
+      if (!ext) {
+        alert('Ошибка: не удалось определить расширение файла');
+        return;
+      }
+
+      // Генерируем имя файла с расширением
+      const fileName = `ai_image.${ext}`;
+
+      // Скачиваем файл с использованием webApp.downloadFile
+      await webApp.downloadFile({
+        file_name: fileName, // Имя файла при скачивании
+        url: photo,          // URL изображения
+      });
+
+      alert('Файл успешно скачан');
+    } catch (error) {
+      // @ts-ignore
+      alert('Ошибка при скачивании файла: ' + error.message);
+    }
+  };
+
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
