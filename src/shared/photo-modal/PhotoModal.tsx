@@ -5,6 +5,7 @@ import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
+import { useAppSelector } from "@/views/store";
 
 interface IProps {
   isOpen: boolean
@@ -14,6 +15,7 @@ interface IProps {
 }
 
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
+  const { user } = useAppSelector(state => state.main)
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
@@ -27,19 +29,24 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   }
  
   const handleRepost = async () => {
-    if(!webApp) return;
+    if(!webApp || !user) return;
 
     // @ts-ignore
-    const messageId = await webApp.savePreparedInlineMessage({
-      type: 'photo',
-      media: {
+    const { id } = await window.Telegram.WebApp.savePreparedInlineMessage({
+      user_id: user.id,
+      result: {
         type: 'photo',
-        media: photo, // URL вашей фотографии
+        photo_url: 'photo',
         caption: 'Описание фотографии'
-      }
+      },
+      allow_user_chats: true,
+      allow_bot_chats: false,
+      allow_group_chats: true,
+      allow_channel_chats: false
     });
 
-    await webApp.shareMessage(messageId);
+    alert(id)
+    // await webApp.shareMessage(messageId);
   };
 
   return (
