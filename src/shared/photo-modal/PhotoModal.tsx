@@ -31,22 +31,9 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const handleRepost = async () => {
     if(!webApp || !user) return;
 
-    // @ts-ignore
-    const { id } = await window.Telegram.WebApp.savePreparedInlineMessage({
-      user_id: user.id,
-      result: {
-        type: 'photo',
-        photo_url: 'photo',
-        caption: 'Описание фотографии'
-      },
-      allow_user_chats: true,
-      allow_bot_chats: false,
-      allow_group_chats: true,
-      allow_channel_chats: false
+    await webApp.shareMessage(String(user.id), () => {
+      alert('work')
     });
-
-    alert(id)
-    // await webApp.shareMessage(messageId);
   };
 
   return (
