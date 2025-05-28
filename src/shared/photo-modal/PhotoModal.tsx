@@ -4,7 +4,6 @@ import { ImageWithSkeleton } from "../image-with-skeleton/ImageWithSkeleton";
 import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
-import { useTelegram } from "@/utils/hooks/useTelegram";
 import { downloadFile } from "@telegram-apps/sdk";
 
 interface IProps {
@@ -22,10 +21,9 @@ export const getFileExtension = (url: string) => {
 
 export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => {
   const [isDelete, setIsDelete] = useState(false)
-  const { webApp } = useTelegram()
 
   const handleDownload = async () => {
-    if (!webApp || !photo) {
+    if (!photo) {
       alert('Ошибка: URL фотографии не задан');
       return;
     }
