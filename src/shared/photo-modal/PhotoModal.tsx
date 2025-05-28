@@ -20,20 +20,13 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 
   const handleDownload = async() => {
     if(!webApp) return;
-    const blob = await fetch(photo).then((res) => res.blob());
-    const file = new File([blob], 'ai_image.jpg', {
-      type: "image/jpeg",
-    });
-    const fileUrl = URL.createObjectURL(file);
 
-    alert(fileUrl)
+    alert(photo)
 
     await webApp.downloadFile({
       file_name: 'ai_image.jpg',
-      url: fileUrl
+      url: photo
     })
-
-    URL.revokeObjectURL(fileUrl);
   }
 
   const handleRepost = async () => {
