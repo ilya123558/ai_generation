@@ -19,18 +19,19 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const { webApp } = useTelegram()
 
   const handleDownload = async() => {
-    // if(!webApp) return;
-
-    // @ts-ignore
-    await downloadFile({
-      file_name: 'ai_image.jpg',
-      url: photo
+    if(!webApp) return;
+    const blob = await fetch(photo).then((res) => res.blob());
+    const file = new File([blob], "invite-banner.png", {
+      type: "image/png",
     });
+    const fileUrl = URL.createObjectURL(file);
 
-    // webApp.downloadFile({
-    //   file_name: 'ai_image.jpg',
-    //   url: photo
-    // })
+    await webApp.downloadFile({
+      file_name: 'ai_image.jpg',
+      url: fileUrl
+    })
+
+    URL.revokeObjectURL(fileUrl);
   }
 
   const handleRepost = async () => {
