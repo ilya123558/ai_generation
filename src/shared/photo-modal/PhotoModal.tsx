@@ -21,7 +21,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     if(!webApp) return;
 
     webApp.downloadFile({
-      file_name: 'ai_image.jpg',
+      file_name: 'ai_image.webw',
       url: photo
     })
   }
