@@ -30,7 +30,14 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   }
  
   const handleRepost = async () => {
-    await shareURL(photo, 'test text')
+    const url = encodeURIComponent(photo);
+    const text = encodeURIComponent('text text text');
+
+    const repostLink = `https://t.me/share/url?url=${url}&text=${text}`;
+
+    window.open(repostLink, '_blank');
+
+    return repostLink;
   };
 
   return (
