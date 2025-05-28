@@ -18,63 +18,26 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  // const handleDownload = async () => {
-  //   try {
-  //     const ext = await getFileExtension(photo);
-  //     if (!ext) {
-  //       alert('Ошибка: не удалось определить расширение файла');
-  //       return;
-  //     }
+  const handleDownload = async () => {
+    try {
+      const ext = await getFileExtension(photo);
+      if (!ext) {
+        alert('Ошибка: не удалось определить расширение файла');
+        return;
+      }
 
-  //     const fileName = `ai_image.${ext}`;
+      const fileName = `ai_image.${ext}`;
 
-  //     webApp?.downloadFile({
-  //       url: photo,
-  //       file_name: fileName
-  //     })
+      webApp?.downloadFile({
+        url: photo,
+        file_name: fileName
+      })
 
-  //   } catch (error) {
-  //     // @ts-ignore
-  //     alert('Ошибка при скачивании файла: ' + error.message);
-  //   }
-  // };
-
-const handleDownload = async () => {
-  try {
-    // Получаем изображение по URL (предположим, что это URL изображения)
-    const response = await fetch(photo);  // photo — это URL изображения
-    if (!response.ok) {
-      throw new Error('Ошибка при загрузке изображения');
+    } catch (error) {
+      // @ts-ignore
+      alert('Ошибка при скачивании файла: ' + error.message);
     }
-
-    const blob = await response.blob();  // Преобразуем изображение в Blob
-
-    // Создаем временную ссылку на Blob
-    const tempLink = URL.createObjectURL(blob);
-
-    // Получаем расширение
-    const ext = await getFileExtension(photo);
-    if (!ext) {
-      alert('Ошибка: не удалось определить расширение файла');
-      return;
-    }
-
-    const fileName = `ai_image.${ext}`;
-
-    // Скачиваем файл через временную ссылку
-    webApp?.downloadFile({
-      url: tempLink,  // Временная ссылка на Blob
-      file_name: fileName,
-    });
-
-    // Освобождаем ресурсы после использования ссылки
-    URL.revokeObjectURL(tempLink);
-
-  } catch (error) {
-    alert('Ошибка при скачивании файла: ' + error);
-  }
-};
-
+  };
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
