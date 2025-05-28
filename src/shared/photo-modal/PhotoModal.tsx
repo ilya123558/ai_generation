@@ -5,7 +5,6 @@ import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
-import { downloadFile } from "@telegram-apps/sdk-react";
 
 interface IProps {
   isOpen: boolean
@@ -24,15 +23,12 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     await webApp.downloadFile({
       file_name: 'ai_image.jpg',
       url: photo
-    }, (isAccepted) => {
-      
-      alert(`isAccepted: ${isAccepted}`)
     })
   }
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
-    const text = encodeURIComponent('Фотография была сгенерирована с помощью @new_ai444_bot');
+    const text = encodeURIComponent('Фотография была сгенерирована с помощью @Photique_bot');
 
     const repostLink = `https://t.me/share/url?url=${url}&text=${text}`;
 

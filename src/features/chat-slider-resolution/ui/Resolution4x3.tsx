@@ -80,7 +80,9 @@ export const Resolution4x3 = ({generations}: IProps) => {
           )
           : Array(5).fill(null).map((_, index) => (
             <SwiperSlide key={index} className='!w-[30vh] !h-[38vh]'>
-              <div className="w-[30vh] h-[22.5vh] bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+              <div className="w-full h-full flex items-center">
+                <div className="w-[30vh] h-[22.5vh] bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
+              </div>
             </SwiperSlide>
           ))
         }
