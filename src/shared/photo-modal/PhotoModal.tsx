@@ -39,55 +39,64 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   //   }
   // };
 
-  const handleDownload = async () => {
-    try {
-      // Получаем расширение файла
-      const ext = await getFileExtension(photo);
-      if (!ext) {
-        alert('Ошибка: не удалось определить расширение файла');
-        return;
-      }
-
-      // Загружаем изображение
-      const img = new Image();
-      img.src = photo;
-
-      img.onload = () => {
-        alert('img.onload')
-        // Создаем canvas для изменения размера и качества
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-
-        // Устанавливаем новый размер в 2 раза меньше исходного
-        canvas.width = img.width / 2;
-        canvas.height = img.height / 2;
-
-        // Рисуем изображение на canvas
-        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        // Получаем изображение с пониженным качеством (например, JPEG с качеством 50%)
-        const newPhoto = canvas.toDataURL(`image/${ext}`, 0.5); // Понижаем качество до 50%
-
-        // Имя файла для скачивания
-        const fileName = `ai_image.${ext}`;
-
-        // Скачиваем файл через Telegram SDK
-        webApp?.downloadFile({
-          url: newPhoto,  // Сжимаемое изображение
-          file_name: fileName,
-        });
-      };
-
-      img.onerror = (error) => {
-        // @ts-ignore
-        alert('Ошибка при загрузке изображения: ' + error.message);
-      };
-
-    } catch (error) {
-      // @ts-ignore
-      alert('Ошибка при скачивании файла: ' + error.message);
+const handleDownload = async () => {
+  try {
+    // Получаем расширение файла
+    const ext = await getFileExtension(photo);
+    if (!ext) {
+      alert('Ошибка: не удалось определить расширение файла');
+      return;
     }
-  };
+
+    // Загружаем изображение
+    const img = new Image();
+    img.src = photo;
+
+    img.onload = () => {
+      // Создаем canvas для изменения размера и качества
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Устанавливаем новый размер в 2 раза меньше исходного
+      canvas.width = img.width / 2;
+      canvas.height = img.height / 2;
+
+      // Рисуем изображение на canvas
+      ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // Создаем Blob с пониженным качеством изображения
+      canvas.toBlob((blob) => {
+        if (blob) {
+          // Создаем URL для объекта Blob
+          const url = URL.createObjectURL(blob);
+
+          // Имя файла для скачивания
+          const fileName = `ai_image.${ext}`;
+
+          // Скачиваем файл через Telegram SDK
+          webApp?.downloadFile({
+            url: url,           // URL Blob объекта
+            file_name: fileName, // Имя файла для скачивания
+          });
+
+          // Освобождаем созданный объект URL
+          URL.revokeObjectURL(url);
+        } else {
+          alert('Ошибка при создании Blob');
+        }
+      }, `image/${ext}`, 0.5); // Понижаем качество до 50%
+    };
+
+    img.onerror = (error) => {
+      // @ts-ignore
+      alert('Ошибка при загрузке изображения: ' + error.message);
+    };
+
+  } catch (error) {
+    // @ts-ignore
+    alert('Ошибка при скачивании файла: ' + error.message);
+  }
+};
 
 
 
