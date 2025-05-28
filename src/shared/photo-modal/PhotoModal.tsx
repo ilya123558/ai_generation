@@ -18,16 +18,46 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  const handleDownload = async() => {
-    if(!webApp) return;
+  // const handleDownload = async() => {
+  //   if(!webApp) return;
 
-    alert(photo)
+  //   await webApp.downloadFile({
+  //     file_name: 'ai_image.jpg',
+  //     url: photo
+  //   })
+  // }
 
-    await webApp.downloadFile({
-      file_name: 'ai_image.jpg',
-      url: photo
-    })
+  const handleDownload = async () => {
+  if (!photo || !webApp) {
+    alert('URL фотографии не указан');
+    return;
   }
+
+  try {
+    // Загружаем изображение как blob
+    const response = await fetch(photo); // URL фотографии
+    if (!response.ok) {
+      throw new Error('Ошибка при получении изображения');
+    }
+
+    const blob = await response.blob(); // Преобразуем ответ в blob
+
+    // Создаем объект URL для blob
+    const blobUrl = URL.createObjectURL(blob);
+
+    // Используем webApp для скачивания с blob
+    await webApp.downloadFile({
+      file_name: 'ai_image.jpg', // Имя файла при скачивании
+      url: blobUrl,              // URL для скачивания
+    });
+
+    // Освобождаем ресурсы после скачивания
+    URL.revokeObjectURL(blobUrl);
+  } catch (error) {
+    // @ts-ignore
+    alert('Ошибка при скачивании файла: ' + error.message);
+  }
+};
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
