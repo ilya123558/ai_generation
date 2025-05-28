@@ -20,7 +20,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const handleDownload = async() => {
     webApp?.downloadFile({
       file_name: 'test-image',
-      url: '/next.svg'
+      url: '/images/chat/image.png'
     })
   }
  
