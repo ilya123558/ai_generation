@@ -62,7 +62,7 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
 
     try {
       // Получаем расширение файла из URL
-      const ext = getFileExtension(photo); // Например, "jpg", "png", и т.д.
+      const ext = await getFileExtension(photo); // Например, "jpg", "png", и т.д.
       if (!ext) {
         alert('Ошибка: не удалось определить расширение файла');
         return;
