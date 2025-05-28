@@ -21,7 +21,11 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const handleDownload = async() => {
     // if(!webApp) return;
 
-    await downloadFile(photo, 'ai_image.jpg');
+    // @ts-ignore
+    await downloadFile({
+      file_name: 'ai_image.jpg',
+      url: photo
+    });
 
     // webApp.downloadFile({
     //   file_name: 'ai_image.jpg',
