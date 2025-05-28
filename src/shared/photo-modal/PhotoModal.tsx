@@ -26,7 +26,21 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
     })
   }
  
-  const handleRepost = async () => {};
+  const handleRepost = async () => {
+    if(!webApp) return;
+
+    // @ts-ignore
+    const messageId = await webApp.savePreparedInlineMessage({
+      type: 'photo',
+      media: {
+        type: 'photo',
+        media: photo, // URL вашей фотографии
+        caption: 'Описание фотографии'
+      }
+    });
+
+    alert(messageId)
+  };
 
   return (
     <Modal open={isOpen} setOpen={setIsOpen}>
