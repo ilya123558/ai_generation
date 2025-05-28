@@ -21,8 +21,8 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const handleDownload = async() => {
     if(!webApp) return;
     const blob = await fetch(photo).then((res) => res.blob());
-    const file = new File([blob], "invite-banner.png", {
-      type: "image/png",
+    const file = new File([blob], 'ai_image.jpg', {
+      type: "image/jpg",
     });
     const fileUrl = URL.createObjectURL(file);
 
