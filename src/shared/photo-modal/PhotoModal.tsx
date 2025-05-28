@@ -5,6 +5,7 @@ import { ShadowWrapper } from "../wrappers/shadow-wrapper/ShadowWrapper";
 import { useState } from "react";
 import { DeleteImage } from "../delete-image/DeleteImage";
 import { useTelegram } from "@/utils/hooks/useTelegram";
+import { downloadFile } from "@telegram-apps/sdk";
 
 interface IProps {
   isOpen: boolean
@@ -17,54 +18,15 @@ export const PhotoModal = ({isOpen, setIsOpen, handleDelete, photo}: IProps) => 
   const [isDelete, setIsDelete] = useState(false)
   const { webApp } = useTelegram()
 
-  // const handleDownload = async() => {
-  //   if(!webApp) return;
+  const handleDownload = async() => {
+    if(!webApp) return;
 
-  //   webApp.downloadFile({
-  //     file_name: 'ai_image.jpg',
-  //     url: photo
-  //   })
-  // }
-
-const handleDownload = async () => {
-  if (!webApp) {
-    alert('webApp не инициализирован');
-    return;
+    await downloadFile(photo, 'ai_image.jpg')
+    // webApp.downloadFile({
+    //   file_name: 'ai_image.jpg',
+    //   url: photo
+    // })
   }
-
-  if (!photo) {
-    alert('Ошибка: переменная photo не задана');
-    return;
-  }
-
-  alert('URL фотографии: ' + photo); // Проверка значения переменной photo
-
-  try {
-    // Получаем изображение как blob
-    const response = await fetch(photo); // Загружаем изображение по URL
-    if (!response.ok) {
-      throw new Error('Ошибка при получении изображения');
-    }
-
-    const blob = await response.blob(); // Преобразуем ответ в blob
-
-    // Создаем объект URL для blob
-    const blobUrl = URL.createObjectURL(blob);
-
-    // Используем webApp для скачивания с blob
-    webApp.downloadFile({
-      file_name: 'ai_image.jpg',
-      url: blobUrl, // Используем временный URL
-    });
-
-    // Очистка после скачивания
-    URL.revokeObjectURL(blobUrl);
-  } catch (error) {
-    // @ts-ignore
-    alert('Ошибка при скачивании файла: ' + error.message); // Заменили console.error на alert
-  }
-};
-
 
   const handleRepost = async () => {
     const url = encodeURIComponent(photo);
