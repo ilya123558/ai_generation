@@ -20,7 +20,7 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
           height={375}
           className="min-w-[90vw] min-h-[90vw] object-cover object-center aspect-square"
         />
-        <div style={{marginTop: isDesktop ? '-18vw': '0px'}} className="p-[0px_13px] text-white w-screen">
+        <div style={{marginTop: isDesktop ? '-18vw': '0px'}} className="p-[0px_13px] text-primary w-screen">
           <h2 className="fs-35 font-bold leading-[10vw]">Создайте шедевры за секунды</h2>
           <p className='mt-[4.54vw] fs-14'>Загружай свои фотографии и дай волю креативу! Наша нейросеть преобразует твои снимки, добавляя уникальные стили</p>
         </div>
@@ -98,7 +98,16 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
             </div>
           </div>
         </div>
-        <div className="p-[0px_13px] text-white z-10">
+        <div className="absolute w-full top-[59vh] left-0 z-[5]">
+            <ImageWithSkeleton
+              src={`/images/onboarding/bg-top.png`}
+              alt="onboarding-2-image"
+              width={375}
+              height={171}
+              className="w-full object-cover object-center"
+            />
+          </div>
+        <div className="p-[0px_13px] text-primary z-10">
           <h2 className="fs-28 font-bold leading-[10vw]">Удивляйте необычными эффектами</h2>
           <p className='mt-[4.54vw] fs-14'>Исследуйте мощь нейросети: от фильтров до стилей. Сделайте каждое фото неповторимым, радуйте себя и делитесь с друзьями!</p>
         </div>
@@ -118,7 +127,7 @@ export const OnboardingSliderItem = ({ activeIndex }: IProps) => {
             className="w-full object-cover object-center opacity-[0.1]"
           />
         </div>
-        <div style={{marginTop: `${isDesktop ? 10 : 80}px`, marginBottom: `${isDesktop ? 8 : 20}vw`}} className="p-[0px_13px] text-white">
+        <div style={{marginTop: `${isDesktop ? 10 : 80}px`, marginBottom: `${isDesktop ? 8 : 20}vw`}} className="p-[0px_13px] text-primary">
           <h2 className="fs-43 font-bold leading-[10vw]">Творите легко</h2>
           <p className='mt-[4.54vw] fs-14'>Просто загрузите фото и дайте нейросети сделать всё остальное. Получайте оригинальные изображения, полные жизни и новизны!</p>
         </div>

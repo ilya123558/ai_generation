@@ -41,68 +41,68 @@ export const OnboardingSlider = () => {
     setActiveIndex(swiper.activeIndex)
   }
 
-  useEffect(() => {
-    if(activeIndex > 2) return;
+  // useEffect(() => {
+  //   if(activeIndex > 2) return;
 
-    setStoryWidthSlider(prev => prev.map(item => {
-      if(item.sliderIndex > activeIndex) {
-        return {...item, storyWidth: 0}
-      }
+  //   setStoryWidthSlider(prev => prev.map(item => {
+  //     if(item.sliderIndex > activeIndex) {
+  //       return {...item, storyWidth: 0}
+  //     }
 
-      return item
-    }))
+  //     return item
+  //   }))
 
-    const duration = 3000;
-    const interval = 50;
+  //   const duration = 3000;
+  //   const interval = 50;
     
-    let currentTime = 0;
+  //   let currentTime = 0;
     
-    const intervalId = setInterval(() => {
-      currentTime += interval;
-      const progress = Math.min((currentTime / duration) * 100, 100);
-      setStoryWidthSlider(prev => prev.map(item => {
-        if(item.sliderIndex === activeIndex) {
-          return {...item, storyWidth: progress}
-        }
+  //   const intervalId = setInterval(() => {
+  //     currentTime += interval;
+  //     const progress = Math.min((currentTime / duration) * 100, 100);
+  //     setStoryWidthSlider(prev => prev.map(item => {
+  //       if(item.sliderIndex === activeIndex) {
+  //         return {...item, storyWidth: progress}
+  //       }
   
-        return item
-      }))
+  //       return item
+  //     }))
 
-      if (currentTime >= duration) {
-        setStoryWidthSlider(prev => prev.map(item => {
-          if(item.sliderIndex === activeIndex) {
-            return {...item, storyWidth: progress}
-          }
+  //     if (currentTime >= duration) {
+  //       setStoryWidthSlider(prev => prev.map(item => {
+  //         if(item.sliderIndex === activeIndex) {
+  //           return {...item, storyWidth: progress}
+  //         }
     
-          return item
-        }))
-        handleNextSlide()
-      }
-    }, interval);
+  //         return item
+  //       }))
+  //       handleNextSlide()
+  //     }
+  //   }, interval);
 
-    return () => clearInterval(intervalId)
-  }, [activeIndex])
+  //   return () => clearInterval(intervalId)
+  // }, [activeIndex])
 
   return (
     <div className={`w-screen h-screen`}>
       <div className={`transition-all h-full relative overflow-hidden`}>
         <div style={{top: `${ getTelegramTopPaddingValue() + 24 }px`}} className="absolute z-[50] p-[0px_13px] w-full h-[5px] flex gap-[4px] items-center justify-center ">
-          <div className="w-full bg-[#ffffff33] h-full rounded-[10px]">
+          <div className="w-full bg-[#23262f33] h-full rounded-[10px]">
             <div 
               style={{width: `${activeIndex > 0 ? 100 : (storyWidthSlider.find(item => item.sliderIndex === 0)?.storyWidth || 0)}%`}} 
-              className="h-full rounded-[10px] bg-[#ffffff33] transition-all duration-75"
+              className="h-full rounded-[10px] bg-[#23262f33] transition-all duration-75"
             ></div>
           </div>
-          <div className="w-full bg-[#ffffff33] h-full rounded-[10px]">
+          <div className="w-full bg-[#23262f33] h-full rounded-[10px]">
             <div 
               style={{width: `${activeIndex > 1 ? 100 : (storyWidthSlider.find(item => item.sliderIndex === 1)?.storyWidth || 0)}%`}} 
-              className="h-full rounded-[10px] bg-[#ffffff33] transition-all duration-75"
+              className="h-full rounded-[10px] bg-[#23262f33] transition-all duration-75"
             ></div>
           </div>
-          <div className="w-full bg-[#ffffff33] h-full rounded-[10px]">
+          <div className="w-full bg-[#23262f33] h-full rounded-[10px]">
             <div 
               style={{width: `${storyWidthSlider.find(item => item.sliderIndex === 2)?.storyWidth || 0}%`}} 
-              className="h-full rounded-[10px] bg-[#ffffff33] transition-all duration-75"
+              className="h-full rounded-[10px] bg-[#23262f33] transition-all duration-75"
             ></div>
           </div>
         </div>
