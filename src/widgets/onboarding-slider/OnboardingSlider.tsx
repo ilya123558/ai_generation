@@ -41,47 +41,47 @@ export const OnboardingSlider = () => {
     setActiveIndex(swiper.activeIndex)
   }
 
-  // useEffect(() => {
-  //   if(activeIndex > 2) return;
+  useEffect(() => {
+    if(activeIndex > 2) return;
 
-  //   setStoryWidthSlider(prev => prev.map(item => {
-  //     if(item.sliderIndex > activeIndex) {
-  //       return {...item, storyWidth: 0}
-  //     }
+    setStoryWidthSlider(prev => prev.map(item => {
+      if(item.sliderIndex > activeIndex) {
+        return {...item, storyWidth: 0}
+      }
 
-  //     return item
-  //   }))
+      return item
+    }))
 
-  //   const duration = 3000;
-  //   const interval = 50;
+    const duration = 3000;
+    const interval = 50;
     
-  //   let currentTime = 0;
+    let currentTime = 0;
     
-  //   const intervalId = setInterval(() => {
-  //     currentTime += interval;
-  //     const progress = Math.min((currentTime / duration) * 100, 100);
-  //     setStoryWidthSlider(prev => prev.map(item => {
-  //       if(item.sliderIndex === activeIndex) {
-  //         return {...item, storyWidth: progress}
-  //       }
+    const intervalId = setInterval(() => {
+      currentTime += interval;
+      const progress = Math.min((currentTime / duration) * 100, 100);
+      setStoryWidthSlider(prev => prev.map(item => {
+        if(item.sliderIndex === activeIndex) {
+          return {...item, storyWidth: progress}
+        }
   
-  //       return item
-  //     }))
+        return item
+      }))
 
-  //     if (currentTime >= duration) {
-  //       setStoryWidthSlider(prev => prev.map(item => {
-  //         if(item.sliderIndex === activeIndex) {
-  //           return {...item, storyWidth: progress}
-  //         }
+      if (currentTime >= duration) {
+        setStoryWidthSlider(prev => prev.map(item => {
+          if(item.sliderIndex === activeIndex) {
+            return {...item, storyWidth: progress}
+          }
     
-  //         return item
-  //       }))
-  //       handleNextSlide()
-  //     }
-  //   }, interval);
+          return item
+        }))
+        handleNextSlide()
+      }
+    }, interval);
 
-  //   return () => clearInterval(intervalId)
-  // }, [activeIndex])
+    return () => clearInterval(intervalId)
+  }, [activeIndex])
 
   return (
     <div className={`w-screen h-screen`}>
