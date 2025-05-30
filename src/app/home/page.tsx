@@ -41,7 +41,7 @@ export default function Page() {
 
   return (
     <section>
-      <Container >
+      <Container>
         <div className="m-[4.54vw_0px_4vw_]">
           <h2 onClick={testClick} className="text-center fs-20 font-semibold">Photiqe</h2>
         </div>
