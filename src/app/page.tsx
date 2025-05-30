@@ -26,7 +26,8 @@ export default function Home() {
   
       try {
         if (init_data) {
-          const data = await new LoginApiClient().loginByInitData(init_data);
+          const apiClient = new LoginApiClient();
+          const data = await apiClient.loginByInitData(init_data);
           dispatch(setUser(data.user));
           dispatch(setResolution(data.user.resolution));
           dispatch(setGenerationPoints(data.user.tokensCount));

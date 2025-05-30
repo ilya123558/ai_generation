@@ -47,7 +47,6 @@ export class LoginApiClient {
           } catch (loginError) {
             console.log("Refresh token failed", loginError);
             this.clearAuthData();
-            // Можно добавить редирект на страницу входа
             return Promise.reject(loginError);
           }
         }

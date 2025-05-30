@@ -7,6 +7,7 @@ import { IProfilesMetaResponse } from '../types/profilesMeta'
 import { IProfilesResponse } from '../types/profiles'
 import { TResolution } from '@/utils/types/resolution'
 import { IUploadResolutionRequest, IUploadResolutionResponse } from '../types/updateResolution'
+import { ITokens } from '@/utils/types/tokens'
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -69,6 +70,17 @@ export const usersApi = createApi({
       }),
     }),
 
+    refreshToken: builder.mutation<ITokens, void>({ 
+      query: () => {
+        const refreshToken = localStorage.getItem("refreshToken")
+        return {
+          url: '/refresh',
+          method: 'POST',
+          body: { refreshToken },
+        }
+      },
+    }),
+
     // DELETE
     deleteGeneration: builder.mutation<IMetaResponse, number>({ 
       query: (generation_id) => ({
@@ -91,4 +103,5 @@ export const {
   useUploadProfileMutation,
   useDeleteGenerationMutation,
   useUpdateResolutionMutation,
+  useRefreshTokenMutation
 } = usersApi

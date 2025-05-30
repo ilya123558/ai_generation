@@ -1,6 +1,6 @@
 'use client'
 import { useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
-import { useGetProfilesQuery } from "@/entities/users/api/users.api";
+import { useGetProfilesQuery, useRefreshTokenMutation } from "@/entities/users/api/users.api";
 import { CategoryList } from "@/features/category-list/CategoryList";
 import { Search } from "@/features/search/Search";
 import { Container } from "@/shared/container/Container";
@@ -14,6 +14,7 @@ export default function Page() {
   const { activeCategoryId, activeProfileId } = useAppSelector(state => state.main.accountData)
   
   const [useGetCategories, { data: categories }] = useLazyGetCategoriesQuery();
+  const [refreshToken] = useRefreshTokenMutation()
   const {data: profile} = useGetProfilesQuery()
   
   useEffect(() => {
@@ -34,11 +35,15 @@ export default function Page() {
     }
   }, [dispatch, profile, activeProfileId])
 
+  const testClick = () => {
+    navigator.clipboard.writeText(`${JSON.stringify(user?.token)}`)
+  }
+
   return (
     <section>
       <Container>
         <div className="m-[4.54vw_0px_4vw_]">
-          <h2 onClick={() => navigator.clipboard.writeText(`Bearer ${user?.token.accessToken || ''}`)} className="text-center fs-20 font-semibold">Photiqe</h2>
+          <h2 onClick={testClick} className="text-center fs-20 font-semibold">Photiqe</h2>
         </div>
       </Container>
       <Search />
