@@ -59,7 +59,7 @@ export const Resolution16x9 = ({generations, showSkeleton}: IProps) => {
           slideShadows: false,
         }}
         modules={[EffectCoverflow]}
-        className="!p-[0px_4vw] !h-[34vh] mt-[6vh] mb-[3.6vh] !mx-[-3vw]"
+        className={`!p-[0px_4vw] !h-[34vh] mt-[6vh] mb-[3.6vh] ${isDesktop ? '!mx-[-6vw]': '!mx-[-3vw]'}`}
       >
         {isLoad
           ? (
