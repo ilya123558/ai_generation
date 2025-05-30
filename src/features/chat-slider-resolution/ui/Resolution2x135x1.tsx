@@ -16,7 +16,7 @@ interface IProps {
 }
 
 export const Resolution2x135x1 = ({generations, showSkeleton}: IProps) => {
-  const { isDesktop } = useGetDevice()
+  const { isDesktop, isIos, isAndroid } = useGetDevice()
 
   const [isLoad, setIsLoad] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0);
@@ -38,6 +38,8 @@ export const Resolution2x135x1 = ({generations, showSkeleton}: IProps) => {
       goToSlide(0)
     }, 2000)
   }
+
+  if(!(isAndroid || isIos || isDesktop)) return <></>
 
   return (
     <div className="w-full">
