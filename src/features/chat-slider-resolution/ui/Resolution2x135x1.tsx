@@ -8,6 +8,7 @@ import { useAppSelector } from '@/views/store';
 import { IChat } from '@/entities/generations/types/chat';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css';
+import { useGetDevice } from '@/utils/hooks/useGetDevice';
 
 interface IProps {
   generations?: IChat[]
@@ -15,6 +16,8 @@ interface IProps {
 }
 
 export const Resolution2x135x1 = ({generations, showSkeleton}: IProps) => {
+  const { isDesktop } = useGetDevice()
+
   const [isLoad, setIsLoad] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
@@ -49,7 +52,7 @@ export const Resolution2x135x1 = ({generations, showSkeleton}: IProps) => {
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         coverflowEffect={{
           rotate: -25,
-          stretch: 70,
+          stretch: isDesktop ? 45 : 70,
           depth: 300,
           slideShadows: false,
         }}
