@@ -9,6 +9,7 @@ interface IInitialState {
     displayPrompt: string | null
     activeStyle: string | null
     searchValue: string
+    visibleCategory: boolean
     createProfile: {
       images: string[]
       error: string | null
@@ -36,6 +37,7 @@ const initialState: IInitialState = {
     displayPrompt: null,
     searchValue: '',
     activeStyle: null,
+    visibleCategory: false,
     createProfile: {
       images: [],
       error: null,
@@ -90,7 +92,8 @@ const mainSlice = createSlice({
     setResetGenerationInfo: (state) => {
       state.accountData.activeStyleId = null
       state.meta.displayPrompt = null
-      state.meta.displayPrompt = null
+      state.meta.isCreatingImage = false
+      state.meta.isCreatingImageSubcategoryId = null
       state.accountData.creatorMode = false
     },
     setDisplayPrompt: (state, action: PayloadAction<IInitialState['meta']['displayPrompt']>) => {
@@ -108,11 +111,22 @@ const mainSlice = createSlice({
     setCreateProfileTitle: (state, action: PayloadAction<IInitialState['meta']['createProfile']['title']>) => {
       state.meta.createProfile.title = action.payload
     },
+    setVisibleCategory: (state, action: PayloadAction<IInitialState['meta']['visibleCategory']>) => {
+      state.meta.visibleCategory = action.payload
+    },
+    
     createImage: (state) => {
+      if(state.accountData.generationPoints <= 0 ) return;
       state.meta.isCreatingImage = true
       state.meta.isCreatingImageSubcategoryId = Number(state.accountData.activeSubcategoryId)
-      state.accountData.generationPoints = state.accountData.generationPoints - 2
+      
+      if(state.accountData.creatorMode) {
+        state.accountData.generationPoints = state.accountData.generationPoints - 2
+      }else{
+        state.accountData.generationPoints = state.accountData.generationPoints - 1
+      }
     },
+
     imageCreating: (state) => {
       state.meta.displayPrompt = null
       state.meta.isCreatingImage = false
@@ -137,6 +151,7 @@ export const {
   setCreateProfileImages,
   setCreateProfileError,
   setCreateProfileTitle,
+  setVisibleCategory,
   createImage,
   imageCreating
 } = mainSlice.actions

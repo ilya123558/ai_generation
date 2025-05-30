@@ -1,28 +1,35 @@
 'use client'
-import { useGetSubCategoriesQuery } from "@/entities/categories/api/categories.api";
+import { useGetSubCategoriesQuery, useLazyGetSubCategoriesQuery } from "@/entities/categories/api/categories.api";
 import { SubcategoryButton } from "@/shared/buttons/subcategory-button/SubcategoryButton";
 import { EmptyMessage } from "@/shared/empty-message/EmptyMessage";
 import { ImageWithSkeleton } from "@/shared/image-with-skeleton/ImageWithSkeleton";
-import { setActiveCategoryId, setActiveSubcategoryId, useAppDispatch } from "@/views/store";
+import { setActiveCategoryId, setActiveSubcategoryId, useAppDispatch, useAppSelector } from "@/views/store";
 import { usePathname, useRouter } from "next/navigation";
 import { SubcategoryLoading } from "../subcategory-loading/SubcategoryLoading";
 import { motion } from "framer-motion";
 import { animationImg } from "@/utils/const/animation";
+import { useEffect } from "react";
 
 export const SubcategoryList = () => {
   const router = useRouter() 
   const category_id = usePathname().split('/').at(-1)
 
   const dispatch = useAppDispatch()
-  const { data, isLoading } = useGetSubCategoriesQuery(Number(category_id))
+  const { searchValue } = useAppSelector(state => state.main.meta)
+  const [getSubcategories, { data, isLoading }] = useLazyGetSubCategoriesQuery()
 
   const handleClick = (subcategory_id: number) => {
     dispatch(setActiveCategoryId(Number(category_id)))
     dispatch(setActiveSubcategoryId(subcategory_id))
     router.push(`/chat`)
   }
-  
 
+  useEffect(() => {
+    if(category_id) {
+      getSubcategories({category_id: Number(category_id), query: searchValue || ""})
+    }
+  }, [searchValue, category_id])
+  
   return (
     <>
       {isLoading

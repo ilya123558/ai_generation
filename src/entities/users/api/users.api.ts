@@ -8,25 +8,17 @@ import { IProfilesResponse } from '../types/profiles'
 import { TResolution } from '@/utils/types/resolution'
 import { IUploadResolutionRequest, IUploadResolutionResponse } from '../types/updateResolution'
 import { ITokens } from '@/utils/types/tokens'
+import { baseQueryWithReauth } from '@/utils/libs/baseQueryWithReauth'
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('accessToken')
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Users', 'Generations'],
   endpoints: (builder) => ({
     // GET
     getGenerations: builder.query<IGenerationsResponse, IPageRequest>({
       query: (params) => ({
-        url: '/generations',
+        url: '/users/generations',
         params
       }),
       providesTags: ['Users']
@@ -34,20 +26,20 @@ export const usersApi = createApi({
 
     getProfiles: builder.query<IProfilesResponse, void>({
       query: () => ({
-        url: '/profiles',
+        url: '/users/profiles',
       }),
     }),
 
     getProfilesMeta: builder.query<IProfilesMetaResponse, void>({
       query: () => ({
-        url: '/profiles/meta',
+        url: '/users/profiles/meta',
       }),
     }),
 
     // PUT
     updateGender: builder.mutation<IUpdateGenderResponse, IUpdateGenderRequest>({
       query: (body) => ({
-        url: '/updateGender',
+        url: '/users/updateGender',
         method: 'PUT',
         body
       }),
@@ -55,7 +47,7 @@ export const usersApi = createApi({
 
     updateResolution: builder.mutation<IUploadResolutionResponse, IUploadResolutionRequest>({
       query: (body) => ({
-        url: '/updateResolution',
+        url: '/users/updateResolution',
         method: 'PUT',
         body
       }),
@@ -64,7 +56,7 @@ export const usersApi = createApi({
     // POST
     uploadProfile: builder.mutation<IUploadProfileResponse, FormData>({ 
       query: (body) => ({
-        url: '/uploadProfile',
+        url: '/users/uploadProfile',
         method: 'POST',
         body,
       }),
@@ -74,7 +66,7 @@ export const usersApi = createApi({
       query: () => {
         const refreshToken = localStorage.getItem("refreshToken")
         return {
-          url: '/refresh',
+          url: '/users/refresh',
           method: 'POST',
           body: { refreshToken },
         }
@@ -84,7 +76,7 @@ export const usersApi = createApi({
     // DELETE
     deleteGeneration: builder.mutation<IMetaResponse, number>({ 
       query: (generation_id) => ({
-        url: `/generations/${generation_id}`,
+        url: `/users/generations/${generation_id}`,
         method: 'DELETE'
       }),
       invalidatesTags: ['Users']

@@ -12,13 +12,11 @@ import { useRouter } from "next/navigation";
 
 export const CategoryList = () => {
   const router = useRouter()
-  const dispatch = useAppDispatch()
-  const { searchValue } = useAppSelector(state => state.main.meta)
   const [getCategories, { data, isLoading }] = useLazyGetCategoriesQuery()
 
   useEffect(() => {
-    getCategories({ limit: 50, q: searchValue || "" })
-  }, [searchValue])
+    getCategories({ limit: 50 })
+  }, [])
 
   return (
     <>

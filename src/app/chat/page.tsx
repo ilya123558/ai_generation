@@ -13,7 +13,7 @@ import { useEffect, useState } from "react"
 export default function Page() {
   const dispatch = useAppDispatch()
   const { resolution, activeProfileId, activeSubcategoryId, activeStyleId, creatorMode, generationPoints } = useAppSelector(state => state.main.accountData)
-  const {displayPrompt, isCreatingImage} = useAppSelector(state => state.main.meta)
+  const {displayPrompt, isCreatingImage, isCreatingImageSubcategoryId} = useAppSelector(state => state.main.meta)
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
   const { getTelegramTopPaddingValue } = useGetDevice()
 
@@ -28,8 +28,14 @@ export default function Page() {
           prompt,
           resolution,
           profileId: activeProfileId,
+        }).then(data => {
+          if(data.data && data.data.success) {
+            dispatch(createImage())
+          }else{
+            setGenerationBuyModalIsOpen(true)
+          }
         })
-        dispatch(createImage())
+
         return
       }
     }
@@ -42,8 +48,14 @@ export default function Page() {
           profileId: activeProfileId,
           subcategoryId: activeSubcategoryId,
           ...(activeStyleId ? { styleId: activeStyleId } : {})
+        }).then(data => {
+          if(data.data && data.data.success) {
+            dispatch(createImage())
+          }else{
+            setGenerationBuyModalIsOpen(true)
+          }
         })
-        dispatch(createImage())
+        
         return
       }
     }
@@ -70,10 +82,10 @@ export default function Page() {
         <ChatPrompt 
           handleGenerate={handleGenerate} 
           generateDisabled={
-            isCreatingImage || (creatorMode
-              ? !(activeProfileId !== null && Boolean(displayPrompt))
-              : !(activeProfileId !== null && activeSubcategoryId !== null)
-            )
+            (isCreatingImage && (isCreatingImageSubcategoryId === activeSubcategoryId || creatorMode))
+                || creatorMode
+                  ? !(activeProfileId !== null && Boolean(displayPrompt))
+                  : !(activeProfileId !== null && activeSubcategoryId !== null)
           } 
         />
       </div>

@@ -2,15 +2,18 @@
 import { useGetCategoriesQuery } from "@/entities/categories/api/categories.api";
 import { CategoryList } from "@/features/category-list/CategoryList";
 import { HeaderWithNavigation } from "@/features/header-with-navigation/HeaderWithNavigation";
+import { Search } from "@/features/search/Search";
 import { SubcategoryList } from "@/features/subcategory-list/SubcategoryList";
 import { Container } from "@/shared/container/Container";
 import { ListWrapper } from "@/shared/wrappers/list-wrapper/ListWrapper";
+import { setVisibleCategory, useAppDispatch, useAppSelector } from "@/views/store";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
+  const dispatch = useAppDispatch()
+  const { visibleCategory } = useAppSelector(state => state.main.meta)
   const categoryId = usePathname().split('/').at(-1)
-  const [active, setActive] = useState(false)
   const { data } = useGetCategoriesQuery({})
 
   const headerTitle = data?.categories.find(item => item.id === Number(categoryId))
@@ -23,26 +26,27 @@ export default function Page() {
         <HeaderWithNavigation 
           link="/home"
           title={headerTitle}
-          active={active}
-          setActive={setActive}
+          active={visibleCategory}
+          setActive={(value: boolean) => dispatch(setVisibleCategory(value))}
         />
+        <Search />
         <div className="">
           <div 
-            style={{ height: 1000, maxHeight: active ? 290 : 0, marginTop: active ? '10.14vw' : 0}} 
-            className={`overflow-hidden overflow-y-auto transition-all rounded-[16px] pt-[2vw] ${active ? '' : 'opacity-0 pointer-events-none'}`}
+            style={{ height: 1000, maxHeight: visibleCategory ? 290 : 0, marginTop: visibleCategory ? '5vw' : 0}} 
+            className={`overflow-hidden overflow-y-auto transition-all rounded-[16px] pt-[2vw] ${visibleCategory ? '' : 'opacity-0 pointer-events-none'}`}
           >
             <CategoryList />
           </div>
-          {active 
+          {visibleCategory 
             ? (
             <div style={{marginBottom: 290}}>
-              <ListWrapper className={`mt-[8.01vw]`}>
+              <ListWrapper className={`mt-[5vw]`}>
                 <SubcategoryList />
               </ListWrapper>
             </div>
             )
             : (
-              <ListWrapper className={`mt-[8.01vw]`}>
+              <ListWrapper className={`mt-[5vw]`}>
                 <SubcategoryList />
               </ListWrapper>
             )

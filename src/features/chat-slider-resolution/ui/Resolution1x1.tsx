@@ -4,17 +4,16 @@ import { EffectCoverflow } from 'swiper/modules';
 import { ChatSliderItem } from '@/features/chat-slider-item/ChatSliderItem';
 import { Swiper as SwiperType } from 'swiper/types';
 import { useRef, useState } from 'react';
-import { useAppSelector } from '@/views/store';
 import { IChat } from '@/entities/generations/types/chat';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css';
 
 interface IProps {
   generations?: IChat[]
+  showSkeleton: boolean
 }
 
-export const Resolution1x1 = ({generations}: IProps) => {
-  const { isCreatingImage } = useAppSelector(state => state.main.meta)
+export const Resolution1x1 = ({generations, showSkeleton}: IProps) => {
   const [isLoad, setIsLoad] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
@@ -58,7 +57,7 @@ export const Resolution1x1 = ({generations}: IProps) => {
         {isLoad
           ? (
             <>
-              {isCreatingImage && (
+              {showSkeleton && (
                 <SwiperSlide className='!w-[28vh] !h-[38vh]'>
                   <div className="w-full h-full flex items-center">
                     <div className="w-[28vh] h-[28vh] bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
@@ -70,7 +69,7 @@ export const Resolution1x1 = ({generations}: IProps) => {
                   <SwiperSlide key={item.id} className="!w-[28vh] !h-[38vh]">
                     <div className="w-full h-full flex items-center">
                       <div className="w-[28vh] h-[28vh]">
-                        <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
+                        <ChatSliderItem {...item} isActiveSlide={showSkeleton ? idx === (activeIndex - 1) : idx === activeIndex} />
                       </div>
                     </div>
                   </SwiperSlide>

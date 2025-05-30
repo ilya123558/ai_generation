@@ -19,14 +19,24 @@ export const ChatSlider = () => {
     && (!isCreatingImage || (isCreatingImageSubcategoryId !== activeSubcategoryId))
 
   useEffect(() => {
-    getGenerations(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {})
+    const fetchData = async () => {
+      await getGenerations(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {})
+        .then((data) => {
+          if(!ref.current) {
+            ref.current = data?.data?.generations[0]?.id || null
+          }
+        })
+    }
 
-    const interval = setInterval(() => {
+    fetchData()
+
+    let interval: NodeJS.Timeout
+    interval = setInterval(() => {
       getGenerations(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {}).then(data => {
         if(!data.data) return 
 
         const value = data.data.generations[0]?.id
-        if(value && value !== ref.current) {
+        if(value && value !== ref.current && ref.current) {
           dispatch(imageCreating())
           ref.current = value
         }
@@ -37,6 +47,7 @@ export const ChatSlider = () => {
       clearInterval(interval)
     }
   }, [activeSubcategoryId])
+
 
   return (
     <div className="w-full mt-[0vw] flex flex-col justify-between">

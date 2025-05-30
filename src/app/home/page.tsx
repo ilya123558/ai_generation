@@ -1,8 +1,7 @@
 'use client'
 import { useLazyGetCategoriesQuery } from "@/entities/categories/api/categories.api";
-import { useGetProfilesQuery, useRefreshTokenMutation } from "@/entities/users/api/users.api";
+import { useGetProfilesQuery } from "@/entities/users/api/users.api";
 import { CategoryList } from "@/features/category-list/CategoryList";
-import { Search } from "@/features/search/Search";
 import { Container } from "@/shared/container/Container";
 import { ListWrapper } from "@/shared/wrappers/list-wrapper/ListWrapper";
 import { setActiveCategoryId, setActiveProfileId, useAppDispatch, useAppSelector } from "@/views/store";
@@ -14,7 +13,6 @@ export default function Page() {
   const { activeCategoryId, activeProfileId } = useAppSelector(state => state.main.accountData)
   
   const [useGetCategories, { data: categories }] = useLazyGetCategoriesQuery();
-  const [refreshToken] = useRefreshTokenMutation()
   const {data: profile} = useGetProfilesQuery()
   
   useEffect(() => {
@@ -46,7 +44,6 @@ export default function Page() {
           <h2 onClick={testClick} className="text-center fs-20 font-semibold">Photiqe</h2>
         </div>
       </Container>
-      <Search />
       <Container className="mt-[9.63vw]">
         <ListWrapper>
           <CategoryList />

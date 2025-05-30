@@ -26,3 +26,8 @@ export interface ISubCategoriesResponse extends IMetaResponse {
   category: ICategories
   subcategories: ISubCategories[]
 }
+
+export interface ISubCategoriesRequest {
+  category_id: number
+  query?: string
+}

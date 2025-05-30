@@ -13,14 +13,17 @@ interface IProps {
 }
 
 export const ChatSliderResolution = ({generations}: IProps) => {
-  const { resolution } = useAppSelector(state => state.main.accountData)
+  const { activeSubcategoryId, resolution, creatorMode } = useAppSelector(state => state.main.accountData)
+  const { isCreatingImage, isCreatingImageSubcategoryId } = useAppSelector(state => state.main.meta)
 
-  if(resolution === '1:1') return <Resolution1x1 generations={generations} />
-  if(resolution === '16:9') return <Resolution16x9 generations={generations} />
-  if(resolution === '2:3') return <Resolution2x3 generations={generations} />
-  if(resolution === '2.35:1') return <Resolution2x135x1 generations={generations} />
-  if(resolution === '4:3') return <Resolution4x3 generations={generations} />
-  if(resolution === '9:16') return <Resolution9x16 generations={generations} />
+  const showSkeleton = isCreatingImage && ((isCreatingImageSubcategoryId === activeSubcategoryId) || creatorMode)
 
-  return <Resolution9x16 generations={generations} />
+  if(resolution === '1:1') return <Resolution1x1 generations={generations} showSkeleton={showSkeleton} />
+  if(resolution === '16:9') return <Resolution16x9 generations={generations} showSkeleton={showSkeleton} />
+  if(resolution === '2:3') return <Resolution2x3 generations={generations} showSkeleton={showSkeleton} />
+  if(resolution === '2.35:1') return <Resolution2x135x1 generations={generations} showSkeleton={showSkeleton} />
+  if(resolution === '4:3') return <Resolution4x3 generations={generations} showSkeleton={showSkeleton} />
+  if(resolution === '9:16') return <Resolution9x16 generations={generations} showSkeleton={showSkeleton} />
+
+  return <Resolution9x16 generations={generations} showSkeleton={showSkeleton} />
 };

@@ -24,7 +24,7 @@ export const Search = () => {
   }, [dispatch])
 
   return (
-    <div className="flex items-center justify-between gap-[2vw] m-[0px_8.54vw]">
+    <div className="flex items-center justify-between gap-[2vw] mt-[5vw]">
       <div className="relative">
         <input
           type="text"

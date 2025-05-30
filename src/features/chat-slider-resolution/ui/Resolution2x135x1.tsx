@@ -11,10 +11,10 @@ import 'swiper/css';
 
 interface IProps {
   generations?: IChat[]
+  showSkeleton: boolean
 }
 
-export const Resolution2x135x1 = ({generations}: IProps) => {
-  const { isCreatingImage } = useAppSelector(state => state.main.meta)
+export const Resolution2x135x1 = ({generations, showSkeleton}: IProps) => {
   const [isLoad, setIsLoad] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
@@ -59,7 +59,7 @@ export const Resolution2x135x1 = ({generations}: IProps) => {
         {isLoad
           ? (
             <>
-              {isCreatingImage && (
+              {showSkeleton && (
                 <SwiperSlide className='!w-full !h-[40vw] flex items-center'>
                   <div className="w-full h-full flex items-center">
                     <div className="!w-full !h-[40vw] bg-[#ABB0BC] animate-pulse z-[9] rounded-[16px]"></div>
@@ -71,7 +71,7 @@ export const Resolution2x135x1 = ({generations}: IProps) => {
                   <SwiperSlide key={item.id} className="!w-full !h-[40vw]">
                     <div className="w-full h-full flex items-center">
                       <div className="w-full h-[40vw]">
-                        <ChatSliderItem {...item} isActiveSlide={isCreatingImage ? idx === (activeIndex - 1) : idx === activeIndex} />
+                        <ChatSliderItem {...item} isActiveSlide={showSkeleton ? idx === (activeIndex - 1) : idx === activeIndex} />
                       </div>
                     </div>
                   </SwiperSlide>
