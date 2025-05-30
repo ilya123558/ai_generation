@@ -53,7 +53,7 @@ export const Resolution2x3 = ({generations, showSkeleton}: IProps) => {
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         coverflowEffect={{
           rotate: -25,
-          stretch: isDesktop ? 50 : 85,
+          stretch: isDesktop ? 20 : 85,
           depth: 300,
           slideShadows: false,
         }}
