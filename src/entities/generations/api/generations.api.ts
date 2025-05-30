@@ -10,7 +10,7 @@ export const generationsApi = createApi({
   tagTypes: ['Generations', 'Generations-like'],
   endpoints: (builder) => ({
     // GET
-    getGenerationsById: builder.query<IGetGenerationsByIdResponse, IGetGenerationsByIdRequest>({
+    getGenerationsStatusById: builder.query<IGetGenerationsByIdResponse, IGetGenerationsByIdRequest>({
       query: ({jobId}) => ({
         url: `/generations/${jobId}`,
       }),
@@ -45,8 +45,8 @@ export const generationsApi = createApi({
 })
 
 export const { 
-  useGetGenerationsByIdQuery,
-  useLazyGetGenerationsByIdQuery,
+  useGetGenerationsStatusByIdQuery,
+  useLazyGetGenerationsStatusByIdQuery,
   useGetGenerationsQuery,
   useLazyGetGenerationsQuery,
   useCreateGenerationsMutation,

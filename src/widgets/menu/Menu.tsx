@@ -1,6 +1,7 @@
 'use client'
 import React from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAppSelector } from '@/views/store';
 
 const list = [
   {
@@ -38,6 +39,8 @@ export const Menu = () => {
   const activeLink = usePathname().split('/')[1] || ''
   const router = useRouter()
 
+  const {activeProfileId, activeCategoryId} = useAppSelector(state => state.main.accountData)
+
   const withMenu = list.filter(item => {
     return item.visiblePage.filter(pageItem => activeLink === pageItem).length !== 0
   }).length !== 0
@@ -54,7 +57,7 @@ export const Menu = () => {
             <li 
               onClick={() => router.push('/' + link)} 
               key={index} 
-              className={`flex items-center justify-between gap-[2.2vw] transition-all flex-col-reverse ${ visiblePage.filter(item => activeLink === item).length !== 0 ? '' : 'opacity-[0.3]'}`}
+              className={`flex ${(link === 'chat' && (activeProfileId === null || activeCategoryId === null)) ? 'pointer-events-none': '' } items-center justify-between gap-[2.2vw] transition-all flex-col-reverse ${ visiblePage.filter(item => activeLink === item).length !== 0 ? '' : 'opacity-[0.3]'}`}
             >
               <div className={`w-7px h-7px transition-all bg-[#141416] rounded-full ${visiblePage.filter(item => activeLink === item).length !== 0 ? 'opacity-100': 'opacity-0'}`}></div>
               {svgElement}

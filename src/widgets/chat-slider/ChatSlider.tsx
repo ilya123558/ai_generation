@@ -1,44 +1,52 @@
 'use client'
-
-import { useEffect, useRef, useState } from 'react';
-import { useLazyGetGenerationsQuery } from '@/entities/generations/api/generations.api';
-import { imageCreating, useAppDispatch, useAppSelector } from '@/views/store';
+import { useEffect } from 'react';
+import { useLazyGetGenerationsQuery, useLazyGetGenerationsStatusByIdQuery } from '@/entities/generations/api/generations.api';
+import { createImage, imageCreating, useAppDispatch, useAppSelector } from '@/views/store';
 import { ChatSliderResolution } from '@/features/chat-slider-resolution/ChatSliderResolution';
 
 
 export const ChatSlider = () => {
   const dispatch = useAppDispatch()
   const { activeSubcategoryId } = useAppSelector(state => state.main.accountData)
-  const { isCreatingImage, isCreatingImageSubcategoryId } = useAppSelector(state => state.main.meta)
+  const { isCreatingImage } = useAppSelector(state => state.main.meta)
 
   const [getGenerations, { data: generationsData }] = useLazyGetGenerationsQuery()
+  const [getGenerationsStatusById] = useLazyGetGenerationsStatusByIdQuery()
 
-  const ref = useRef<number | null>(null)
   const showEmptyMessage = generationsData 
     && generationsData.generations.length === 0 
-    && (!isCreatingImage || (isCreatingImageSubcategoryId !== activeSubcategoryId))
+    && !isCreatingImage
 
   useEffect(() => {
     const fetchData = async () => {
-      await getGenerations(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {})
-        .then((data) => {
-          if(!ref.current) {
-            ref.current = data?.data?.generations[0]?.id || null
-          }
-        })
+      await getGenerations(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {}).then(() => {
+        const job_id = localStorage.getItem('job_id')
+        if(job_id) {
+          getGenerationsStatusById({jobId: Number(job_id)}).then(data => {
+            if(data.data?.status === 'pending') {
+              dispatch(createImage())
+            }else{
+              dispatch(imageCreating())
+            }
+          })
+        }
+      })
     }
 
     fetchData()
 
     let interval: NodeJS.Timeout
     interval = setInterval(() => {
-      getGenerations(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {}).then(data => {
-        if(!data.data) return 
-
-        const value = data.data.generations[0]?.id
-        if(value && value !== ref.current && ref.current) {
-          dispatch(imageCreating())
-          ref.current = value
+      getGenerations(activeSubcategoryId ? {categoryId: activeSubcategoryId } : {}).then(() => {
+        const job_id = localStorage.getItem('job_id')
+        if(job_id) {
+          getGenerationsStatusById({jobId: Number(job_id)}).then(data => {
+            if(data.data?.status === 'pending') {
+              dispatch(createImage())
+            }else{
+              dispatch(imageCreating())
+            }
+          })
         }
       })
     }, 5000)
@@ -47,7 +55,6 @@ export const ChatSlider = () => {
       clearInterval(interval)
     }
   }, [activeSubcategoryId])
-
 
   return (
     <div className="w-full mt-[0vw] flex flex-col justify-between">

@@ -14,7 +14,7 @@ interface IProps {
 
 export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
   const dispatch = useAppDispatch()
-  const { creatorMode, creatorModeIsBuy } = useAppSelector(state => state.main.accountData)
+  const { creatorMode, creatorModeIsBuy, generationPoints } = useAppSelector(state => state.main.accountData)
   const { displayPrompt } = useAppSelector(state => state.main.meta)
 
   const [isOpenCreatorModeInfo, setIsOpenCreatorModeInfo] = useState(false)
@@ -105,7 +105,7 @@ export const ChatPrompt = ({ handleGenerate, generateDisabled }: IProps) => {
           )
         }
       </div>
-      <div className={`fixed left-0 bottom-[23vw] p-[0px_4.14vw] w-full ${generateDisabled ? 'opacity-70 pointer-events-none': ''}`}>
+      <div className={`fixed left-0 bottom-[23vw] p-[0px_4.14vw] w-full ${(generateDisabled && generationPoints !== 0) ? 'opacity-70 pointer-events-none': ''}`}>
         <EllipseButton onClick={handleGenerate} className={`!p-[1.4vh_0px]`}>
           <p className="text-[1.5vh] font-semibold">Generate</p>
         </EllipseButton>

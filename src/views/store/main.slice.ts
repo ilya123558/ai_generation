@@ -45,7 +45,7 @@ const initialState: IInitialState = {
     }
   },
   accountData: {
-    generationPoints: 100,
+    generationPoints: 0,
     profilePoints: 0,
     creatorMode: false,
     creatorModeIsBuy: true,
@@ -75,7 +75,6 @@ const mainSlice = createSlice({
     },
     setResolution: (state, action: PayloadAction<IInitialState['accountData']['resolution']>) => {
       state.accountData.resolution = action.payload
-      state.meta.isCreatingImage = false
     },
     setActiveProfileId: (state, action: PayloadAction<IInitialState['accountData']['activeProfileId']>) => {
       state.accountData.activeProfileId = action.payload
@@ -129,9 +128,9 @@ const mainSlice = createSlice({
 
     imageCreating: (state) => {
       state.meta.displayPrompt = null
-      state.meta.isCreatingImage = false
       state.meta.activeStyle = null
-      state.meta.isCreatingImageSubcategoryId = null
+      state.meta.isCreatingImage = false
+      state.accountData.activeStyleId = null
     },
   },
 })

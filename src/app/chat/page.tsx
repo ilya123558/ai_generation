@@ -1,5 +1,5 @@
 'use client'
-import { useCreateGenerationsMutation } from "@/entities/generations/api/generations.api"
+import { useCreateGenerationsMutation, useLazyGetGenerationsStatusByIdQuery } from "@/entities/generations/api/generations.api"
 import { StyleSlider } from "@/features/style-slider/StyleSlider"
 import { SubcategorySlider } from "@/features/subcategory-slider/SubcategorySlider"
 import { GenerationBuyModal } from "@/shared/generation-buy-modal/GenerationBuyModal"
@@ -13,10 +13,10 @@ import { useEffect, useState } from "react"
 export default function Page() {
   const dispatch = useAppDispatch()
   const { resolution, activeProfileId, activeSubcategoryId, activeStyleId, creatorMode, generationPoints } = useAppSelector(state => state.main.accountData)
-  const {displayPrompt, isCreatingImage, isCreatingImageSubcategoryId} = useAppSelector(state => state.main.meta)
+  const { displayPrompt, isCreatingImage } = useAppSelector(state => state.main.meta)
   const [generationBuyModalIsOpen, setGenerationBuyModalIsOpen] = useState(false)
   const { getTelegramTopPaddingValue } = useGetDevice()
-
+  
   const [createGenerations] = useCreateGenerationsMutation()
 
   const handleGenerate = () => {
@@ -30,6 +30,7 @@ export default function Page() {
           profileId: activeProfileId,
         }).then(data => {
           if(data.data && data.data.success) {
+            localStorage.setItem('job_id', String(data.data.jobId))
             dispatch(createImage())
           }else{
             setGenerationBuyModalIsOpen(true)
@@ -50,6 +51,7 @@ export default function Page() {
           ...(activeStyleId ? { styleId: activeStyleId } : {})
         }).then(data => {
           if(data.data && data.data.success) {
+            localStorage.setItem('job_id', String(data.data.jobId))
             dispatch(createImage())
           }else{
             setGenerationBuyModalIsOpen(true)
@@ -81,11 +83,9 @@ export default function Page() {
         <StyleSlider />
         <ChatPrompt 
           handleGenerate={handleGenerate} 
-          generateDisabled={
-            (isCreatingImage && (isCreatingImageSubcategoryId === activeSubcategoryId || creatorMode))
-                || creatorMode
-                  ? !(activeProfileId !== null && Boolean(displayPrompt))
-                  : !(activeProfileId !== null && activeSubcategoryId !== null)
+          generateDisabled={isCreatingImage || (creatorMode
+            ? !(activeProfileId !== null && Boolean(displayPrompt))
+            : !(activeProfileId !== null && activeSubcategoryId !== null))
           } 
         />
       </div>

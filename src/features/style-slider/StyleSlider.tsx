@@ -9,7 +9,8 @@ import 'swiper/css/effect-coverflow';
 
 export const StyleSlider = () => {
   const dispatch = useAppDispatch()
-  const {activeStyleId, creatorMode} = useAppSelector(state => state.main.accountData)
+  const { activeStyleId, creatorMode } = useAppSelector(state => state.main.accountData)
+  const { isCreatingImage } = useAppSelector(state => state.main.meta)
   const {data: stylesData} = useGetStylesQuery()
 
   const swiperRef = useRef<SwiperType | null>(null);
@@ -24,7 +25,7 @@ export const StyleSlider = () => {
         slidesPerView={'auto'}
         spaceBetween={7}
         onInit={handleInitSwiper}
-        className={`!p-[0px_4vw_0.5vh] ${creatorMode ? 'pointer-events-none opacity-60': ''}`}
+        className={`!p-[0px_4vw_0.5vh] ${(creatorMode || isCreatingImage) ? 'pointer-events-none opacity-60': ''}`}
       >
         {stylesData?.styles.map((item, index) => (
           <SwiperSlide key={index} className='max-w-fit transition-all'>
